@@ -11,10 +11,10 @@ class FireArray {
       b.update();
       b.display();
       if (e.isHit(b)) {
-        
+        bl.updateBlood();
         //e.x =(int) random(0 + e.d/2, width - e.d/2);
         //e.y =(int) random (0 + e.d/2, height - e.d/2);
-      } 
+      }
     }
     if (b.isDead()) {
       f.remove(i);

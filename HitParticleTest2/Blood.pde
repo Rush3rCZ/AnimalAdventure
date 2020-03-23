@@ -28,7 +28,6 @@ class Blood {
 
 
   void update2 () {
-    position.sub(speed);
   }
 
   void display() {
