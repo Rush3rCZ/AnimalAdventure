@@ -1,0 +1,35 @@
+Menu {
+	Zadání jména
+	PlayButton
+	Nastavení vzhledu postav (kuøe, ježek)
+	Nastavení obtížnosti (více nepøátel, vìtší poškození, vetší rychlost, míò jídla)
+	Pozadí pro menu	
+	EndScreen (Win + Death)
+	}
+
+Herní plocha {
+	Screen hry (pohyb screenu)
+	Hráèi {
+		Enemy (zombie, budou z nich padat "money")
+		Naše postava
+		HealthBar
+		FoodBar
+		WaterBar
+		NickName
+		Støela postavy
+		Friendly creature (u ní "tasks")
+		Inventáø
+		}
+	Objekty {
+		Stromy s jídlem (jablko s hruškami)
+		Keø s jídlem (boruvky)
+		Domeèek
+		Jezero
+		Pøedmìty, které budou potøeba na "tasks"
+		Money
+		}
+	Particles {
+		Trefa (když poškodím já nebo enemy mì)
+		
+		}
+	}
