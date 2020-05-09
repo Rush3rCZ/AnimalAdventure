@@ -1,6 +1,6 @@
 class backGround {
   int pictureX, pictureY, ballX, ballY, speed, d;
-  PImage bg; //PICTURES
+  PImage bg, player; //PICTURES
   boolean moveRightPicture, moveLeftPicture, moveUpPicture, moveDownPicture; //BACKGROUND
   boolean moveRightBall, moveLeftBall, moveUpBall, moveDownBall; //BALL  
   boolean rightSide, leftSide, upSide, downSide; //Screen in the corner
@@ -12,7 +12,8 @@ class backGround {
     pictureY = -1 ;
     speed = 5;
     d = 70;
-    bg = loadImage ("backgroundtest.png");
+    player = loadImage ("TeddyFrontSide.png");
+    bg = loadImage ("BackGround.png");
   }
 
   void keyMovePictureCONTROL () {
@@ -219,7 +220,11 @@ class backGround {
     background (255);
     image (bg, pictureX, pictureY);
     fill(255);
+    imageMode(CENTER);
+    player.resize(140,200);
     circle (ballX, ballY, d);
+    image(player, ballX, ballY);
+    imageMode(CORNER);
     noFill();
   }
 }
