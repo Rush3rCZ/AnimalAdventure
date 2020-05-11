@@ -86,7 +86,7 @@ class buttons {
     SkinTeddyY = height/2 + 225;
     soundButtonX = 400;
     soundButtonY = 600;
-    soundsOn = true;
+    soundsOn = false;
     fpsOn = true;
   }
 

@@ -1,4 +1,4 @@
-import processing.sound.*; //<>//
+import processing.sound.*;  //<>//
 SoundFile clak;
 SoundFile menu;
 SoundFile game;
@@ -11,7 +11,8 @@ buttons buttons;
 treesAndHouses treesAndHouses;
 rocksAndGrass rocksAndGrass;
 ArrayRocksAndGrass ArrayRocksAndGrass;
-boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused;
+inventory inventory;
+boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened;
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
@@ -24,11 +25,13 @@ void setup () {
   treesAndHouses = new treesAndHouses ();
   rocksAndGrass = new rocksAndGrass();
   ArrayRocksAndGrass = new ArrayRocksAndGrass();
-  welcomeScreenActivated = false;
-  gameHasStarted = true;
+  inventory = new inventory ();
+  welcomeScreenActivated = true;
+  gameHasStarted = false;
   optionsAreOpened = false;
   gamePaused = false;
   optionsInGameAreOpened = false;
+  inventoryIsOpened = false;
   clak = new SoundFile (this, "clak.mp3");
   menu = new SoundFile (this, "MenuSound.mp3");
   game = new SoundFile (this, "inGameSound.mp3");
@@ -55,6 +58,7 @@ void draw () {
     object.displayBridgeAbove(); 
     treesAndHouses.displayHouseAbove();
     treesAndHouses.displayTreeAbove();
+    inventory.display();
     background.endBackground(); 
     background.moveBackground(); 
     player.movePlayer(); 
@@ -82,9 +86,10 @@ void draw () {
     object.tickDisplay();
   }
   buttons.fpsOnDisplay();
-  textSize (20);
-  text ("X:  " + (background.backgroundX - mouseX), mouseX, mouseY);
-  text ("Y:  " + (background.backgroundY - mouseY), mouseX, mouseY + 20);
+  //fill(255, 0, 0);
+  //text ("mouseX:  " + mouseX, mouseX, mouseY);
+  //text ("mouseY:  " + mouseY, mouseX, mouseY - 20);
+  //noFill();
 }
 
 void keyPressed() {
@@ -92,9 +97,7 @@ void keyPressed() {
     background.keyMoveBackgroundCONTROL();
     player.keyMovePlayerCONTROL();
     player.debugPlayer();
-    rocksAndGrass.replace();
-    ArrayRocksAndGrass.addNewGrass();
-    ArrayRocksAndGrass.addNewRock();
+    inventory.openInventory();
   }
 }
 

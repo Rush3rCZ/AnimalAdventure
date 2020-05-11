@@ -77,7 +77,7 @@ class player {
     if (background.rightSide && moveRightPlayer) {
       nextY = playerY;
       nextX = (playerX + widthOfPlayer/2) + speed;
-      if (hue(get(nextX, nextY)) <= 126 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 200 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 210) {
+      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
       } else {
         playerX += speed;
       }
@@ -85,7 +85,7 @@ class player {
     if (background.upSide  && moveUpPlayer) {
       nextX = playerX;
       nextY = (playerY - heightOfPlayer/2) - speed;
-      if (hue(get(nextX, nextY)) <= 126 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 200 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 210) {
+      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
       } else {
         playerY -= speed;
       }
@@ -93,7 +93,7 @@ class player {
     if (background.downSide && moveDownPlayer) {
       nextX = playerX;
       nextY = (playerY + heightOfPlayer/2) + speed;
-      if (hue(get(nextX, nextY)) <= 126 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 200 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 210) {
+      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
       } else {
         playerY += speed;
       }
@@ -101,7 +101,7 @@ class player {
     if (background.leftSide && moveLeftPlayer) {
       nextY = playerY;
       nextX = (playerX - widthOfPlayer/2) - speed;
-      if (hue(get(nextX, nextY)) <= 126 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 200 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 210) {
+      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
       } else {
         playerX -= speed;
       }

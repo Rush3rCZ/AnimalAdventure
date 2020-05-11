@@ -80,7 +80,7 @@ class backGround {
         player.moveLeftPlayer = false;
         player.nextY =  player.playerY;
         player.nextX = (player.playerX +  player.heightOfPlayer/2) +  player.speed;
-        if (hue(get( player.nextX, player.nextY)) <= 126 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 200 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 210) {
+        if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundX -=  player.speed;
         }
@@ -91,7 +91,7 @@ class backGround {
         player.moveRightPlayer = false;
         player.nextY =  player.playerY;
         player.nextX = (player.playerX -  player.heightOfPlayer/2) -  player.speed;
-        if (hue(get( player.nextX, player.nextY)) <= 126 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 200 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 210) {
+        if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundX +=  player.speed;
         }
@@ -102,7 +102,7 @@ class backGround {
         player.moveDownPlayer = false;
         player.nextX =  player.playerX;
         player.nextY = (player.playerY -  player.heightOfPlayer/2) -  player.speed;
-        if (hue(get( player.nextX, player.nextY)) <= 126 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 200 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 210) {
+        if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundY +=  player.speed;
         }
@@ -113,7 +113,7 @@ class backGround {
         player.moveUpPlayer = false;
         player.nextX =  player.playerX;
         player.nextY = (player.playerY +  player.heightOfPlayer/2) +  player.speed;
-        if (hue(get( player.nextX, player.nextY)) <= 126 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 200 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 210) {
+        if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundY -=  player.speed;
         }
