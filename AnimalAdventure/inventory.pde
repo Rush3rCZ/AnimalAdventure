@@ -1,5 +1,5 @@
 class inventory {
-  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight;
+  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfItemsInInventory;
   PImage inventoryUp, inventoryDown, inInventorySlot;
   inventory () {
     inventoryUp = loadImage ("inventoryUp.png");
@@ -38,7 +38,6 @@ class inventory {
         } else {
         }
       }
-      //rect (350 + (postX * widthOfRect), 80 + (postY * heightOfRect), widthOfRect, heightOfRect);
     }
     for (postX = 1; postX <= widthCount; postX++) {
       for (postY = 1; postY <= heightCount; postY++) {

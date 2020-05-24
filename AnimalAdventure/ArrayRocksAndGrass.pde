@@ -1,51 +1,48 @@
 class ArrayRocksAndGrass {
-  ArrayList <rocksAndGrass> ArrayG;
-  ArrayList <rocksAndGrass> ArrayR;
+  ArrayList <Grass> ArrayGrass;
+  ArrayList <Rock> ArrayRock;
   int numberOfG, numberOfR;
+  Grass grass;
+  Rock rock;
   ArrayRocksAndGrass () {
-    ArrayG = new ArrayList <rocksAndGrass> ();
-    ArrayR = new ArrayList <rocksAndGrass> ();
+    ArrayGrass = new ArrayList <Grass> ();
+    ArrayRock = new ArrayList <Rock> ();
     for (numberOfR = 0; numberOfR < 20; numberOfR++) {
-      ArrayR.add(new rocksAndGrass());
-      ArrayG.add(new rocksAndGrass());
+      ArrayRock.add(new Rock());
+      ArrayGrass.add(new Grass());
     }
   }
 
   void displayGrass() {
-    for (int i = ArrayG.size() - 1; i >= 0; i--) {
-      rocksAndGrass = ArrayG.get(i);
-      rocksAndGrass.displayGrass();
-      //while (hue(get(rocksAndGrass.nextXGrass, rocksAndGrass.nextYGrass)) <= 127 && hue(get(rocksAndGrass.nextXGrass, rocksAndGrass.nextYGrass)) >= 123 && saturation(get(rocksAndGrass.nextXGrass, rocksAndGrass.nextYGrass)) >= 180 && saturation(get(rocksAndGrass.nextXGrass, rocksAndGrass.nextYGrass)) <= 230 && brightness(get(rocksAndGrass.nextXGrass, rocksAndGrass.nextYGrass)) >= 185  && brightness(get(rocksAndGrass.nextXGrass, rocksAndGrass.nextYGrass)) <= 220) {
-      //rocksAndGrass.grassX1 = (int) random (0, 3400);
-      //rocksAndGrass.grassY1 = (int) random (1000, 3400);
-      //}
-      if (mousePressed && rocksAndGrass.clickedGrass()) {
-        ArrayG.remove(i);
+    for (int i = ArrayGrass.size() - 1; i >= 0; i--) {
+      grass = ArrayGrass.get(i);
+      grass.display();
+      if (mousePressed && grass.clicked()) {
+        ArrayGrass.remove(i);
       }
     }
   }
 
   void addNewGrass () {
     for (numberOfG = 0; numberOfG < 20; numberOfG++) {
-      //if (key == 'c' || key == 'C') {
-      ArrayG.add(new rocksAndGrass());
+      ArrayGrass.add(new Grass());
     }
   }
 
   void displayRock() {
-    for (int i = ArrayR.size() - 1; i >= 0; i--) {
-      rocksAndGrass = ArrayR.get(i);
-      rocksAndGrass.displayRock();
-      if (mousePressed && rocksAndGrass.clickedRock()) {
-        ArrayR.remove(i);
+    for (int i = ArrayRock.size() - 1; i >= 0; i--) {
+      rock = ArrayRock.get(i);
+      rock.display();
+      if (mousePressed && rock.clicked()) {
+        ArrayRock.remove(i);
+        rock.numberOfItems++;
       }
     }
   }
 
   void addNewRock () {
     for (numberOfR = 0; numberOfR < 20; numberOfR++) {
-      //if (key == 'c' || key == 'C') {
-      ArrayR.add(new rocksAndGrass());
+      ArrayRock.add(new Rock());
     }
   }
 }

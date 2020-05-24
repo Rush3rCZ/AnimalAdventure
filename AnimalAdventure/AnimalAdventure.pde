@@ -9,9 +9,13 @@ object object;
 welcomeScreen welcomeScreen;
 buttons buttons;
 treesAndHouses treesAndHouses;
-rocksAndGrass rocksAndGrass;
 ArrayRocksAndGrass ArrayRocksAndGrass;
 inventory inventory;
+itemDisplay itemDisplay;
+Items items;
+//////////
+Grass grass;
+Rock rock;
 boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened;
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22; // i používám pro ovládání zvuku v DRAW()
 
@@ -23,9 +27,14 @@ void setup () {
   welcomeScreen = new welcomeScreen ();
   buttons = new buttons();
   treesAndHouses = new treesAndHouses ();
-  rocksAndGrass = new rocksAndGrass();
   ArrayRocksAndGrass = new ArrayRocksAndGrass();
   inventory = new inventory ();
+  itemDisplay = new itemDisplay();
+  items = new Items ();
+  ///////////////////////////
+  grass = new Grass();
+  rock = new Rock ();
+  ///////////////////////
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
@@ -59,6 +68,7 @@ void draw () {
     treesAndHouses.displayHouseAbove();
     treesAndHouses.displayTreeAbove();
     inventory.display();
+    itemDisplay.display();
     background.endBackground(); 
     background.moveBackground(); 
     player.movePlayer(); 
@@ -88,8 +98,11 @@ void draw () {
   buttons.fpsOnDisplay();
   //fill(255, 0, 0);
   //text ("mouseX:  " + mouseX, mouseX, mouseY);
-  //text ("mouseY:  " + mouseY, mouseX, mouseY - 20);
+  //text ("mouseY:  " + mouseY, mouseX, mouseY + 20);
   //noFill();
+  text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
+  text ("Grass.numberOfItems:  " + grass.numberOfItems, 20, 120);
+  text ("Grass.t:  " + grass.t, 20, 140);
 }
 
 void keyPressed() {
