@@ -1,5 +1,5 @@
 class inventory {
-  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfItemsInInventory;
+  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfItemsInInventory, tGrass, tRocks; 
   PImage inventoryUp, inventoryDown, inInventorySlot;
   inventory () {
     inventoryUp = loadImage ("inventoryUp.png");

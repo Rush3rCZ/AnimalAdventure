@@ -17,6 +17,8 @@ class ArrayRocksAndGrass {
     for (int i = ArrayGrass.size() - 1; i >= 0; i--) {
       grass = ArrayGrass.get(i);
       grass.display();
+      grass.inInventory();
+      grass.displayInInventory();
       if (mousePressed && grass.clicked()) {
         ArrayGrass.remove(i);
       }
@@ -33,13 +35,13 @@ class ArrayRocksAndGrass {
     for (int i = ArrayRock.size() - 1; i >= 0; i--) {
       rock = ArrayRock.get(i);
       rock.display();
+      rock.inInventory();
+      rock.displayInInventory();   
       if (mousePressed && rock.clicked()) {
         ArrayRock.remove(i);
-        rock.numberOfItems++;
       }
     }
   }
-
   void addNewRock () {
     for (numberOfR = 0; numberOfR < 20; numberOfR++) {
       ArrayRock.add(new Rock());
