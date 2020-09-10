@@ -1,5 +1,5 @@
 class Items { //<>//
-  int itemX, itemY, itemX1, itemY1, widthOfItem, heightOfItem, placeInInventory, t, inInventory;
+  int itemX, itemY, itemX1, itemY1, widthOfItem, heightOfItem, placeInInventory, t, inInventory, id;
   boolean clicked;
   PImage item;
   Items () {
@@ -48,12 +48,21 @@ class Items { //<>//
       image (item, width/2, height/2);
     }
   }
+  
+  void displayInv(int col, int row, int w, int h){
+    imageMode (CORNER);
+    image (item, 350+100+col*w, 80+90+row*h);
+    imageMode (CENTER);
+  }
+  
+  
 }
 
 //------------------------------------------------------------------------//
 class Grass extends Items {
   Grass () {
     super();
+    id = 1;
     item = loadImage("grass.png");
     item.resize (widthOfItem, heightOfItem);
     itemX1 = (int) random (0, 3400);
@@ -70,6 +79,9 @@ class Grass extends Items {
 
   void inInventory () {
     if (mousePressed && mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      inventory.items.add(this);
+      
+      
       if (t < 1) {
         inventory.numberOfGrass++;
         if (inventory.tGrass <1) {
@@ -80,6 +92,7 @@ class Grass extends Items {
       }
     }
   }
+  
 
   void displayInInventory () {
     if (inventory.numberOfItemsInInventory < 7) {
@@ -107,6 +120,7 @@ class Grass extends Items {
 class Rock extends Items {
   Rock () {
     super();
+    id = 2;
     item = loadImage ("rock.png");
     item.resize (widthOfItem, heightOfItem);
     itemX1 = (int) random (0, 3400);
@@ -123,6 +137,8 @@ class Rock extends Items {
 
   void inInventory () {
     if (mousePressed && mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      inventory.items.add(this);
+      
       if (t < 1) {
         inventory.numberOfRocks++;
         if (inventory.tRocks < 1) {
