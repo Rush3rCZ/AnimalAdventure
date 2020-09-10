@@ -46,6 +46,4 @@ class object {
       imageMode(CORNER);
     }
   }
-
- 
 }

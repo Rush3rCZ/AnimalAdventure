@@ -1,10 +1,11 @@
 class buttons {
   int inGameOptionsButtonX, inGameOptionsButtonY, SkinPennyX, SkinPennyY, SkinTeddyX, SkinTeddyY, soundButtonX, soundButtonY, onX, onY, offX, offY, onX2, onY2, offX2, offY2;
-  int backToTheGameButtonX, backToTheGameButtonY, backToTheMenuButtonX, backToTheMenuButtonY, backToTheOptionsButtonX, backToTheOptionsButtonY, fpsButtonX, fpsButtonY;
-  int  widthOfButtons, heightOfButtons, widthOfBack, heightOfBack, optionsX, optionsY, playX, playY, backX, backY, readAStoryX, readAStoryY;
+  int backToTheGameButtonX, backToTheGameButtonY, backToTheMenuButtonX, backToTheMenuButtonY, backToTheOptionsButtonX, backToTheOptionsButtonY, fpsButtonX, fpsButtonY, warningButtonX, warningButtonY;
+  int  widthOfButtons, heightOfButtons, widthOfBack, heightOfBack, optionsX, optionsY, playX, playY, backX, backY, readAStoryX, readAStoryY, easyButtonX, mediumButtonX, hardButtonX, easyButtonY, mediumButtonY, hardButtonY;
   PImage playButton, optionsButton, backButton, inGameOptionsButtonPink, inGameOptionsButtonGreen, backToTheGameButton, playButtonBig, readAStoryButton, readAStoryButtonBig, onButton, offButton;
   PImage backToTheMenuButton, backToTheOptionsButton, optionsButtonBig, backButtonBig, backToTheGameButtonBig, backToTheMenuButtonBig, backToTheOptionsButtonBig, soundButton, soundOffButton;
   PImage offButtonBig, onButtonBig, offButtonBig2, onButtonBig2, fpsButton, fpsOffButton, offButton2, onButton2;
+  PImage easyButton, mediumButton, hardButton, easyButtonBig, mediumButtonBig, hardButtonBig, warningButton, warningBubble;
   boolean soundsOn, fpsOn;
 
 
@@ -37,6 +38,17 @@ class buttons {
     onButton2 = loadImage ("onButton.png");
     offButtonBig2 = loadImage ("offButton.png");
     onButtonBig2 = loadImage ("onButton.png");
+    easyButton = loadImage ("easyButton.png");
+    mediumButton = loadImage ("mediumButton.png");
+    hardButton = loadImage ("hardButton.png");
+    easyButtonBig = loadImage ("easyButton.png");
+    mediumButtonBig = loadImage ("mediumButton.png");
+    hardButtonBig = loadImage ("hardButton.png");
+    warningButton = loadImage ("warningButton.png");
+    warningBubble = loadImage ("warningBubble.png");
+    easyButtonBig.resize (370, 70);
+    mediumButtonBig.resize (370, 70);
+    hardButtonBig.resize (370, 70);
     optionsButtonBig.resize (520, 120);
     backButtonBig.resize (150, 150);
     readAStoryButtonBig. resize (420, 120);
@@ -129,6 +141,7 @@ class buttons {
   void buttonsGetsBiggerInGameOptions () {
     imageMode(CENTER);
     rectMode (CENTER);
+    stroke (0);
     SkinPennyX = width/2 + 75;
     SkinPennyY = height/2 + 175;
     SkinTeddyX = width/2 - 75;
@@ -137,6 +150,14 @@ class buttons {
     backY = 120;
     widthOfBack = 70;
     heightOfBack = 70;
+    mediumButtonX = hardButtonX;
+    mediumButtonY = hardButtonY - 76;
+    easyButtonX = hardButtonX;
+    easyButtonY = hardButtonY - 76*2;
+    hardButtonX = width/2;
+    hardButtonY = height/2 + 35 - 60;
+    warningButtonX = 440;
+    warningButtonY = 170;
     onX = 430;
     onY = 490;
     offX = 360;
@@ -149,6 +170,58 @@ class buttons {
     fpsButtonY = 560;
     soundButtonX = 400;
     soundButtonY = 560;
+
+    if (mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+      rectMode (CENTER);
+      fill (94, 255, 97);
+      rect (mediumButtonX, mediumButtonY, 360, 65);
+      noFill();
+      image (mediumButtonBig, mediumButtonX, mediumButtonY);
+      if (i23 < 1) {
+        clak.play();
+        i23 = 1;
+      }
+    } else {
+      fill (94, 255, 97);
+      rect (mediumButtonX, mediumButtonY, 340, 60);
+      noFill();
+      image (mediumButton, mediumButtonX, mediumButtonY);
+      i23 = 0;
+    }
+
+    if (mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+      fill (94, 255, 97);
+      rect (easyButtonX, easyButtonY, 360, 65);
+      noFill();
+      image (easyButtonBig, easyButtonX, easyButtonY);
+      if (i24 < 1) {
+        clak.play();
+        i24 = 1;
+      }
+    } else {
+      fill (94, 255, 97);
+      rect (easyButtonX, easyButtonY, 340, 60);
+      noFill();
+      image (easyButton, easyButtonX, easyButtonY);
+      i24 = 0;
+    }
+
+    if (mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+      fill (94, 255, 97);
+      rect (hardButtonX, hardButtonY, 360, 65);
+      noFill();
+      image (hardButtonBig, hardButtonX, hardButtonY);
+      if (i25 < 1) {
+        clak.play();
+        i25 = 1;
+      }
+    } else {
+      fill (94, 255, 97);
+      rect (hardButtonX, hardButtonY, 340, 60);
+      noFill();
+      image (hardButton, hardButtonX, hardButtonY);
+      i25 = 0;
+    }
 
     if (soundsOn == false) {
       image (soundOffButton, soundButtonX, soundButtonY);
@@ -174,6 +247,25 @@ class buttons {
     } else {
       image (onButton, onX, onY);
       i17 = 0;
+    }
+
+    if (difficulty.difficultySet == 1) {
+      fill (255, 101, 20);
+      rect (easyButtonX, easyButtonY, 360, 65);
+      noFill();
+      image (easyButtonBig, easyButtonX, easyButtonY);
+    }
+    if (difficulty.difficultySet == 2) {
+      fill (255, 101, 20);
+      rect (mediumButtonX, mediumButtonY, 360, 65);
+      noFill();
+      image (mediumButtonBig, mediumButtonX, mediumButtonY);
+    }
+    if (difficulty.difficultySet == 3) {
+      fill (255, 101, 20);
+      rect (hardButtonX, hardButtonY, 360, 65);
+      noFill();
+      image (hardButtonBig, hardButtonX, hardButtonY);
     }
 
     if (fpsOn == false) {
@@ -256,6 +348,19 @@ class buttons {
       i5 = 0;
       strokeWeight (1);
     }
+    if (mouseX < warningButtonX + 20 && mouseX > warningButtonX - 20 && mouseY < warningButtonY + 28 && mouseY > warningButtonY - 28) {
+      image (warningButton, warningButtonX, warningButtonY);
+      imageMode (CORNER);
+      image (warningBubble, mouseX, mouseY);
+      imageMode (CENTER);
+      if (i26 < 1) {
+        clak.play();
+        i26 = 1;
+      }
+    } else {
+      image (warningButton, warningButtonX, warningButtonY);
+      i26 = 0;
+    }
     imageMode (CORNER);
     rectMode(CORNER);
   }
@@ -335,6 +440,7 @@ class buttons {
   }
 
   void buttonsGetBiggerInOptions () {
+    stroke (0);
     onX = 360;
     onY = 510;
     offX = 225;
@@ -349,14 +455,23 @@ class buttons {
     fpsButtonY = 600;
     backX = 75;
     backY = 75;
+    warningButtonX = 440;
+    warningButtonY = 305;
     widthOfBack = 130;
     heightOfBack = 130;
+    mediumButtonX = width/2;
+    mediumButtonY = height/2 + 35;
+    easyButtonX = mediumButtonX - 380;
+    easyButtonY = mediumButtonY;
+    hardButtonX = mediumButtonX + 380;
+    hardButtonY = mediumButtonY;
     SkinPennyX = width/2 + 100;
     SkinPennyY = height/2 + 225;
     SkinTeddyX = width/2 - 100;
     SkinTeddyY = height/2 + 225;
     imageMode (CENTER);
     rectMode (CENTER);
+
     if (mouseX < backX + widthOfBack/2 && mouseX > backX - widthOfBack/2 && mouseY < backY + heightOfBack/2 && mouseY > backY - heightOfBack/2) {
       backButtonBig.resize (150, 150);
       image (backButtonBig, backX, backY);
@@ -369,6 +484,76 @@ class buttons {
       image (backButton, backX, backY);
       i10 = 0;
     }
+
+    if (mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+      fill (94, 255, 97);
+      rect (mediumButtonX, mediumButtonY, 360, 65);
+      noFill();
+      image (mediumButtonBig, mediumButtonX, mediumButtonY);
+      if (i23 < 1) {
+        clak.play();
+        i23 = 1;
+      }
+    } else {
+      fill (94, 255, 97);
+      rect (mediumButtonX, mediumButtonY, 340, 60);
+      noFill();
+      image (mediumButton, mediumButtonX, mediumButtonY);
+      i23 = 0;
+    }
+
+    if (mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+      fill (94, 255, 97);
+      rect (easyButtonX, easyButtonY, 360, 65);
+      noFill();
+      image (easyButtonBig, easyButtonX, easyButtonY);
+      if (i24 < 1) {
+        clak.play();
+        i24 = 1;
+      }
+    } else {
+      fill (94, 255, 97);
+      rect (easyButtonX, easyButtonY, 340, 60);
+      noFill();
+      image (easyButton, easyButtonX, easyButtonY);
+      i24 = 0;
+    }
+
+    if (mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+      fill (94, 255, 97);
+      rect (hardButtonX, hardButtonY, 360, 65);
+      noFill();
+      image (hardButtonBig, hardButtonX, hardButtonY);
+      if (i25 < 1) {
+        clak.play();
+        i25 = 1;
+      }
+    } else {
+      fill (94, 255, 97);
+      rect (hardButtonX, hardButtonY, 340, 60);
+      noFill();
+      image (hardButton, hardButtonX, hardButtonY);
+      i25 = 0;
+    }
+    if (difficulty.difficultySet == 1) {
+      fill (255, 101, 20);
+      rect (easyButtonX, easyButtonY, 360, 65);
+      noFill();
+      image (easyButtonBig, easyButtonX, easyButtonY);
+    }
+    if (difficulty.difficultySet == 2) {
+      fill (255, 101, 20);
+      rect (mediumButtonX, mediumButtonY, 360, 65);
+      noFill();
+      image (mediumButtonBig, mediumButtonX, mediumButtonY);
+    }
+    if (difficulty.difficultySet == 3) {
+      fill (255, 101, 20);
+      rect (hardButtonX, hardButtonY, 360, 65);
+      noFill();
+      image (hardButtonBig, hardButtonX, hardButtonY);
+    }
+
     if (fpsOn == false) {
       image (fpsOffButton, fpsButtonX, fpsButtonY);
     } else {
@@ -389,6 +574,7 @@ class buttons {
       image (offButton, offX, offY);
       i14 = 0;
     }
+
     if (mouseX < onX + 20 && mouseX > onX - 20 && mouseY < onY + 20 && mouseY > onY - 20) {
       image (onButtonBig, onX, onY);
       if (i15 < 1) {
@@ -465,6 +651,20 @@ class buttons {
       i12 = 0;
       strokeWeight (1);
     }
+
+    if (mouseX < warningButtonX + 20 && mouseX > warningButtonX - 20 && mouseY < warningButtonY + 28 && mouseY > warningButtonY - 28) {
+      image (warningButton, warningButtonX, warningButtonY);
+      imageMode (CORNER);
+      image (warningBubble, mouseX, mouseY);
+      imageMode (CENTER);
+      if (i26 < 1) {
+        clak.play();
+        i26 = 1;
+      }
+    } else {
+      image (warningButton, warningButtonX, warningButtonY);
+      i26 = 0;
+    }
     imageMode (CORNER);
     rectMode (CORNER);
   }
@@ -499,6 +699,11 @@ class buttons {
   void clickOnButton () {
     if (welcomeScreenActivated && mouseX < playX + widthOfButtons/2 && mouseX > playX - widthOfButtons/2 && mouseY < playY + heightOfButtons/2 && mouseY > playY - heightOfButtons/2) {
       welcomeScreen.displayLoadingScreen();
+      if (i27 < 1) {
+        difficulty.difficultyChange = 1;
+        enemy.timeStarts = true;
+        i27 = 1;
+      }
       welcomeScreenActivated = false;
       gameHasStarted = true;
       i20 = 0;
@@ -576,6 +781,60 @@ class buttons {
       soundsOn = true;
       i20 = 0;
       i19 =0;
+    }
+    if (optionsInGameAreOpened && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+      if (difficulty.difficultyChange == 1) {
+        difficulty.difficultyChange = 2;
+      }
+      if (difficulty.difficultyChange < 2) {
+        difficulty.difficultySet = 2;
+      }
+      difficulty.mediumDiff();
+    }
+    if (optionsInGameAreOpened && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+      if (difficulty.difficultyChange < 2) {
+        difficulty.difficultySet = 1;
+      }
+      if (difficulty.difficultyChange == 1) {
+        difficulty.difficultyChange = 2;
+      }
+      difficulty.easyDiff();
+    }
+    if (optionsInGameAreOpened && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+      if (difficulty.difficultyChange < 2) {
+        difficulty.difficultySet = 3;
+      }
+      if (difficulty.difficultyChange == 1) {
+        difficulty.difficultyChange = 2;
+      }
+      difficulty.hardDiff();
+    }
+    if (optionsAreOpened && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+      if (difficulty.difficultyChange < 2) {
+        difficulty.difficultySet = 2;
+      }
+      if (difficulty.difficultyChange == 1) {
+        difficulty.difficultyChange = 2;
+      }
+      difficulty.mediumDiff();
+    }
+    if (optionsAreOpened && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+      if (difficulty.difficultyChange < 2) {
+        difficulty.difficultySet = 1;
+      }
+      if (difficulty.difficultyChange == 1) {
+        difficulty.difficultyChange = 2;
+      }
+      difficulty.easyDiff();
+    }
+    if (optionsAreOpened && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+      if (difficulty.difficultyChange < 2) {
+        difficulty.difficultySet = 3;
+      }
+      if (difficulty.difficultyChange == 1) {
+        difficulty.difficultyChange = 2;
+      }
+      difficulty.hardDiff();
     }
   }
 }

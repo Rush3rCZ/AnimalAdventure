@@ -1,7 +1,7 @@
 class player {
-  int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer;
+  int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer, HP, healthBarX, healthBarY;
   boolean moveRightPlayer, moveLeftPlayer, moveUpPlayer, moveDownPlayer; //PLAYER 
-  PImage TeddyFrontSide, PennyFrontSide ;
+  PImage TeddyFrontSide, PennyFrontSide, healthBar, healthBarFill ;
   player () {
     speed = 5;
     playerX = width/2;
@@ -12,6 +12,11 @@ class player {
     PennyFrontSide = loadImage ("PennyFrontSide.png");
     TeddyFrontSide.resize( widthOfPlayer, heightOfPlayer);
     PennyFrontSide.resize( widthOfPlayer, heightOfPlayer);
+    healthBar = loadImage ("healthBar.png");
+    healthBarFill = loadImage ("healthBarFill.png");
+    healthBarX = 20;
+    healthBarY = height - 75;
+    HP = 100;
   }
 
   void display () {
@@ -23,6 +28,33 @@ class player {
       image(PennyFrontSide, playerX, playerY);
     }
     imageMode(CORNER);
+  }
+
+  void healthBar () {
+    image (healthBarFill, healthBarX, healthBarY);
+    if (HP > 50) {
+      stroke (94, 255, 97);
+      fill (94, 255, 97);
+    }
+    if (HP <=50) {
+      stroke (255, 216, 0);
+      fill (255, 216, 0);
+    }
+    if (HP <= 30) {
+      stroke (255, 106, 0);
+      fill (255, 106, 0);
+    }
+    if (HP <= 10) {
+      stroke (255, 0, 0);
+      fill (255, 0, 0);
+    }
+    rect (115, 625, HP * 3.48, 53);
+    noStroke();
+    noFill();
+    image (healthBar, healthBarX, healthBarY);
+    if (HP < 0) {
+      HP = 0;
+    }
   }
 
 

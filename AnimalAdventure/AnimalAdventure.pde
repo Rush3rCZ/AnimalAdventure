@@ -13,8 +13,10 @@ ArrayRocksAndGrass ArrayRocksAndGrass;
 inventory inventory;
 itemDisplay itemDisplay;
 Items items;
+difficulty difficulty;
+Enemy enemy;
 boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened;
-int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22; // i používám pro ovládání zvuku v DRAW()
+int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
   size (1300, 700, P2D);
@@ -28,6 +30,8 @@ void setup () {
   inventory = new inventory ();
   itemDisplay = new itemDisplay();
   items = new Items ();
+  enemy = new Enemy();
+  difficulty = new difficulty ();
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
@@ -60,6 +64,7 @@ void draw () {
     object.displayBridgeAbove(); 
     treesAndHouses.displayHouseAbove();
     treesAndHouses.displayTreeAbove();
+    enemy.move();
     inventory.display();
     itemDisplay.display();
     background.endBackground(); 
@@ -67,6 +72,7 @@ void draw () {
     player.movePlayer(); 
     player.playerBorders(); 
     buttons.displayInGame();
+    player.healthBar();
     welcomeScreen.musicInGame();
   }
   if (optionsAreOpened) {
@@ -89,13 +95,14 @@ void draw () {
     object.tickDisplay();
   }
   buttons.fpsOnDisplay();
-  //fill(255, 0, 0);
-  //text ("mouseX:  " + mouseX, mouseX, mouseY);
-  //text ("mouseY:  " + mouseY, mouseX, mouseY + 20);
+  fill(255, 0, 0);
+  //text ("distance:  " + enemy.distance, mouseX, mouseY);
+  //text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
   //noFill();
-  text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
-  text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
-  text ("inventory.numberOfRocks:  " + inventory.numberOfRocks, 20, 140);
+  //text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
+  //text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
+  //text ("inventory.numberOfRocks:  " + inventory.numberOfRocks, 20, 140);
+  enemy.timer();
 }
 
 void keyPressed() {
@@ -104,6 +111,12 @@ void keyPressed() {
     player.keyMovePlayerCONTROL();
     player.debugPlayer();
     inventory.openInventory();
+    if (key == 'k') {
+      player.HP -= 10;
+    }
+    if (key == 'l') {
+      player.HP = 100;
+    }
   }
 }
 
