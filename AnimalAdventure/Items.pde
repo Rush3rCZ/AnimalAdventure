@@ -27,35 +27,12 @@ class Items { //<>//
       }
     }
   }
-  void displayInInventory () {
-    if (inventory.numberOfItemsInInventory < 7) {
-      inventory.row = 1;
-      inventory.col = inventory.numberOfItemsInInventory;
-    }
-    if (inventory.numberOfItemsInInventory > 6 && inventory.numberOfItemsInInventory < 13) {
-      inventory.row = 2;
-      inventory.col = inventory.numberOfItemsInInventory - 6;
-    }
-    if (inventory.numberOfItemsInInventory > 12 && inventory.numberOfItemsInInventory < 19) {
-      inventory.row = 3;
-      inventory.col = inventory.numberOfItemsInInventory - 12;
-    }
-    if (inventory.numberOfItemsInInventory > 18) {
-      inventory.row = 4;
-      inventory.col = inventory.numberOfItemsInInventory - 18;
-    }
-    if (inventoryIsOpened && inInventory > 0) {
-      image (item, width/2, height/2);
-    }
-  }
-  
-  void displayInv(int col, int row, int w, int h){
+
+  void displayInv(int col, int row, int w, int h) {
     imageMode (CORNER);
     image (item, 350+100+col*w, 80+90+row*h);
     imageMode (CENTER);
   }
-  
-  
 }
 
 //------------------------------------------------------------------------//
@@ -80,8 +57,8 @@ class Grass extends Items {
   void inInventory () {
     if (mousePressed && mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
       inventory.items.add(this);
-      
-      
+
+
       if (t < 1) {
         inventory.numberOfGrass++;
         if (inventory.tGrass <1) {
@@ -90,29 +67,6 @@ class Grass extends Items {
         } 
         t = 1;
       }
-    }
-  }
-  
-
-  void displayInInventory () {
-    if (inventory.numberOfItemsInInventory < 7) {
-      inventory.row = 1;
-      inventory.col = inventory.numberOfItemsInInventory;
-    }
-    if (inventory.numberOfItemsInInventory > 6 && inventory.numberOfItemsInInventory < 13) {
-      inventory.row = 2;
-      inventory.col = inventory.numberOfItemsInInventory - 6;
-    }
-    if (inventory.numberOfItemsInInventory > 12 && inventory.numberOfItemsInInventory < 19) {
-      inventory.row = 3;
-      inventory.col = inventory.numberOfItemsInInventory - 12;
-    }
-    if (inventory.numberOfItemsInInventory > 18) {
-      inventory.row = 4;
-      inventory.col = inventory.numberOfItemsInInventory - 18;
-    }
-    if (inventory.numberOfGrass > 0) {
-      itemDisplay.disGrass = true;
     }
   }
 }
@@ -131,14 +85,14 @@ class Rock extends Items {
     itemX = background.backgroundX + itemX1;
     itemY = background.backgroundY + itemY1;
     imageMode (CENTER);
-    image (item, itemX, itemY);
+    image (item, itemX, itemY);  
     imageMode (CORNER);
   }
 
   void inInventory () {
     if (mousePressed && mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
       inventory.items.add(this);
-      
+
       if (t < 1) {
         inventory.numberOfRocks++;
         if (inventory.tRocks < 1) {
@@ -147,28 +101,6 @@ class Rock extends Items {
         } 
         t = 1;
       }
-    }
-  }
-
-  void displayInInventory () {
-    if (inventory.numberOfItemsInInventory < 7) {
-      inventory.row = 1;
-      inventory.col = inventory.numberOfItemsInInventory;
-    }
-    if (inventory.numberOfItemsInInventory > 6 && inventory.numberOfItemsInInventory < 13) {
-      inventory.row = 2;
-      inventory.col = inventory.numberOfItemsInInventory - 6;
-    }
-    if (inventory.numberOfItemsInInventory > 12 && inventory.numberOfItemsInInventory < 19) {
-      inventory.row = 3;
-      inventory.col = inventory.numberOfItemsInInventory - 12;
-    }
-    if (inventory.numberOfItemsInInventory > 18) {
-      inventory.row = 4;
-      inventory.col = inventory.numberOfItemsInInventory - 18;
-    }
-    if (inventory.numberOfRocks > 0) {
-      itemDisplay.disRocks = true;
     }
   }
 }

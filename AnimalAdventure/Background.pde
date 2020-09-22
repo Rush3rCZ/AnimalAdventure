@@ -12,36 +12,44 @@ class backGround {
 
   void display() {
     imageMode (CORNER);
-    //image (background, backgroundX, backgroundY);
+    image (background, backgroundX, backgroundY);
   }
 
   void keyMoveBackgroundCONTROL () {
     if (key == 'w' || key == 'W') {
       moveUpBackground = true;
+      player.imageUp = true;
     }
     if (key == 'a' || key == 'A') {
       moveLeftBackground = true;
+      player.imageLeft = true;
     }
     if (key == 's' || key == 'S') {
       moveDownBackground = true;
+      player.imageDown = true;
     }
     if (key == 'd' || key == 'D') {
       moveRightBackground = true;
+      player.imageRight = true;
     }
   }
 
   void keyDontMoveBackgroundCONTROL () {
     if (key == 'w' || key == 'W') {
       moveUpBackground = false;
+      player.imageUp = false;
     }
     if (key == 'a' || key == 'A') {
       moveLeftBackground = false;
+      player.imageLeft = false;
     }
     if (key == 's' || key == 'S') {
       moveDownBackground = false;
+      player.imageDown = false;
     }
     if (key == 'd' || key == 'D') {
       moveRightBackground = false;
+      player.imageRight = false;
     }
   }
 
@@ -83,7 +91,6 @@ class backGround {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundX -=  player.speed;
-          enemy.position.x -= enemy.slowdown;
         }
       }
     }
@@ -95,7 +102,6 @@ class backGround {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundX +=  player.speed;
-          enemy.position.x += enemy.slowdown;
         }
       }
     }
@@ -107,7 +113,6 @@ class backGround {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundY +=  player.speed;
-          enemy.position.y += enemy.slowdown;
         }
       }
     }
@@ -119,7 +124,6 @@ class backGround {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
           backgroundY -=  player.speed;
-          enemy.position.y -= enemy.slowdown;
         }
       }
     }

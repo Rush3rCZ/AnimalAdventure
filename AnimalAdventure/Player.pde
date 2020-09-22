@@ -1,17 +1,34 @@
 class player {
   int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer, HP, healthBarX, healthBarY;
-  boolean moveRightPlayer, moveLeftPlayer, moveUpPlayer, moveDownPlayer; //PLAYER 
-  PImage TeddyFrontSide, PennyFrontSide, healthBar, healthBarFill ;
+  boolean moveRightPlayer, moveLeftPlayer, moveUpPlayer, moveDownPlayer, imageUp, imageDown, imageRight, imageLeft; //PLAYER 
+  PImage TeddyFrontSide, TeddyBackSide, TeddyRightSide, TeddyLeftSide, PennyFrontSide, PennyBackSide, PennyRightSide, PennyLeftSide, healthBar, healthBarFill ;
   player () {
     speed = 5;
     playerX = width/2;
     playerY = height/2;
     widthOfPlayer = 190;
     heightOfPlayer = 190;
+
     TeddyFrontSide = loadImage ("TeddyFrontSide.png");
+    TeddyBackSide = loadImage ("TeddyBackSide.png");
+    TeddyRightSide = loadImage ("TeddyRightSide.png");
+    TeddyLeftSide = loadImage ("TeddyLeftSide.png");
+
     PennyFrontSide = loadImage ("PennyFrontSide.png");
+    PennyBackSide = loadImage ("PennyBackSide.png");
+    PennyRightSide = loadImage ("PennyRightSide.png");
+    PennyLeftSide = loadImage ("PennyLeftSide.png");
+
     TeddyFrontSide.resize( widthOfPlayer, heightOfPlayer);
+    TeddyBackSide.resize( widthOfPlayer, heightOfPlayer);
+    TeddyRightSide.resize( widthOfPlayer, heightOfPlayer);
+    TeddyLeftSide.resize( widthOfPlayer, heightOfPlayer);
+
     PennyFrontSide.resize( widthOfPlayer, heightOfPlayer);
+    PennyBackSide.resize( widthOfPlayer, heightOfPlayer);
+    PennyRightSide.resize( widthOfPlayer, heightOfPlayer);
+    PennyLeftSide.resize( widthOfPlayer, heightOfPlayer);
+
     healthBar = loadImage ("healthBar.png");
     healthBarFill = loadImage ("healthBarFill.png");
     healthBarX = 20;
@@ -22,10 +39,62 @@ class player {
   void display () {
     imageMode(CENTER);
     if (object.tickPlace == 1) {
-      image(TeddyFrontSide, playerX, playerY);
+      if (!imageRight && !imageDown && !imageUp && !imageLeft) {
+        image(TeddyFrontSide, playerX, playerY);
+      } else {
+        if (imageLeft && imageDown || imageLeft && imageUp) {
+          image(TeddyLeftSide, playerX, playerY);
+        } else {
+          if (imageRight && imageDown || imageRight && imageUp) {
+            image(TeddyRightSide, playerX, playerY);
+          } else {
+            if (imageDown) {
+              image(TeddyFrontSide, playerX, playerY);
+            } else {
+              if (imageUp) {
+                image(TeddyBackSide, playerX, playerY);
+              } else {
+                if (imageRight) {
+                  image(TeddyRightSide, playerX, playerY);
+                } else {
+                  if (imageLeft) {
+                    image(TeddyLeftSide, playerX, playerY);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
     if (object.tickPlace == 2) {
-      image(PennyFrontSide, playerX, playerY);
+      if (!imageRight && !imageDown && !imageUp && !imageLeft) {
+        image(PennyFrontSide, playerX, playerY);
+      } else {
+        if (imageLeft && imageDown || imageLeft && imageUp) {
+          image(PennyLeftSide, playerX, playerY);
+        } else {
+          if (imageRight && imageDown || imageRight && imageUp) {
+            image(PennyRightSide, playerX, playerY);
+          } else {
+            if (imageDown) {
+              image(PennyFrontSide, playerX, playerY);
+            } else {
+              if (imageUp) {
+                image(PennyBackSide, playerX, playerY);
+              } else {
+                if (imageRight) {
+                  image(PennyRightSide, playerX, playerY);
+                } else {
+                  if (imageLeft) {
+                    image(PennyLeftSide, playerX, playerY);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
     imageMode(CORNER);
   }

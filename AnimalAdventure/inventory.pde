@@ -26,9 +26,7 @@ class inventory {
       imageMode(CORNER);
       strokeWeight(5);
       slots();
-
       displayItems();
-
       strokeWeight(1);
       imageMode(CENTER);
       image (inventoryUp, width/2, height/2);
@@ -69,7 +67,6 @@ class inventory {
   }
 
   void displayItems() {
-
     int col = 0;
     int row = 0;
     //widthOfRect
@@ -78,7 +75,7 @@ class inventory {
     for (Items item : items) {
       fill(255, 0, 0);
       stroke(255, 0, 0);
-      
+
       if (item.id == 1) {//grass
         if (isGrassIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);

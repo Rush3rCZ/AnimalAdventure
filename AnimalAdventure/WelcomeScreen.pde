@@ -1,10 +1,13 @@
 class welcomeScreen {
   PImage  welcomeScreen, optionsScreen, loadingScreen;
   float volume;
+  int z, l;
   welcomeScreen () {
     welcomeScreen = loadImage ("WelcomeScreen.png");
     optionsScreen = loadImage ("OptionsScreen.png");
     loadingScreen = loadImage ("loadingScreen.png");
+    z = 0;
+    l = 0;
   }
 
   void displayWecomingScreen () {
@@ -21,14 +24,17 @@ class welcomeScreen {
 
   void musicInWelcomeAndOptions () {
     if (i19 < 1) {
- if (menu.isPlaying()) {
+      if (menu.isPlaying()) {
       } else {
         menu.play();
       }
       menu.amp(0.04);
     }
     if (i19 == 2) {
-      menu.pause();
+      if (l == 0) {
+        menu.pause();
+        l = 1;
+      }
     }
   }
 
@@ -41,7 +47,10 @@ class welcomeScreen {
       game.amp(0.08);
     }
     if (i20 == 2) {
-      game.pause();
+      if (z == 0) {
+        game.pause();
+        z = 1;
+      }
     }
   }
 }

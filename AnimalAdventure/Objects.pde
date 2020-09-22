@@ -1,9 +1,11 @@
 class object {
-  PImage bridgeUnder, bridgeAbove, tick, grayBackground, pausedScreen, optionsScreenInGame, TeddySkin, PennySkin, TeddySkin2, PennySkin2;
+  PImage bridgeUnder, bridgeAbove, tick, grayBackground, pausedScreen, optionsScreenInGame, TeddySkin, PennySkin, TeddySkin2, PennySkin2, CzechStoryLine, EnglishStoryLine;
   int bridgeX, bridgeY, tickPlace, gray;
 
   object () {
     bridgeUnder = loadImage ("BridgeUnder.png");
+    CzechStoryLine = loadImage ("CzechStoryLine.png");
+    EnglishStoryLine = loadImage ("EnglishStoryLine.png");
     bridgeAbove = loadImage ("BridgeAbove.png");
     grayBackground = loadImage ("grayBackground.png");
     pausedScreen = loadImage ("pausedScreen.png");

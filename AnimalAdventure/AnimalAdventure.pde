@@ -11,15 +11,16 @@ buttons buttons;
 treesAndHouses treesAndHouses;
 ArrayRocksAndGrass ArrayRocksAndGrass;
 inventory inventory;
-itemDisplay itemDisplay;
 Items items;
 difficulty difficulty;
 Enemy enemy;
-boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened;
-int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27; // i používám pro ovládání zvuku v DRAW()
+EnemyArray enemyArray;
+ShootingArray shootingArray;
+boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory;
+int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
-  size (1300, 700, P2D);
+  size (1300, 700);
   background = new backGround();
   player = new player();
   object = new object();
@@ -28,16 +29,18 @@ void setup () {
   treesAndHouses = new treesAndHouses ();
   ArrayRocksAndGrass = new ArrayRocksAndGrass();
   inventory = new inventory ();
-  itemDisplay = new itemDisplay();
   items = new Items ();
   enemy = new Enemy();
   difficulty = new difficulty ();
+  enemyArray = new EnemyArray ();
+  shootingArray = new ShootingArray();
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
   gamePaused = false;
   optionsInGameAreOpened = false;
   inventoryIsOpened = false;
+  readAStory = false;
   clak = new SoundFile (this, "clak.mp3");
   menu = new SoundFile (this, "MenuSound.mp3");
   game = new SoundFile (this, "inGameSound.mp3");
@@ -48,11 +51,14 @@ void draw () {
   background (255);
   buttons.soundsOff();
   if (welcomeScreenActivated) {
+
     welcomeScreen.musicInWelcomeAndOptions();  
     welcomeScreen.displayWecomingScreen();
     buttons.buttonsGetsBiggerInWelcome();
   }
   if (gameHasStarted) {
+    enemy.timeStarts = true;
+    enemyArray.newEnemy();
     welcomeScreen.musicInGame();
     background.display(); 
     object.displayBridgeUnder(); 
@@ -61,12 +67,12 @@ void draw () {
     ArrayRocksAndGrass.displayGrass();
     ArrayRocksAndGrass.displayRock();
     player.display();
+    enemyArray.display();
+    shootingArray.display();
     object.displayBridgeAbove(); 
     treesAndHouses.displayHouseAbove();
     treesAndHouses.displayTreeAbove();
-    enemy.move();
     inventory.display();
-    itemDisplay.display();
     background.endBackground(); 
     background.moveBackground(); 
     player.movePlayer(); 
@@ -94,15 +100,30 @@ void draw () {
     buttons.buttonsGetsBiggerInGameOptions();
     object.tickDisplay();
   }
+  if (readAStory) {
+    pausedDisplayedTextures ();
+    buttons.displayInReadAStory();
+    buttons.buttonsGetBiggerInReadAStory();
+  }
   buttons.fpsOnDisplay();
-  fill(255, 0, 0);
-  //text ("distance:  " + enemy.distance, mouseX, mouseY);
+  //fill(255, 0, 0);
+  //text ("mouseX: " + mouseX, mouseX, mouseY);
+  //text ("mouseY: " + mouseY, mouseX, mouseY - 20);
+  //text ("right: " + background.moveRightBackground, mouseX, mouseY);
+  //text ("left: " + background.moveLeftBackground, mouseX, mouseY - 20);
+  //text ("up: " + background.moveUpBackground, mouseX, mouseY - 40);
+  //text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
   //text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
-  //noFill();
   //text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
   //text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
   //text ("inventory.numberOfRocks:  " + inventory.numberOfRocks, 20, 140);
-  enemy.timer();
+  //text ("Time:  " + enemy.time + "s", mouseX, mouseY);
+  //text ("EnemyArray:  " + enemyArray.enemyArray1.size(), mouseX, mouseY - 20);
+  //text ("EnemyInterval:  " + enemyArray.interval + "s", mouseX, mouseY - 40);
+  //text ("timeStarts:  " + enemy.timeStarts, mouseX, mouseY - 60); 
+
+
+  enemyArray.timer();
 }
 
 void keyPressed() {
@@ -111,10 +132,7 @@ void keyPressed() {
     player.keyMovePlayerCONTROL();
     player.debugPlayer();
     inventory.openInventory();
-    if (key == 'k') {
-      player.HP -= 10;
-    }
-    if (key == 'l') {
+    if (key == 'h') {
       player.HP = 100;
     }
   }
@@ -130,6 +148,7 @@ void keyReleased() {
 
 void mousePressed () {
   buttons.clickOnButton();
+  shootingArray.newShot();
 }
 
 
@@ -139,6 +158,14 @@ void pausedDisplayedTextures () {
   treesAndHouses.displayHouseUnder();
   treesAndHouses.displayTreeUnder();
   player.display();
+  for (int j = enemyArray.enemyArray1.size() - 1; j >= 0; j--) {
+    enemy = enemyArray.enemyArray1.get(j);
+    enemy.display();
+  }
+  for (int i = shootingArray.SA.size() - 1; i >= 0; i--) {
+    Shot shot = shootingArray.SA.get(i);
+    shot.display();
+  }
   treesAndHouses.displayHouseAbove();
   object.displayBridgeAbove();
   treesAndHouses.displayTreeAbove();
