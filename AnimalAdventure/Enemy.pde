@@ -1,37 +1,74 @@
 class Enemy {
-  int HP, speed, damage, slowdown, time, countSeconds, hitCooldown, countSeconds1;
-  float distance;
+  int HP, hitTimer, countSeconds1, s;
+  float distance, onePercentOfHP, howManyTimes, defernceBetweenHPs, HPStill;
   PVector position, playerXY, acceleration, velocity;
   PImage enemy;
-  boolean timeStarts;
 
   Enemy () {
     playerXY = new PVector (player.playerX, player.playerY);
-    position = new PVector (random (0, 3500), random (0, 3500));
+    position = new PVector (random (background.backgroundX, background.backgroundX + 3500), random (background.backgroundY, background.backgroundY + 3500));
     velocity = new PVector (0, 0);
     acceleration = new PVector (0, 0);
     enemy = loadImage ("enemy.png");
-    slowdown = 6;
-    timeStarts = false;
+    s = 0;
   }
 
   void display () {
+    if (s == 0) {
+      HP = difficulty.diffHP;
+      s = 1;
+    }
     imageMode (CENTER);
     image (enemy, position.x, position.y);
     imageMode (CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    onePercentOfHP = difficulty.diffHP/100;
+    howManyTimes = 100/onePercentOfHP;
+    defernceBetweenHPs = difficulty.diffHP - HP;
+    HPStill = (onePercentOfHP*howManyTimes) - (defernceBetweenHPs/onePercentOfHP);
+    if (HP <= 23) {
+      stroke (255, 0, 0);
+      fill (255, 0, 0);
+    } else {
+      if (HP <= 33) {
+        stroke (255, 106, 0);
+        fill (255, 106, 0);
+      } else {
+        if (HP <=50) {
+          stroke (255, 216, 0);
+          fill (255, 216, 0);
+        } else {
+          if (HP <= 67) {
+            stroke (241, 245, 59);
+            fill (241, 245, 59);
+          } else {
+            if (HP > 67) {
+              stroke (94, 255, 97);
+              fill (94, 255, 97);
+            }
+          }
+        }
+      }
+    }
+    rect(position.x - 45, position.y + 95, HPStill, 10);
+    stroke (0);
+    noFill();
+    rect(position.x - 45, position.y + 95, 100, 10);
+    textSize(20);
   }
 
   void move () {
-    hitCooldown = int((millis() - countSeconds1) / 1000);
+    hitTimer = int((millis() - countSeconds1) / 1000);
     playerXY = new PVector (player.playerX, player.playerY);
     playerXY.sub (position);
     acceleration = playerXY;
     acceleration.setMag(50);
     velocity.add(acceleration);
-    velocity.limit(5);
+    velocity.limit(difficulty.speed);
     distance = dist (player.playerX, player.playerY, position.x, position.y);
-    if (distance < 105 && hitCooldown >= 2) {
-      player.HP -= 10;
+    if (distance < difficulty.hitRange && hitTimer >= difficulty.hitCooldown) {
+      player.HP -= difficulty.damage;
       countSeconds1 = millis();
     } else {
       position.add(velocity);
@@ -43,7 +80,7 @@ class Enemy {
       if (player.playerY <= height/2 + 6) {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
-          position.y += slowdown;
+          position.y += difficulty.slowdown;
         }
       }
     }
@@ -51,7 +88,7 @@ class Enemy {
       if (player.playerX <= width/2 + 6) {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
-          position.x += slowdown;
+          position.x += difficulty.slowdown;
         }
       }
     }
@@ -59,7 +96,7 @@ class Enemy {
       if (player.playerY >= height/2 - 6) {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
-          position.y -= slowdown;
+          position.y -= difficulty.slowdown;
         }
       }
     }
@@ -67,7 +104,7 @@ class Enemy {
       if (player.playerX >= width/2 - 6) {
         if (hue(get( player.nextX, player.nextY)) <= 127 && hue(get( player.nextX, player.nextY)) >= 123 && saturation(get( player.nextX, player.nextY)) >= 180 && saturation(get( player.nextX, player.nextY)) <= 230 && brightness(get( player.nextX, player.nextY)) >= 185  && brightness(get( player.nextX, player.nextY)) <= 220) {
         } else {
-          position.x -= slowdown;
+          position.x -= difficulty.slowdown;
         }
       }
     }
@@ -78,11 +115,14 @@ class Enemy {
 class EnemyArray {
   ArrayList<Enemy> enemyArray1;
   int interval, p, u;
+  int time, countSeconds;
+  boolean timeStarts;
 
   EnemyArray () {
     enemyArray1 = new ArrayList<Enemy>();
     interval = (int) random(1, 8);
     p = 0;
+    timeStarts = false;
   }
 
   void display() {
@@ -96,8 +136,8 @@ class EnemyArray {
 
 
   void newEnemy () {
-    if (enemy.time == interval) {
-      if (u < 3) {
+    if (time == interval) {
+      if (u < difficulty.numberOfEnemies) {
         enemyArray1.add (new Enemy());
         u++;
       }
@@ -105,19 +145,19 @@ class EnemyArray {
   }
 
   void timer () {
-    if (enemy.time == 9) {
+    if (time == difficulty.restartTime - 1) {
       if (p == 0) {
-        interval = (int) random(1, 8);
+        interval = (int) random(1, difficulty.restartTime - 1);
         p = 1;
       }
     }
-    if (enemy.timeStarts) {
-      enemy.time = int((millis() - enemy.countSeconds) /1000);
+    if (timeStarts) {
+      time = int((millis() - countSeconds) /1000);
     }
-    if (enemy.time > 9) {
-      enemy.countSeconds = millis();
+    if (time == difficulty.restartTime) {
+      countSeconds = millis();
     }
-    if (enemy.time == 0) {
+    if (time == 0) {
       p = 0;
       u = 0;
     }

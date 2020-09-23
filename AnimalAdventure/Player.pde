@@ -1,5 +1,5 @@
 class player {
-  int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer, HP, healthBarX, healthBarY;
+  int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer, HP, healthBarX, healthBarY, damage;
   boolean moveRightPlayer, moveLeftPlayer, moveUpPlayer, moveDownPlayer, imageUp, imageDown, imageRight, imageLeft; //PLAYER 
   PImage TeddyFrontSide, TeddyBackSide, TeddyRightSide, TeddyLeftSide, PennyFrontSide, PennyBackSide, PennyRightSide, PennyLeftSide, healthBar, healthBarFill ;
   player () {

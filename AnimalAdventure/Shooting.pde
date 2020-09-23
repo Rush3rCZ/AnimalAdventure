@@ -1,6 +1,6 @@
 class Shot {
   PVector mouse, post, difference, velocity;
-  int lifeTime;
+  int lifeTime, hitTimer, countSeconds;
   PImage shot;
   Shot () {
     post = new PVector (player.playerX, player.playerY);
@@ -18,11 +18,20 @@ class Shot {
   }
 
   void update() {
-    difference.mult(2);
+    //difference.mult(5);
     velocity.add(difference);
     velocity.limit(15);
     post.add(velocity);
     lifeTime--;
+  }
+
+  boolean damageStop () {
+    hitTimer = int((millis() - countSeconds) / 1000);
+    if (hitTimer > 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   boolean isDead() {
@@ -59,9 +68,13 @@ class ShootingArray {
       }
       for (int j = enemyArray.enemyArray1.size() - 1; j >= 0; j--) {
         enemy = enemyArray.enemyArray1.get(j);
-        if (shot.enemyIsShoted(enemy)) {
+        if (shot.enemyIsShoted(enemy) && shot.damageStop()) {
+          enemy.HP -= player.damage;
+          shot.countSeconds = millis();
           shot.lifeTime  = 0;
-          enemyArray.enemyArray1.remove(j);
+          if (enemy.HP < 0) {
+            enemyArray.enemyArray1.remove(j);
+          }
         }
       }
     }

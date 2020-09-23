@@ -768,8 +768,9 @@ class buttons {
   void clickOnButton () {
     if (welcomeScreenActivated && mouseX < playX + widthOfButtons/2 && mouseX > playX - widthOfButtons/2 && mouseY < playY + heightOfButtons/2 && mouseY > playY - heightOfButtons/2) {
       welcomeScreen.displayLoadingScreen();
-      enemy.timeStarts = true;
-      enemy.countSeconds = millis();
+      enemyArray.timeStarts = true;
+      difficulty.updateDiff = 0;
+      enemyArray.countSeconds = millis();
       if (i27 < 1) {
         difficulty.difficultyChange = 1;
         i27 = 1;
@@ -822,13 +823,13 @@ class buttons {
     if (gameHasStarted && mouseX < inGameOptionsButtonX + 30 && mouseX > inGameOptionsButtonX - 30 && mouseY < inGameOptionsButtonY + 30 && mouseY > inGameOptionsButtonY - 30) {
       gameHasStarted = false;
       gamePaused = true;
-      enemy.timeStarts = false;
+      enemyArray.timeStarts = false;
     }
     if (gamePaused && mouseX < backToTheGameButtonX + 200 && mouseX > backToTheGameButtonX - 200 && mouseY < backToTheGameButtonY + 50 && mouseY > backToTheGameButtonY - 50) {
       gameHasStarted = true;
       gamePaused = false;
-      enemy.countSeconds = millis();
-      enemy.timeStarts = true;
+      enemyArray.countSeconds = millis();
+      enemyArray.timeStarts = true;
     }
     if (gamePaused && mouseX < backToTheMenuButtonX + 200 && mouseX > backToTheMenuButtonX - 200 && mouseY < backToTheMenuButtonY + 50 && mouseY > backToTheMenuButtonY - 50) {
       game.stop();
@@ -883,58 +884,28 @@ class buttons {
       i19 =0;
     }
     if (optionsInGameAreOpened && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
-      if (difficulty.difficultyChange == 1) {
-        difficulty.difficultyChange = 2;
-      }
-      if (difficulty.difficultyChange < 2) {
-        difficulty.difficultySet = 2;
-      }
-      difficulty.mediumDiff();
+      difficulty.updateDiff = 0;
+      difficulty.difficultySet = 2;
     }
     if (optionsInGameAreOpened && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
-      if (difficulty.difficultyChange < 2) {
-        difficulty.difficultySet = 1;
-      }
-      if (difficulty.difficultyChange == 1) {
-        difficulty.difficultyChange = 2;
-      }
-      difficulty.easyDiff();
+      difficulty.updateDiff = 0;
+      difficulty.difficultySet = 1;
     }
     if (optionsInGameAreOpened && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
-      if (difficulty.difficultyChange < 2) {
-        difficulty.difficultySet = 3;
-      }
-      if (difficulty.difficultyChange == 1) {
-        difficulty.difficultyChange = 2;
-      }
-      difficulty.hardDiff();
+      difficulty.updateDiff = 0;
+      difficulty.difficultySet = 3;
     }
     if (optionsAreOpened && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
-      if (difficulty.difficultyChange < 2) {
-        difficulty.difficultySet = 2;
-      }
-      if (difficulty.difficultyChange == 1) {
-        difficulty.difficultyChange = 2;
-      }
-      difficulty.mediumDiff();
+      difficulty.updateDiff = 0;
+      difficulty.difficultySet = 2;
     }
     if (optionsAreOpened && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
-      if (difficulty.difficultyChange < 2) {
-        difficulty.difficultySet = 1;
-      }
-      if (difficulty.difficultyChange == 1) {
-        difficulty.difficultyChange = 2;
-      }
-      difficulty.easyDiff();
+      difficulty.updateDiff = 0;
+      difficulty.difficultySet = 1;
     }
     if (optionsAreOpened && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
-      if (difficulty.difficultyChange < 2) {
-        difficulty.difficultySet = 3;
-      }
-      if (difficulty.difficultyChange == 1) {
-        difficulty.difficultyChange = 2;
-      }
-      difficulty.hardDiff();
+      difficulty.updateDiff = 0;
+      difficulty.difficultySet = 3;
     }
   }
 }

@@ -51,13 +51,13 @@ void draw () {
   background (255);
   buttons.soundsOff();
   if (welcomeScreenActivated) {
-
     welcomeScreen.musicInWelcomeAndOptions();  
     welcomeScreen.displayWecomingScreen();
     buttons.buttonsGetsBiggerInWelcome();
   }
   if (gameHasStarted) {
-    enemy.timeStarts = true;
+    difficulty.difficultySetup();
+    enemyArray.timeStarts = true;
     enemyArray.newEnemy();
     welcomeScreen.musicInGame();
     background.display(); 
@@ -82,6 +82,7 @@ void draw () {
     welcomeScreen.musicInGame();
   }
   if (optionsAreOpened) {
+    difficulty.difficultySetup();
     welcomeScreen.displayOptionsScreen();
     buttons.buttonsGetBiggerInOptions();
     object.tickDisplay();
@@ -94,6 +95,7 @@ void draw () {
     buttons.buttonsGetsBiggerWhenGamePaused();
   }
   if (optionsInGameAreOpened) {
+    difficulty.difficultySetup();
     welcomeScreen.musicInGame();
     pausedDisplayedTextures ();
     buttons.displayInGameOptions();
@@ -107,20 +109,25 @@ void draw () {
   }
   buttons.fpsOnDisplay();
   //fill(255, 0, 0);
-  //text ("mouseX: " + mouseX, mouseX, mouseY);
-  //text ("mouseY: " + mouseY, mouseX, mouseY - 20);
-  //text ("right: " + background.moveRightBackground, mouseX, mouseY);
-  //text ("left: " + background.moveLeftBackground, mouseX, mouseY - 20);
-  //text ("up: " + background.moveUpBackground, mouseX, mouseY - 40);
-  //text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
-  //text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
-  //text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
-  //text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
-  //text ("inventory.numberOfRocks:  " + inventory.numberOfRocks, 20, 140);
-  //text ("Time:  " + enemy.time + "s", mouseX, mouseY);
-  //text ("EnemyArray:  " + enemyArray.enemyArray1.size(), mouseX, mouseY - 20);
-  //text ("EnemyInterval:  " + enemyArray.interval + "s", mouseX, mouseY - 40);
-  //text ("timeStarts:  " + enemy.timeStarts, mouseX, mouseY - 60); 
+  //fill (0);
+  //text ("X: " + background.backgroundX, mouseX, mouseY);
+  //text ("Y: " + background.backgroundY, mouseX, mouseY - 20);
+  ////text ("right: " + background.moveRightBackground, mouseX, mouseY);
+  ////text ("left: " + background.moveLeftBackground, mouseX, mouseY - 20);
+  ////text ("up: " + background.moveUpBackground, mouseX, mouseY - 40);
+  ////text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
+  ////text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
+  ////text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
+  ////text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
+  ////text ("onePercentOfHP:  " + test, 20, 320 + 120);
+  //text ("timeStarts:  " + enemyArray.timeStarts, 20, 320); 
+  //text ("Time:  " + enemyArray.time + "s", 20, 320 + 20);
+  //text ("EnemyInterval:  " + enemyArray.interval + "s", 20, 320 + 40);
+  //text ("RestartTime:  " + difficulty.restartTime + "s", 20, 320 + 60);
+  //text ("EnemyArray:  " + enemyArray.enemyArray1.size(), 20, 320 + 80);
+  //text ("DifficultyHP:  " + difficulty.diffHP, 20, 320 + 100);
+  //text ("EnemyHP:  " + enemy.HP, 20, 320 + 120);
+  //noFill();
 
 
   enemyArray.timer();
