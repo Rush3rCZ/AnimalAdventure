@@ -1,11 +1,32 @@
 class treesAndHouses {
-  PImage tree, house;
-  int houseX1, houseX2, houseX3, houseX4, houseX5, houseX6, houseX7, houseX8, houseY1, houseY2, houseY3, houseY4, houseY5, houseY6, houseY7, houseY8;
+  PImage tree, house, mill;
+  int houseX1, houseX2, houseX3, houseX4, houseX5, houseX6, houseX7, houseX8, houseY1, houseY2, houseY3, houseY4, houseY5, houseY6, houseY7, houseY8, millX, millY;
   int treeX1, treeX2, treeX3, treeX4, treeX5, treeX6, treeX7, treeX8, treeX9, treeX10, treeX11, treeX12, treeX13, treeX14, treeX15, treeX16, treeY1, treeY2, treeY3, treeY4, treeY5, treeY6, treeY7, treeY8, treeY9, treeY10, treeY11, treeY12, treeY13, treeY14, treeY15, treeY16;
   treesAndHouses () {
     tree = loadImage("tree.png");
     house = loadImage ("house.png");
+    mill = loadImage ("mill.png");
   }
+  void displayMillUnder() {
+    millX = background.backgroundX + 2800;
+    millY = background.backgroundY + 600;
+    if (millY + 500 < player.playerY  + 90) {
+      imageMode (CENTER);
+      image (mill, millX, millY);
+      imageMode (CORNER);
+    }
+  }
+
+  void displayMillAbove() {
+    millX = background.backgroundX + 2800;
+    millY = background.backgroundY + 600;
+    if (millY + 500 > player.playerY  + 90) {
+      imageMode (CENTER);
+      image (mill, millX, millY);
+      imageMode (CORNER);
+    }
+  }
+
   void displayHouseUnder() {
     houseX1 = background.backgroundX + 2370;
     houseX2 = background.backgroundX + 2730;

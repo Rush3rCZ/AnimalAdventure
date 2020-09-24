@@ -9,8 +9,8 @@ class rocksAndGrass {
     rock = loadImage ("rock.png");
     widthOfGAndR = 100;
     heightOfGAndR = 100;
-    grass.resize (widthOfGAndR, heightOfGAndR);
-    rock.resize (widthOfGAndR, heightOfGAndR);
+    //grass.resize (widthOfGAndR, heightOfGAndR);
+    //rock.resize (widthOfGAndR, heightOfGAndR);
     rockX1 = (int) random (0, 3400);
     rockY1 = (int) random (1000, 3400);
     grassX1 = (int) random (0, 3400);

@@ -32,9 +32,9 @@ class difficulty {
         hitRange = 100;
         slowdown = 5.7;
         damage = 20;
-        restartTime = 8;
+        restartTime = 10;
         diffHP = 100;
-        numberOfEnemies = 5;
+        numberOfEnemies = 4;
         player.damage = 34;
         for (int h = enemyArray.enemyArray1.size() - 1; h >= 0; h--) {
           enemy = enemyArray.enemyArray1.get(h);
@@ -44,6 +44,7 @@ class difficulty {
       }
     }
     if (difficultySet == 3) {
+      if (updateDiff == 0) {
         speed = 6;
         hitCooldown = 1;
         hitRange = 100;

@@ -27,24 +27,28 @@ class Enemy {
     howManyTimes = 100/onePercentOfHP;
     defernceBetweenHPs = difficulty.diffHP - HP;
     HPStill = (onePercentOfHP*howManyTimes) - (defernceBetweenHPs/onePercentOfHP);
+    stroke (0);
+    rect(position.x - 45, position.y + 95, HPStill, 10);
+    fill (255);
+    rect(position.x - 45, position.y + 95, 100, 10);
     if (HP <= 23) {
-      stroke (255, 0, 0);
+      //stroke (255, 0, 0);
       fill (255, 0, 0);
     } else {
       if (HP <= 33) {
-        stroke (255, 106, 0);
+        //stroke (255, 106, 0);
         fill (255, 106, 0);
       } else {
         if (HP <=50) {
-          stroke (255, 216, 0);
+          //stroke (255, 216, 0);
           fill (255, 216, 0);
         } else {
           if (HP <= 67) {
-            stroke (241, 245, 59);
+            //stroke (241, 245, 59);
             fill (241, 245, 59);
           } else {
             if (HP > 67) {
-              stroke (94, 255, 97);
+              //stroke (94, 255, 97);
               fill (94, 255, 97);
             }
           }
@@ -52,10 +56,7 @@ class Enemy {
       }
     }
     rect(position.x - 45, position.y + 95, HPStill, 10);
-    stroke (0);
     noFill();
-    rect(position.x - 45, position.y + 95, 100, 10);
-    textSize(20);
   }
 
   void move () {

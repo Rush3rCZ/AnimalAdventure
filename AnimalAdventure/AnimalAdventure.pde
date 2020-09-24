@@ -2,6 +2,7 @@ import processing.sound.*;  //<>//
 SoundFile clak;
 SoundFile menu;
 SoundFile game;
+test test;
 
 backGround background;
 player player;
@@ -21,6 +22,8 @@ int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, 
 
 void setup () {
   size (1300, 700);
+  test = new test();
+  
   background = new backGround();
   player = new player();
   object = new object();
@@ -63,6 +66,7 @@ void draw () {
     background.display(); 
     object.displayBridgeUnder(); 
     treesAndHouses.displayHouseUnder();
+    treesAndHouses.displayMillUnder();
     treesAndHouses.displayTreeUnder();
     ArrayRocksAndGrass.displayGrass();
     ArrayRocksAndGrass.displayRock();
@@ -70,6 +74,7 @@ void draw () {
     enemyArray.display();
     shootingArray.display();
     object.displayBridgeAbove(); 
+    treesAndHouses.displayMillAbove();
     treesAndHouses.displayHouseAbove();
     treesAndHouses.displayTreeAbove();
     inventory.display();
