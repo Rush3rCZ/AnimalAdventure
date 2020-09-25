@@ -7,8 +7,8 @@ class rocksAndGrass {
   rocksAndGrass () {
     grass = loadImage("grass.png");
     rock = loadImage ("rock.png");
-    widthOfGAndR = 100;
-    heightOfGAndR = 100;
+    widthOfGAndR = 80;
+    heightOfGAndR = 80;
     //grass.resize (widthOfGAndR, heightOfGAndR);
     //rock.resize (widthOfGAndR, heightOfGAndR);
     rockX1 = (int) random (0, 3400);
@@ -77,14 +77,9 @@ class ArrayRocksAndGrass {
       grass.display();
       grass.inInventory();
       if (mousePressed && grass.clicked()) {
+        inventory.numberOfGrass++;
         ArrayGrass.remove(i);
       }
-    }
-  }
-
-  void addNewGrass () {
-    for (numberOfG = 0; numberOfG < 20; numberOfG++) {
-      ArrayGrass.add(new Grass());
     }
   }
 
@@ -94,13 +89,9 @@ class ArrayRocksAndGrass {
       rock.display();
       rock.inInventory();
       if (mousePressed && rock.clicked()) {
+        inventory.numberOfRocks++;
         ArrayRock.remove(i);
       }
-    }
-  }
-  void addNewRock () {
-    for (numberOfR = 0; numberOfR < 20; numberOfR++) {
-      ArrayRock.add(new Rock());
     }
   }
 }

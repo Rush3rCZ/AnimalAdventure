@@ -2,7 +2,6 @@ import processing.sound.*;  //<>//
 SoundFile clak;
 SoundFile menu;
 SoundFile game;
-test test;
 
 backGround background;
 player player;
@@ -17,13 +16,12 @@ difficulty difficulty;
 Enemy enemy;
 EnemyArray enemyArray;
 ShootingArray shootingArray;
+ArrayHealingPotion arrayHealingPotion;
 boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory;
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
   size (1300, 700);
-  test = new test();
-  
   background = new backGround();
   player = new player();
   object = new object();
@@ -37,6 +35,7 @@ void setup () {
   difficulty = new difficulty ();
   enemyArray = new EnemyArray ();
   shootingArray = new ShootingArray();
+  arrayHealingPotion = new ArrayHealingPotion();
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
@@ -51,7 +50,7 @@ void setup () {
 
 
 void draw () {
-  background (255);
+  //background (255);
   buttons.soundsOff();
   if (welcomeScreenActivated) {
     welcomeScreen.musicInWelcomeAndOptions();  
@@ -62,6 +61,7 @@ void draw () {
     difficulty.difficultySetup();
     enemyArray.timeStarts = true;
     enemyArray.newEnemy();
+    arrayHealingPotion.newHealing();
     welcomeScreen.musicInGame();
     background.display(); 
     object.displayBridgeUnder(); 
@@ -70,6 +70,7 @@ void draw () {
     treesAndHouses.displayTreeUnder();
     ArrayRocksAndGrass.displayGrass();
     ArrayRocksAndGrass.displayRock();
+    arrayHealingPotion.displayHealing();
     player.display();
     enemyArray.display();
     shootingArray.display();
@@ -126,33 +127,34 @@ void draw () {
   ////text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
   ////text ("onePercentOfHP:  " + test, 20, 320 + 120);
   //text ("timeStarts:  " + enemyArray.timeStarts, 20, 320); 
-  //text ("Time:  " + enemyArray.time + "s", 20, 320 + 20);
-  //text ("EnemyInterval:  " + enemyArray.interval + "s", 20, 320 + 40);
+  //text ("Time:  " + arrayHealingPotion.time + "s", 20, 320 + 20);
+  ////text ("EnemyInterval:  " + arrayHealingPotion.interval + "s", 20, 320 + 40);
   //text ("RestartTime:  " + difficulty.restartTime + "s", 20, 320 + 60);
-  //text ("EnemyArray:  " + enemyArray.enemyArray1.size(), 20, 320 + 80);
+  //text ("HealingIn:  " +inventory.numberOfHealingPots, 20, 320 + 60);
   //text ("DifficultyHP:  " + difficulty.diffHP, 20, 320 + 100);
   //text ("EnemyHP:  " + enemy.HP, 20, 320 + 120);
   //noFill();
 
 
   enemyArray.timer();
+  arrayHealingPotion.timer();
 }
 
 void keyPressed() {
   if (gameHasStarted) {
+    inventory.displayItemsTest();
+    arrayHealingPotion.useHeal();
     background.keyMoveBackgroundCONTROL();
     player.keyMovePlayerCONTROL();
     player.debugPlayer();
     inventory.openInventory();
-    if (key == 'h') {
-      player.HP = 100;
-    }
   }
 }
 
 
 void keyReleased() {
   if (gameHasStarted) {
+    arrayHealingPotion.unUseHeal();
     background.keyDontMoveBackgroundCONTROL();
     player.keyDontMovePlayerCONTROL ();
   }

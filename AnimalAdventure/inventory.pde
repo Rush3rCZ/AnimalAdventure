@@ -1,7 +1,18 @@
 class inventory {
-  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfItemsInInventory, tGrass, tRocks; 
+  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfHealingPots;
   PImage inventoryUp, inventoryDown, inInventorySlot;
   ArrayList <Items> items;
+
+  Hoe hoe;
+  Axe axe;
+  Hammer hammer;
+  Cake cake;
+  Wheat wheat;
+  Paper paper;
+  FishingRod fishingRod;
+  Fish fish;
+  Coke coke;
+  HealingPotion healingPotion;
 
   inventory () {
     items = new ArrayList <Items> ();
@@ -17,6 +28,31 @@ class inventory {
     mouseHeight = 1;
     postX = 1;
     postY = 1;
+    hoe = new Hoe();
+    axe = new Axe ();
+    hammer = new Hammer ();
+    cake = new Cake();
+    wheat = new Wheat();
+    paper = new Paper();
+    fishingRod = new FishingRod ();
+    fish = new Fish ();
+    coke = new Coke();
+    healingPotion = new HealingPotion();
+  }
+
+
+  void displayItemsTest() {
+    hoe.inInventory();
+    axe.inInventory();
+    hammer.inInventory();
+    cake.inInventory();
+    wheat.inInventory();
+    paper.inInventory();
+    fishingRod.inInventory();
+    fish.inInventory();
+    coke.inInventory();
+    healingPotion.inInventory();
+    healingPotion.test();
   }
 
   void display() {
@@ -72,14 +108,24 @@ class inventory {
     //widthOfRect
     boolean isGrassIn = false;
     boolean isRockIn = false;
+    boolean isHoeIn = false;
+    boolean isAxeIn = false;
+    boolean isHammerIn = false;
+    boolean isCakeIn = false;
+    boolean isWheatIn = false;
+    boolean isPaperIn = false;
+    boolean isFishingRodIn = false;
+    boolean isFishIn = false;
+    boolean isCokeIn = false;
+    boolean isHealingPotionIn = false;
     for (Items item : items) {
-      fill(255, 0, 0);
-      stroke(255, 0, 0);
+      textSize(20);
+      fill(0);
 
       if (item.id == 1) {//grass
         if (isGrassIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);
-          text(inventory.numberOfGrass, 350+100+30+col*widthOfRect, 80+90+40+row*heightOfRect);
+          text(inventory.numberOfGrass, 455+col*widthOfRect, 210+row*heightOfRect);
           col++;
           isGrassIn = true;
         }
@@ -88,15 +134,90 @@ class inventory {
       if (item.id == 2) {//rock
         if (isRockIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);
-          text(inventory.numberOfRocks, 350+100+30+col*widthOfRect, 80+90+40+row*heightOfRect);
+          text(inventory.numberOfRocks, 455+col*widthOfRect, 210+row*heightOfRect);
           col++;
           isRockIn = true;
         }
       }
 
-      if (col > 6) {
+      if (item.id == 3) {//hoe
+        if (isHoeIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isHoeIn = true;
+        }
+      }
+      if (item.id == 4) {//axe
+        if (isAxeIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isAxeIn = true;
+        }
+      }
+      if (item.id == 5) {//hammer
+        if (isHammerIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isHammerIn = true;
+        }
+      }
+      if (item.id == 6) {//cake
+        if (isCakeIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isCakeIn = true;
+        }
+      }
+      if (item.id == 7) {//wheat
+        if (isWheatIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isWheatIn = true;
+        }
+      }
+      if (item.id == 8) {//paper
+        if (isPaperIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isPaperIn = true;
+        }
+      }
+      if (item.id == 9) {//fishingRod
+        if (isFishingRodIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isFishingRodIn = true;
+        }
+      }
+      if (item.id == 10) {//fish
+        if (isFishIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isFishIn = true;
+        }
+      }
+      if (item.id == 11) {//coke
+        if (isCokeIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isCokeIn = true;
+        }
+      }
+      if (item.id == 12) {//healingPotion
+        if (isHealingPotionIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          text(inventory.numberOfHealingPots, 455+col*widthOfRect, 210+row*heightOfRect);
+          col++;
+          isHealingPotionIn = true;
+        }
+      }
+
+      if (col > 5) {
         row++;
         col = 0;
+        if (col > 11) {
+          row++;
+        }
       }
     }
   }

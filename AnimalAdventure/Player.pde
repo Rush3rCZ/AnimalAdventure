@@ -100,6 +100,12 @@ class player {
   }
 
   void healthBar () {
+    if (HP < 0) {
+      HP = 0;
+    }
+    if (HP > 100) {
+      HP = 100;
+    }
     image (healthBarFill, healthBarX, healthBarY);
     if (HP > 50) {
       stroke (94, 255, 97);
@@ -121,9 +127,6 @@ class player {
     noStroke();
     noFill();
     image (healthBar, healthBarX, healthBarY);
-    if (HP < 0) {
-      HP = 0;
-    }
   }
 
 

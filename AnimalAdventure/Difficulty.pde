@@ -12,7 +12,7 @@ class difficulty {
         speed = 3;
         hitCooldown = 3;
         hitRange = 80;
-        slowdown = 4;
+        slowdown = 4.5;
         damage = 10;
         restartTime = 10;
         diffHP = 100;

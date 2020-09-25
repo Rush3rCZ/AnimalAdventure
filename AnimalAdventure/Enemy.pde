@@ -139,7 +139,7 @@ class EnemyArray {
   void newEnemy () {
     if (time == interval) {
       if (u < difficulty.numberOfEnemies) {
-        enemyArray1.add (new Enemy());
+        enemyArray1.add (new Enemy());                                              //-------------------------------------------------//
         u++;
       }
     }
