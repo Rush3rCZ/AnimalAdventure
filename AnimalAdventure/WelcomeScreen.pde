@@ -24,15 +24,15 @@ class welcomeScreen {
 
   void musicInWelcomeAndOptions () {
     if (i19 < 1) {
-      if (menu.isPlaying()) {
-      } else {
-        menu.play();
-      }
-      menu.amp(0.04);
+      //if (menu.isPlaying()) {
+      //} else {
+      //  menu.play();
+      //}
+      //menu.amp(0.04);
     }
     if (i19 == 2) {
       if (l == 0) {
-        menu.pause();
+        //menu.pause();
         l = 1;
       }
     }
@@ -40,15 +40,15 @@ class welcomeScreen {
 
   void musicInGame () {
     if (i20 < 1) {
-      if (game.isPlaying()) {
-      } else {
-        game.play();
-      }
-      game.amp(0.08);
+      //if (game.isPlaying()) {
+      //} else {
+      //  game.play();
+      //}
+      //game.amp(0.08);
     }
     if (i20 == 2) {
       if (z == 0) {
-        game.pause();
+        //game.pause();
         z = 1;
       }
     }

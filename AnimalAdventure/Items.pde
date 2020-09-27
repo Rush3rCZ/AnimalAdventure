@@ -1,7 +1,7 @@
 class Items { //<>//
   int itemX, itemY, itemX1, itemY1, widthOfItem, heightOfItem, placeInInventory, t, inInventory, id;
-  boolean clicked;
   PImage item;
+  int z;
   Items () {
     widthOfItem = 80;
     heightOfItem = 80;
@@ -11,23 +11,18 @@ class Items { //<>//
   void display() {
   }
 
-  boolean clicked () {
-    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  void inInventory () {
-    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
-      inInventory++;
-    }
-  }
-
   void displayInv(int col, int row, int w, int h) {
     imageMode (CORNER);
     image (item, 460+col*w, 180+row*h);
     imageMode (CENTER);
+  }
+
+  void addInInventory () {
+    inventory.items.add(this);
+  }
+
+  void removeFromInventory () {
+    inventory.items.remove(this);
   }
 }
 
@@ -50,9 +45,29 @@ class Grass extends Items {
     imageMode (CORNER);
   }
 
-  void inInventory () {
-    if (mousePressed && mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
-      inventory.items.add(this);
+  void addInInventory () {
+    if (inventory.numberOfGrass > 0) {
+      if (z < 1) {
+        inventory.items.add(this);
+        z = 1;
+      }
+    }
+  }
+
+  boolean clicked () {
+    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void removeFromInventory () {
+    if (inventory.numberOfGrass < 1) {
+      if (z > 0) {
+        inventory.items.remove(this);
+        z = 0;
+      }
     }
   }
 }
@@ -75,9 +90,29 @@ class Rock extends Items {
     imageMode (CORNER);
   }
 
-  void inInventory () {
-    if (mousePressed && mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
-      inventory.items.add(this);
+  void addInInventory () {
+    if (inventory.numberOfRocks > 0) {
+      if (z < 1) {
+        inventory.items.add(this);
+        z = 1;
+      }
+    }
+  }
+
+  boolean clicked () {
+    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void removeFromInventory () {
+    if (inventory.numberOfRocks < 1) {
+      if (z > 0) {
+        inventory.items.remove(this);
+        z = 0;
+      }
     }
   }
 }
@@ -99,17 +134,6 @@ class Hoe extends Items {
     image (item, itemX, itemY);  
     imageMode (CORNER);
   }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
-    if (key == 'r') {
-      for (int i = inventory.items.size() - 1; i >= 0; i--) {
-        inventory.items.remove(this);
-      }
-    }
-  }
 }
 
 //------------------------------------------------------------------------//
@@ -129,12 +153,6 @@ class Axe extends Items {
     imageMode (CENTER);
     image (item, itemX, itemY);  
     imageMode (CORNER);
-  }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
   }
 }
 
@@ -156,12 +174,6 @@ class Hammer extends Items {
     image (item, itemX, itemY);  
     imageMode (CORNER);
   }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
-  }
 }
 
 //------------------------------------------------------------------------//
@@ -181,12 +193,6 @@ class Cake extends Items {
     imageMode (CENTER);
     image (item, itemX, itemY);  
     imageMode (CORNER);
-  }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
   }
 }
 
@@ -208,12 +214,6 @@ class Wheat extends Items {
     image (item, itemX, itemY);  
     imageMode (CORNER);
   }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
-  }
 }
 
 //------------------------------------------------------------------------//
@@ -233,12 +233,6 @@ class Paper extends Items {
     imageMode (CENTER);
     image (item, itemX, itemY);  
     imageMode (CORNER);
-  }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
   }
 }
 
@@ -260,12 +254,6 @@ class FishingRod extends Items {
     image (item, itemX, itemY);  
     imageMode (CORNER);
   }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
-  }
 }
 
 //------------------------------------------------------------------------//
@@ -285,12 +273,6 @@ class Fish extends Items {
     imageMode (CENTER);
     image (item, itemX, itemY);  
     imageMode (CORNER);
-  }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
   }
 }
 
@@ -312,17 +294,10 @@ class Coke extends Items {
     image (item, itemX, itemY);  
     imageMode (CORNER);
   }
-
-  void inInventory () {
-    if (key == 'g') {
-      inventory.items.add(this);
-    }
-  }
 }
 
 //------------------------------------------------------------------------//
 class HealingPotion extends Items {
-  int z;
   HealingPotion () {
     super();
     id = 12;
@@ -340,7 +315,7 @@ class HealingPotion extends Items {
     imageMode (CORNER);
   }
 
-  void inInventory () {
+  void addInInventory () {
     if (inventory.numberOfHealingPots > 0) {
       if (z < 1) {
         inventory.items.add(this);
@@ -349,8 +324,16 @@ class HealingPotion extends Items {
     }
   }
 
-  void test () {
-    if (inventory.numberOfHealingPots == 0) {
+  boolean clicked () {
+    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void removeFromInventory () {
+    if (inventory.numberOfHealingPots < 1) {
       if (z > 0) {
         inventory.items.remove(this);
         z = 0;
@@ -378,7 +361,6 @@ class ArrayHealingPotion {
     for (int i = ArrayHealing.size() - 1; i >= 0; i--) {
       HealingPotion helingPot = ArrayHealing.get(i);
       helingPot.display();
-      //helingPot.inInventory();
       if (mousePressed && helingPot.clicked()) {
         inventory.numberOfHealingPots++;
         ArrayHealing.remove(i);
@@ -396,16 +378,16 @@ class ArrayHealingPotion {
   }
 
   void timer () {
-    if (time >= 30) {
+    if (time >= 20) {
       if (p == 0) {
-        interval = (int) random(1, 29);
+        interval = (int) random(1, 19);
         p = 1;
       }
     }
     if (enemyArray.timeStarts) {
       time = int((millis() - countSeconds) /1000);
     }
-    if (time >= 30) {
+    if (time >= 20) {
       countSeconds = millis();
     }
     if (time == 0) {
@@ -428,5 +410,65 @@ class ArrayHealingPotion {
     if (key == 'h' || key == 'H' ) {
       arrayHealingPotion.usable = 0;
     }
+  }
+}
+
+//-------------------------------------------------------------------------------------//
+
+class AddItems {
+  Hoe hoe;
+  Axe axe;
+  Hammer hammer;
+  Cake cake;
+  Wheat wheat;
+  Paper paper;
+  FishingRod fishingRod;
+  Fish fish;
+  Coke coke;
+  HealingPotion healingPotion;
+  Grass grass;
+  Rock rock;
+
+  AddItems() {
+    hoe = new Hoe();
+    axe = new Axe ();
+    hammer = new Hammer ();
+    cake = new Cake();
+    wheat = new Wheat();
+    paper = new Paper();
+    fishingRod = new FishingRod ();
+    fish = new Fish ();
+    coke = new Coke();
+    healingPotion = new HealingPotion();
+    rock = new Rock();
+    grass = new Grass();
+  }
+
+  void addAndRemove () {
+    //hoe.addInInventory ();
+    //axe.addInInventory ();
+    //hammer.addInInventory ();
+    //cake.addInInventory ();
+    //wheat.addInInventory ();
+    //paper.addInInventory ();
+    //fishingRod.addInInventory ();
+    //fish.addInInventory ();
+    //coke.addInInventory ();
+    healingPotion.addInInventory ();
+    rock.addInInventory ();
+    grass.addInInventory ();
+
+    //hoe.removeFromInventory ();
+    //axe.removeFromInventory ();
+    //hammer.removeFromInventory ();
+    //cake.removeFromInventory ();
+    //wheat.removeFromInventory ();
+    //paper.removeFromInventory ();
+    //fishingRod.removeFromInventory ();
+    //fish.removeFromInventory ();
+    //coke.removeFromInventory ();
+    healingPotion.removeFromInventory ();
+    rock.removeFromInventory ();
+    grass.removeFromInventory ();
   }
 }

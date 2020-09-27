@@ -3,16 +3,6 @@ class inventory {
   PImage inventoryUp, inventoryDown, inInventorySlot;
   ArrayList <Items> items;
 
-  Hoe hoe;
-  Axe axe;
-  Hammer hammer;
-  Cake cake;
-  Wheat wheat;
-  Paper paper;
-  FishingRod fishingRod;
-  Fish fish;
-  Coke coke;
-  HealingPotion healingPotion;
 
   inventory () {
     items = new ArrayList <Items> ();
@@ -28,32 +18,8 @@ class inventory {
     mouseHeight = 1;
     postX = 1;
     postY = 1;
-    hoe = new Hoe();
-    axe = new Axe ();
-    hammer = new Hammer ();
-    cake = new Cake();
-    wheat = new Wheat();
-    paper = new Paper();
-    fishingRod = new FishingRod ();
-    fish = new Fish ();
-    coke = new Coke();
-    healingPotion = new HealingPotion();
   }
 
-
-  void displayItemsTest() {
-    hoe.inInventory();
-    axe.inInventory();
-    hammer.inInventory();
-    cake.inInventory();
-    wheat.inInventory();
-    paper.inInventory();
-    fishingRod.inInventory();
-    fish.inInventory();
-    coke.inInventory();
-    healingPotion.inInventory();
-    healingPotion.test();
-  }
 
   void display() {
     if (inventoryIsOpened) {

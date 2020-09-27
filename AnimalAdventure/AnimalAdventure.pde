@@ -1,7 +1,7 @@
 import processing.sound.*;  //<>//
 SoundFile clak;
-SoundFile menu;
-SoundFile game;
+//SoundFile menu;
+//SoundFile game;
 
 backGround background;
 player player;
@@ -17,8 +17,10 @@ Enemy enemy;
 EnemyArray enemyArray;
 ShootingArray shootingArray;
 ArrayHealingPotion arrayHealingPotion;
-boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory;
-int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29; // i používám pro ovládání zvuku v DRAW()
+VillagerFunction villagerFunction;
+AddItems addItems;
+boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen;
+int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
   size (1300, 700);
@@ -36,6 +38,8 @@ void setup () {
   enemyArray = new EnemyArray ();
   shootingArray = new ShootingArray();
   arrayHealingPotion = new ArrayHealingPotion();
+  villagerFunction = new VillagerFunction ();
+  addItems = new AddItems();
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
@@ -43,9 +47,10 @@ void setup () {
   optionsInGameAreOpened = false;
   inventoryIsOpened = false;
   readAStory = false;
+  tradeOpen = false;
   clak = new SoundFile (this, "clak.mp3");
-  menu = new SoundFile (this, "MenuSound.mp3");
-  game = new SoundFile (this, "inGameSound.mp3");
+  // menu = new SoundFile (this, "MenuSound.mp3");
+  //game = new SoundFile (this, "inGameSound.mp3");
 }
 
 
@@ -62,6 +67,7 @@ void draw () {
     enemyArray.timeStarts = true;
     enemyArray.newEnemy();
     arrayHealingPotion.newHealing();
+    addItems.addAndRemove();
     welcomeScreen.musicInGame();
     background.display(); 
     object.displayBridgeUnder(); 
@@ -94,6 +100,12 @@ void draw () {
     object.tickDisplay();
     welcomeScreen.musicInWelcomeAndOptions();
   }
+
+  if (tradeOpen) {
+    addItems.addAndRemove();
+    pausedDisplayedTextures();
+    villagerFunction.display();
+  }  
   if (gamePaused) {
     welcomeScreen.musicInGame();
     pausedDisplayedTextures ();
@@ -113,11 +125,10 @@ void draw () {
     buttons.displayInReadAStory();
     buttons.buttonsGetBiggerInReadAStory();
   }
-  buttons.fpsOnDisplay();
   //fill(255, 0, 0);
   //fill (0);
-  //text ("X: " + background.backgroundX, mouseX, mouseY);
-  //text ("Y: " + background.backgroundY, mouseX, mouseY - 20);
+  //text ("X: " + mouseX, mouseX, mouseY);
+  //text ("Y: " + mouseY, mouseX, mouseY - 20);
   ////text ("right: " + background.moveRightBackground, mouseX, mouseY);
   ////text ("left: " + background.moveLeftBackground, mouseX, mouseY - 20);
   ////text ("up: " + background.moveUpBackground, mouseX, mouseY - 40);
@@ -138,11 +149,11 @@ void draw () {
 
   enemyArray.timer();
   arrayHealingPotion.timer();
+  buttons.fpsOnDisplay();
 }
 
 void keyPressed() {
   if (gameHasStarted) {
-    inventory.displayItemsTest();
     arrayHealingPotion.useHeal();
     background.keyMoveBackgroundCONTROL();
     player.keyMovePlayerCONTROL();
@@ -161,6 +172,7 @@ void keyReleased() {
 }
 
 void mousePressed () {
+  villagerFunction.click();
   buttons.clickOnButton();
   shootingArray.newShot();
 }

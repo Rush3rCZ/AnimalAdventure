@@ -782,7 +782,7 @@ class buttons {
       } else { 
         i20 = 2;
       }
-      menu.stop();
+      //menu.stop();
     }
     if (welcomeScreenActivated && mouseX < optionsX + widthOfButtons/2 && mouseX > optionsX - widthOfButtons/2 && mouseY < optionsY + heightOfButtons/2 && mouseY > optionsY - heightOfButtons/2) {
       welcomeScreenActivated = false;
@@ -832,7 +832,7 @@ class buttons {
       enemyArray.timeStarts = true;
     }
     if (gamePaused && mouseX < backToTheMenuButtonX + 200 && mouseX > backToTheMenuButtonX - 200 && mouseY < backToTheMenuButtonY + 50 && mouseY > backToTheMenuButtonY - 50) {
-      game.stop();
+      //game.stop();
       if (soundsOn) {
         i19 = 0;
       } else { 
