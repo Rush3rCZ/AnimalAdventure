@@ -105,6 +105,7 @@ class Lumberjack extends Villagers {
     textAlign(CENTER);
     strokeWeight(10);
     stroke (0);
+    fill (0);
     image (tradeScreen, width/2, height/2);
     textSize (60);
     text ("Lumberjack", width/2, 180);
@@ -114,6 +115,7 @@ class Lumberjack extends Villagers {
     text ("I'd have a job for you and of course not for anything!", width/2, 250);
     text ("I'll give you an axe for that!", width/2, 280);
     text ("Just collect all the grass and stones you can find!", width/2, 310);
+    noFill();
     image (arrow, width/2, 400);
     image (grass.item, 500, 400);
     image (rock.item, 370, 400);

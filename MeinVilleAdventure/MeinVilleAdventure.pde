@@ -8,7 +8,7 @@ player player;
 object object;
 welcomeScreen welcomeScreen;
 buttons buttons;
-treesAndHouses treesAndHouses;
+Houses houses;
 ArrayRocksAndGrass ArrayRocksAndGrass;
 inventory inventory;
 Items items;
@@ -19,6 +19,7 @@ ShootingArray shootingArray;
 ArrayHealingPotion arrayHealingPotion;
 VillagerFunction villagerFunction;
 AddItems addItems;
+TreeArray treeArray;
 boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen;
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31; // i používám pro ovládání zvuku v DRAW()
 
@@ -29,7 +30,7 @@ void setup () {
   object = new object();
   welcomeScreen = new welcomeScreen ();
   buttons = new buttons();
-  treesAndHouses = new treesAndHouses ();
+  houses = new Houses ();
   ArrayRocksAndGrass = new ArrayRocksAndGrass();
   inventory = new inventory ();
   items = new Items ();
@@ -40,6 +41,7 @@ void setup () {
   arrayHealingPotion = new ArrayHealingPotion();
   villagerFunction = new VillagerFunction ();
   addItems = new AddItems();
+  treeArray = new TreeArray();
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
@@ -67,13 +69,13 @@ void draw () {
     enemyArray.timeStarts = true;
     enemyArray.newEnemy();
     arrayHealingPotion.newHealing();
-    addItems.addAndRemove();
     welcomeScreen.musicInGame();
+    addItems.itemUse();
     background.display(); 
     object.displayBridgeUnder(); 
-    treesAndHouses.displayHouseUnder();
-    treesAndHouses.displayMillUnder();
-    treesAndHouses.displayTreeUnder();
+    houses.displayHouseUnder();
+    houses.displayMillUnder();
+    treeArray.under();
     ArrayRocksAndGrass.displayGrass();
     ArrayRocksAndGrass.displayRock();
     arrayHealingPotion.displayHealing();
@@ -81,9 +83,9 @@ void draw () {
     enemyArray.display();
     shootingArray.display();
     object.displayBridgeAbove(); 
-    treesAndHouses.displayMillAbove();
-    treesAndHouses.displayHouseAbove();
-    treesAndHouses.displayTreeAbove();
+    houses.displayMillAbove();
+    houses.displayHouseAbove();
+    treeArray.above();
     inventory.display();
     background.endBackground(); 
     background.moveBackground(); 
@@ -102,7 +104,7 @@ void draw () {
   }
 
   if (tradeOpen) {
-    addItems.addAndRemove();
+    addItems.itemUse();
     pausedDisplayedTextures();
     villagerFunction.display();
   }  
@@ -152,6 +154,7 @@ void draw () {
   buttons.fpsOnDisplay();
 }
 
+
 void keyPressed() {
   if (gameHasStarted) {
     arrayHealingPotion.useHeal();
@@ -181,8 +184,8 @@ void mousePressed () {
 void pausedDisplayedTextures () {
   background.display(); 
   object.displayBridgeUnder(); 
-  treesAndHouses.displayHouseUnder();
-  treesAndHouses.displayTreeUnder();
+  houses.displayHouseUnder();
+  treeArray.under();
   player.display();
   for (int j = enemyArray.enemyArray1.size() - 1; j >= 0; j--) {
     enemy = enemyArray.enemyArray1.get(j);
@@ -192,7 +195,7 @@ void pausedDisplayedTextures () {
     Shot shot = shootingArray.SA.get(i);
     shot.display();
   }
-  treesAndHouses.displayHouseAbove();
+  houses.displayHouseAbove();
   object.displayBridgeAbove();
-  treesAndHouses.displayTreeAbove();
+  treeArray.above();
 }

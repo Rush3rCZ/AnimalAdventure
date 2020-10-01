@@ -297,6 +297,110 @@ class Coke extends Items {
 }
 
 //------------------------------------------------------------------------//
+class Key1 extends Items {
+  Key1 () {
+    super();
+    id = 13;
+    item = loadImage ("key1.png");
+    item.resize (widthOfItem, heightOfItem);
+    itemX1 = (int) random (0, 3400);
+    itemY1 = (int) random (1000, 3400);
+  }
+
+  void display () {
+    itemX = background.backgroundX + itemX1;
+    itemY = background.backgroundY + itemY1;
+    imageMode (CENTER);
+    image (item, itemX, itemY);  
+    imageMode (CORNER);
+  }
+}
+
+
+//------------------------------------------------------------------------//
+class Key2 extends Items {
+  Key2 () {
+    super();
+    id = 14;
+    item = loadImage ("key2.png");
+    item.resize (widthOfItem, heightOfItem);
+    itemX1 = (int) random (0, 3400);
+    itemY1 = (int) random (1000, 3400);
+  }
+
+  void display () {
+    itemX = background.backgroundX + itemX1;
+    itemY = background.backgroundY + itemY1;
+    imageMode (CENTER);
+    image (item, itemX, itemY);  
+    imageMode (CORNER);
+  }
+}
+
+
+//------------------------------------------------------------------------//
+class Key3 extends Items {
+  Key3 () {
+    super();
+    id = 15;
+    item = loadImage ("key3.png");
+    item.resize (widthOfItem, heightOfItem);
+    itemX1 = (int) random (0, 3400);
+    itemY1 = (int) random (1000, 3400);
+  }
+
+  void display () {
+    itemX = background.backgroundX + itemX1;
+    itemY = background.backgroundY + itemY1;
+    imageMode (CENTER);
+    image (item, itemX, itemY);  
+    imageMode (CORNER);
+  }
+}
+
+
+//------------------------------------------------------------------------//
+class Key4 extends Items {
+  Key4 () {
+    super();
+    id = 16;
+    item = loadImage ("key4.png");
+    item.resize (widthOfItem, heightOfItem);
+    itemX1 = (int) random (0, 3400);
+    itemY1 = (int) random (1000, 3400);
+  }
+
+  void display () {
+    itemX = background.backgroundX + itemX1;
+    itemY = background.backgroundY + itemY1;
+    imageMode (CENTER);
+    image (item, itemX, itemY);  
+    imageMode (CORNER);
+  }
+}
+
+
+//------------------------------------------------------------------------//
+class WoodLog extends Items {
+  WoodLog () {
+    super();
+    id = 17;
+    item = loadImage ("woodLog.png");
+    item.resize (widthOfItem, heightOfItem);
+    itemX1 = (int) random (0, 3400);
+    itemY1 = (int) random (1000, 3400);
+  }
+
+  void display () {
+    itemX = background.backgroundX + itemX1;
+    itemY = background.backgroundY + itemY1;
+    imageMode (CENTER);
+    image (item, itemX, itemY);  
+    imageMode (CORNER);
+  }
+}
+
+//------------------------------------------------------------------------//
 class HealingPotion extends Items {
   HealingPotion () {
     super();
@@ -416,6 +520,7 @@ class ArrayHealingPotion {
 //-------------------------------------------------------------------------------------//
 
 class AddItems {
+  int h;
   Hoe hoe;
   Axe axe;
   Hammer hammer;
@@ -428,6 +533,11 @@ class AddItems {
   HealingPotion healingPotion;
   Grass grass;
   Rock rock;
+  Key1 key1;
+  Key2 key2;
+  Key3 key3;
+  Key4 key4;
+  WoodLog woodLog;
 
   AddItems() {
     hoe = new Hoe();
@@ -442,33 +552,62 @@ class AddItems {
     healingPotion = new HealingPotion();
     rock = new Rock();
     grass = new Grass();
+    key1 = new Key1();
+    key2 = new Key2();
+    key3 = new Key3();
+    key4 = new Key4();
+    woodLog = new WoodLog ();
+    h = 0;
+  }
+  void released () {
+    if (key == 'j') {
+      h = 0;
+    }
   }
 
-  void addAndRemove () {
-    //hoe.addInInventory ();
-    //axe.addInInventory ();
-    //hammer.addInInventory ();
-    //cake.addInInventory ();
-    //wheat.addInInventory ();
-    //paper.addInInventory ();
-    //fishingRod.addInInventory ();
-    //fish.addInInventory ();
-    //coke.addInInventory ();
+  void itemUse () {
     healingPotion.addInInventory ();
-    rock.addInInventory ();
-    grass.addInInventory ();
-
-    //hoe.removeFromInventory ();
-    //axe.removeFromInventory ();
-    //hammer.removeFromInventory ();
-    //cake.removeFromInventory ();
-    //wheat.removeFromInventory ();
-    //paper.removeFromInventory ();
-    //fishingRod.removeFromInventory ();
-    //fish.removeFromInventory ();
-    //coke.removeFromInventory ();
+    rock.addInInventory();
+    grass.addInInventory();
+    //if (h < 1 && key == 'j') {
+    //  inventory.numberOfGrass += 20;
+    //  inventory.numberOfRocks += 20;
+    //  hoe.addInInventory ();
+    //  //axe.addInInventory ();
+    //  hammer.addInInventory ();
+    //  cake.addInInventory ();
+    //  wheat.addInInventory ();
+    //  paper.addInInventory ();
+    //  fishingRod.addInInventory ();
+    //  fish.addInInventory ();
+    //  coke.addInInventory ();
+    //  key1.addInInventory ();
+    //  key2.addInInventory ();
+    //  key3.addInInventory ();
+    //  key4.addInInventory ();
+    //  woodLog.addInInventory ();
+    //  h = 1;
+    //}
     healingPotion.removeFromInventory ();
     rock.removeFromInventory ();
     grass.removeFromInventory ();
+    //if (key == 'k') {
+    //  inventory.numberOfGrass = 0;
+    //  inventory.numberOfRocks = 0;
+    //  hoe.removeFromInventory ();
+    //  axe.removeFromInventory ();
+    //  hammer.removeFromInventory ();
+    //  cake.removeFromInventory ();
+    //  wheat.removeFromInventory ();
+    //  paper.removeFromInventory ();
+    //  fishingRod.removeFromInventory ();
+    //  fish.removeFromInventory ();
+    //  coke.removeFromInventory ();
+    //  key1.removeFromInventory ();
+    //  key2.removeFromInventory ();
+    //  key3.removeFromInventory ();
+    //  key4.removeFromInventory ();
+    //  woodLog.removeFromInventory ();
+    //}
   }
 }

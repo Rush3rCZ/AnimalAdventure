@@ -84,6 +84,13 @@ class inventory {
     boolean isFishIn = false;
     boolean isCokeIn = false;
     boolean isHealingPotionIn = false;
+    boolean isKey1In = false;
+    boolean isKey2In = false;
+    boolean isKey3In = false;
+    boolean isKey4In = false;
+    boolean isWoodLogIn = false;
+
+
     for (Items item : items) {
       textSize(20);
       fill(0);
@@ -177,12 +184,51 @@ class inventory {
           isHealingPotionIn = true;
         }
       }
+      if (item.id == 13) {//key1
+        if (isKey1In == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isKey1In = true;
+        }
+      }
+      if (item.id == 14) {//key2
+        if (isKey2In == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isKey2In = true;
+        }
+      }
+      if (item.id == 15) {//key3
+        if (isKey3In == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isKey3In = true;
+        }
+      }
+      if (item.id == 16) {//key4
+        if (isKey4In == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isKey4In = true;
+        }
+      }
+
+      if (item.id == 17) {//healingPotion
+        if (isWoodLogIn == false) {
+          item.displayInv(col, row, widthOfRect, heightOfRect);
+          col++;
+          isWoodLogIn = true;
+        }
+      }
 
       if (col > 5) {
         row++;
-        col = 0;
+        //col = 0;
         if (col > 11) {
           row++;
+          if (col > 17) {
+            row++;
+          }
         }
       }
     }
