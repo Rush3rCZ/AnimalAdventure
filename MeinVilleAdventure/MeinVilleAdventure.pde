@@ -78,6 +78,7 @@ void draw () {
     treeArray.under();
     ArrayRocksAndGrass.displayGrass();
     ArrayRocksAndGrass.displayRock();
+    treeArray.displayLog();
     arrayHealingPotion.displayHealing();
     player.display();
     enemyArray.display();
@@ -178,6 +179,9 @@ void mousePressed () {
   villagerFunction.click();
   buttons.clickOnButton();
   shootingArray.newShot();
+}
+
+void mouseClicked() {
 }
 
 

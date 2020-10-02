@@ -386,17 +386,43 @@ class WoodLog extends Items {
     super();
     id = 17;
     item = loadImage ("woodLog.png");
+    itemX = width/2;
+    itemY = height/2;
     item.resize (widthOfItem, heightOfItem);
-    itemX1 = (int) random (0, 3400);
-    itemY1 = (int) random (1000, 3400);
   }
 
   void display () {
-    itemX = background.backgroundX + itemX1;
-    itemY = background.backgroundY + itemY1;
+    itemX = itemX1;
+    itemY = itemY1;
     imageMode (CENTER);
     image (item, itemX, itemY);  
     imageMode (CORNER);
+  }
+
+  boolean clicked () {
+    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void addInInventory () {
+    if (inventory.numberOfWoodLogs > 0) {
+      if (z < 1) {
+        inventory.items.add(this);
+        z = 1;
+      }
+    }
+  }
+
+  void removeFromInventory () {
+    if (inventory.numberOfWoodLogs < 1) {
+      if (z > 0) {
+        inventory.items.remove(this);
+        z = 0;
+      }
+    }
   }
 }
 
@@ -569,6 +595,7 @@ class AddItems {
     healingPotion.addInInventory ();
     rock.addInInventory();
     grass.addInInventory();
+    woodLog.addInInventory ();
     //if (h < 1 && key == 'j') {
     //  inventory.numberOfGrass += 20;
     //  inventory.numberOfRocks += 20;
@@ -585,12 +612,12 @@ class AddItems {
     //  key2.addInInventory ();
     //  key3.addInInventory ();
     //  key4.addInInventory ();
-    //  woodLog.addInInventory ();
     //  h = 1;
     //}
     healingPotion.removeFromInventory ();
     rock.removeFromInventory ();
     grass.removeFromInventory ();
+    woodLog.removeFromInventory ();
     //if (key == 'k') {
     //  inventory.numberOfGrass = 0;
     //  inventory.numberOfRocks = 0;
@@ -607,7 +634,6 @@ class AddItems {
     //  key2.removeFromInventory ();
     //  key3.removeFromInventory ();
     //  key4.removeFromInventory ();
-    //  woodLog.removeFromInventory ();
     //}
   }
 }

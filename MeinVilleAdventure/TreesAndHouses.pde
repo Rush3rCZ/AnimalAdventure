@@ -41,7 +41,7 @@ class Houses {
     houseY1 = background.backgroundY + 2000;
     houseY2 = background.backgroundY + 1860;
     houseY3 = background.backgroundY + 1700;
-    houseY4 = background.backgroundY + 2400;
+    houseY4 = background.backgroundY + 2400;                                
     houseY5 = background.backgroundY + 2530;
     houseY6 = background.backgroundY + 2800;
     houseY7 = background.backgroundY + 2320;
@@ -111,38 +111,81 @@ class Houses {
 }
 
 class Tree {
-  PImage tree;
+  Axe a;
+  PImage tree, stump;
   float x, y, col, randomY, randomX, count;
+  boolean chopedDown;
+  ArrayList <WoodLog> ArrayLog;
   Tree () {
     tree = loadImage ("tree.png");
-    //randomY = (int) random (-20, 20);
-    randomY = 0;
+    a = new Axe();
+    stump = loadImage ("stump.png");
+    randomY = (int) random (-20, 20);
+    //randomY = 0;
     randomX = (int) random (-10, 10);
     col = 0.5;
+    chopedDown = false;
+    ArrayLog = new ArrayList <WoodLog>();
   }
-
 
   void displayAbove() {
     x = background.backgroundX + ((treeArray.row*treeArray.plus) + randomX);
     y = background.backgroundY + (col*200 + randomY);
-    if (y + 175 > player.playerY  + 95) {
+    if (y + 175 >= player.playerY  + 95) {
       imageMode(CENTER);
       fill(255, 0, 0);
-      //circle(x,y,100);
-      image(tree, x, y);
+      if (!chopedDown) {
+        image(tree, x, y);
+      } else {
+        image(stump, x, y);
+      }
       imageMode(CORNER);
+    }
+    for (Items item : inventory.items) {
+      if (!chopedDown &&item.id == 4 && mouseX < x + 45 && mouseX > x - 45 && mouseY < y + 150 && mouseY > y - 150) {
+        fill (94, 255, 97);
+        stroke(0);
+        rect (mouseX - 3, mouseY - 22, 123, 30, 10);
+        fill(0);
+        text ("Chop down!", mouseX, mouseY);
+        image(a.item, mouseX, mouseY);
+        noFill();
+        noStroke();
+      }
+      if (!chopedDown && item.id == 4 && mousePressed && mouseX < x + 45 && mouseX > x - 45 && mouseY < y + 150 && mouseY > y - 150) { // item.id == 4 &&
+        ArrayLog.add(new WoodLog());
+        chopedDown = true;
+      }
     }
   }
 
   void displayUnder() {
     x = background.backgroundX + ((treeArray.row*treeArray.plus) + randomX);
     y = background.backgroundY + (col*200 + randomY);
-    if (y + 175 < player.playerY  + 95) {
+    if (y + 175 <= player.playerY  + 95) {
       imageMode(CENTER);
       fill(255, 0, 0);
-      //circle(x,y,100);
-      image(tree, x, y);
+      if (!chopedDown) {
+        image(tree, x, y);
+      } else {
+        image(stump, x, y);
+      }
       imageMode(CORNER);
+    }
+  }
+
+  void addLog () { 
+    if (chopedDown) {
+      for (int i = ArrayLog.size() - 1; i >= 0; i--) {
+        WoodLog wl = ArrayLog.get(i);
+        wl.itemX1 =(int) x ;
+        wl.itemY1 =(int) y + 200;
+        wl.display();
+        if (mousePressed && wl.clicked()) {
+          inventory.numberOfWoodLogs++;
+          ArrayLog.remove(i);
+        }
+      }
     }
   }
 }
@@ -155,6 +198,13 @@ class TreeArray {
     plus = 300;
     for (int z = 0; z < 27; z++) {
       tree.add(new Tree());
+    }
+  }
+
+  void displayLog () {
+    for (int i = tree.size() - 1; i >= 0; i--) {
+      Tree t = tree.get(i);
+      t.addLog();
     }
   }
 

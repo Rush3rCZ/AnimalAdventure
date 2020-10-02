@@ -1,5 +1,5 @@
 class inventory {
-  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfHealingPots;
+  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfHealingPots, numberOfWoodLogs;
   PImage inventoryUp, inventoryDown, inInventorySlot;
   ArrayList <Items> items;
 
@@ -98,7 +98,7 @@ class inventory {
       if (item.id == 1) {//grass
         if (isGrassIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);
-          text(inventory.numberOfGrass, 455+col*widthOfRect, 210+row*heightOfRect);
+          text(numberOfGrass, 455+col*widthOfRect, 210+row*heightOfRect);
           col++;
           isGrassIn = true;
         }
@@ -107,7 +107,7 @@ class inventory {
       if (item.id == 2) {//rock
         if (isRockIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);
-          text(inventory.numberOfRocks, 455+col*widthOfRect, 210+row*heightOfRect);
+          text(numberOfRocks, 455+col*widthOfRect, 210+row*heightOfRect);
           col++;
           isRockIn = true;
         }
@@ -179,7 +179,7 @@ class inventory {
       if (item.id == 12) {//healingPotion
         if (isHealingPotionIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);
-          text(inventory.numberOfHealingPots, 455+col*widthOfRect, 210+row*heightOfRect);
+          text(numberOfHealingPots, 455+col*widthOfRect, 210+row*heightOfRect);
           col++;
           isHealingPotionIn = true;
         }
@@ -213,9 +213,10 @@ class inventory {
         }
       }
 
-      if (item.id == 17) {//healingPotion
+      if (item.id == 17) {//woodLog
         if (isWoodLogIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);
+          text(numberOfWoodLogs, 455+col*widthOfRect, 210+row*heightOfRect);
           col++;
           isWoodLogIn = true;
         }

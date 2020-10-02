@@ -132,6 +132,7 @@ class Lumberjack extends Villagers {
     imageMode(CORNER);
     rectMode (CORNER);
     textAlign(CORNER);
+       strokeWeight(2);
   }
 
   void trade () {
