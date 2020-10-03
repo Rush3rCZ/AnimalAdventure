@@ -26,6 +26,7 @@ class Items { //<>//
   }
 }
 
+
 //------------------------------------------------------------------------//
 class Grass extends Items {
   Grass () {
@@ -238,20 +239,60 @@ class Paper extends Items {
 
 //------------------------------------------------------------------------//
 class FishingRod extends Items {
+  float time, p, interval, countSeconds, u;
+  PImage item1;
   FishingRod () {
     super();
     id = 9;
-    item = loadImage ("fishingRod.png");
-    item.resize (widthOfItem, heightOfItem);
+    item1 = loadImage ("fishingRod.png");
+    item1.resize (widthOfItem, heightOfItem);
     itemX1 = (int) random (0, 3400);
     itemY1 = (int) random (1000, 3400);
+    countSeconds = millis();
+  }
+
+  void timer () {
+    time = int((millis() - countSeconds) /1000);
+  }
+
+  void displayInv(int col, int row, int w, int h) {
+    imageMode (CORNER);
+    image (item1, 460+col*w, 180+row*h);
+    imageMode (CENTER);
+  }
+
+  boolean catchable() {
+    if (hue(get(mouseX - 10, mouseY - 10)) <= 127 && hue(get(mouseX - 10, mouseY - 10)) >= 123 && saturation(get(mouseX - 10, mouseY - 10)) >= 180 && saturation(get(mouseX - 10, mouseY - 10)) <= 230 && brightness(get(mouseX - 10, mouseY - 10)) >= 185  && brightness(get(mouseX - 10, mouseY - 10)) <= 220) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void catchFish() {
+    for (Items item : inventory.items) {
+      if (catchable() && item.id == 9) {
+        fill (94, 255, 97);
+        stroke(0);
+        rect (mouseX - 3, mouseY - 22, 150, 30, 10);
+        fill(0);
+        text ("Catch the Fish!", mouseX, mouseY);
+        image(item1, mouseX + 20, mouseY + 10);
+        noFill();
+        noStroke();
+        if (mousePressed && time >= 2) {
+          fishArray.ArrayFish.add(new Fish());
+          countSeconds = millis();
+        }
+      }
+    }
   }
 
   void display () {
     itemX = background.backgroundX + itemX1;
     itemY = background.backgroundY + itemY1;
     imageMode (CENTER);
-    image (item, itemX, itemY);  
+    image (item1, itemX, itemY);  
     imageMode (CORNER);
   }
 }
@@ -263,16 +304,42 @@ class Fish extends Items {
     id = 10;
     item = loadImage ("fish.png");
     item.resize (widthOfItem, heightOfItem);
-    itemX1 = (int) random (0, 3400);
-    itemY1 = (int) random (1000, 3400);
+    itemX1 = (background.backgroundX * -1) + mouseX;
+    itemY1 = (background.backgroundY * -1) + mouseY + 60;
   }
 
   void display () {
-    itemX = background.backgroundX + itemX1;
+    itemX = background.backgroundX +  itemX1;
     itemY = background.backgroundY + itemY1;
     imageMode (CENTER);
     image (item, itemX, itemY);  
     imageMode (CORNER);
+  }
+
+  boolean clicked () {
+    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void addInInventory () {
+    if (inventory.numberOfFishes > 0) {
+      if (z < 1) {
+        inventory.items.add(this);
+        z = 1;
+      }
+    }
+  }
+
+  void removeFromInventory () {
+    if (inventory.numberOfFishes < 1) {
+      if (z > 0) {
+        inventory.items.remove(this);
+        z = 0;
+      }
+    }
   }
 }
 
@@ -421,6 +488,26 @@ class WoodLog extends Items {
       if (z > 0) {
         inventory.items.remove(this);
         z = 0;
+      }
+    }
+  }
+}
+
+//------------------------------------------------------------------------//
+
+class ArrayFishes {
+  ArrayList <Fish> ArrayFish;
+  ArrayFishes() {
+    ArrayFish = new ArrayList <Fish>();
+  }
+
+  void display() {
+    for (int i = ArrayFish.size() - 1; i >= 0; i--) {
+      Fish f = ArrayFish.get(i);
+      f.display();
+      if (mousePressed && f.clicked()) {
+        inventory.numberOfFishes++;
+        ArrayFish.remove(i);
       }
     }
   }
@@ -591,49 +678,22 @@ class AddItems {
     }
   }
 
+  void display() {
+    fishingRod.timer();
+    fishingRod.catchFish();
+  }
+
   void itemUse () {
     healingPotion.addInInventory ();
     rock.addInInventory();
     grass.addInInventory();
     woodLog.addInInventory ();
-    //if (h < 1 && key == 'j') {
-    //  inventory.numberOfGrass += 20;
-    //  inventory.numberOfRocks += 20;
-    //  hoe.addInInventory ();
-    //  //axe.addInInventory ();
-    //  hammer.addInInventory ();
-    //  cake.addInInventory ();
-    //  wheat.addInInventory ();
-    //  paper.addInInventory ();
-    //  fishingRod.addInInventory ();
-    //  fish.addInInventory ();
-    //  coke.addInInventory ();
-    //  key1.addInInventory ();
-    //  key2.addInInventory ();
-    //  key3.addInInventory ();
-    //  key4.addInInventory ();
-    //  h = 1;
-    //}
+    fish.addInInventory ();
+
     healingPotion.removeFromInventory ();
     rock.removeFromInventory ();
     grass.removeFromInventory ();
     woodLog.removeFromInventory ();
-    //if (key == 'k') {
-    //  inventory.numberOfGrass = 0;
-    //  inventory.numberOfRocks = 0;
-    //  hoe.removeFromInventory ();
-    //  axe.removeFromInventory ();
-    //  hammer.removeFromInventory ();
-    //  cake.removeFromInventory ();
-    //  wheat.removeFromInventory ();
-    //  paper.removeFromInventory ();
-    //  fishingRod.removeFromInventory ();
-    //  fish.removeFromInventory ();
-    //  coke.removeFromInventory ();
-    //  key1.removeFromInventory ();
-    //  key2.removeFromInventory ();
-    //  key3.removeFromInventory ();
-    //  key4.removeFromInventory ();
-    //}
+    fish.removeFromInventory ();
   }
 }

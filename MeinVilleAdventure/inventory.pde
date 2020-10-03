@@ -1,7 +1,24 @@
 class inventory {
-  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfHealingPots, numberOfWoodLogs;
+  int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfHealingPots, numberOfWoodLogs, numberOfFishes;
   PImage inventoryUp, inventoryDown, inInventorySlot;
   ArrayList <Items> items;
+  boolean isGrassIn;
+  boolean isRockIn;
+  boolean isHoeIn;
+  boolean isAxeIn;
+  boolean isHammerIn;
+  boolean isCakeIn;
+  boolean isWheatIn;
+  boolean isPaperIn;
+  boolean isFishingRodIn;
+  boolean isFishIn;
+  boolean isCokeIn;
+  boolean isHealingPotionIn;
+  boolean isKey1In;
+  boolean isKey2In;
+  boolean isKey3In;
+  boolean isKey4In;
+  boolean isWoodLogIn;
 
 
   inventory () {
@@ -18,6 +35,8 @@ class inventory {
     mouseHeight = 1;
     postX = 1;
     postY = 1;
+    numberOfGrass = 20;
+    numberOfRocks = 20;
   }
 
 
@@ -72,23 +91,23 @@ class inventory {
     int col = 0;
     int row = 0;
     //widthOfRect
-    boolean isGrassIn = false;
-    boolean isRockIn = false;
-    boolean isHoeIn = false;
-    boolean isAxeIn = false;
-    boolean isHammerIn = false;
-    boolean isCakeIn = false;
-    boolean isWheatIn = false;
-    boolean isPaperIn = false;
-    boolean isFishingRodIn = false;
-    boolean isFishIn = false;
-    boolean isCokeIn = false;
-    boolean isHealingPotionIn = false;
-    boolean isKey1In = false;
-    boolean isKey2In = false;
-    boolean isKey3In = false;
-    boolean isKey4In = false;
-    boolean isWoodLogIn = false;
+    isGrassIn = false;
+    isRockIn = false;
+    isHoeIn = false;
+    isAxeIn = false;
+    isHammerIn = false;
+    isCakeIn = false;
+    isWheatIn = false;
+    isPaperIn = false;
+    isFishingRodIn = false;
+    isFishIn = false;
+    isCokeIn = false;
+    isHealingPotionIn = false;
+    isKey1In = false;
+    isKey2In = false;
+    isKey3In = false;
+    isKey4In = false;
+    isWoodLogIn = false;
 
 
     for (Items item : items) {
@@ -165,6 +184,7 @@ class inventory {
       if (item.id == 10) {//fish
         if (isFishIn == false) {
           item.displayInv(col, row, widthOfRect, heightOfRect);
+          text(numberOfFishes, 455+col*widthOfRect, 210+row*heightOfRect);
           col++;
           isFishIn = true;
         }
@@ -224,11 +244,13 @@ class inventory {
 
       if (col > 5) {
         row++;
-        //col = 0;
+        col = 0;
         if (col > 11) {
           row++;
+          col = 0;
           if (col > 17) {
             row++;
+            col = 0;
           }
         }
       }

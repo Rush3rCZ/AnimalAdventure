@@ -77,7 +77,7 @@ class ArrayRocksAndGrass {
       grass.display();
       if (mousePressed && grass.clicked()) {
         inventory.numberOfGrass++;
-        ArrayGrass.remove(i);
+        ArrayGrass.remove(i);                                //--------------------------------------------//
       }
     }
   }

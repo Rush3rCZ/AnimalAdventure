@@ -6,8 +6,8 @@ class backGround {
 
   backGround () {
     background = requestImage("BackGround.png");
-    backgroundX = -1;
-    backgroundY = -1;
+    backgroundX = -2001;
+    backgroundY = -2401;
   }
 
   void display() {

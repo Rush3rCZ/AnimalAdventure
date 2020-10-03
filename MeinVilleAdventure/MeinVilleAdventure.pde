@@ -2,7 +2,6 @@ import processing.sound.*;  //<>//
 SoundFile clak;
 //SoundFile menu;
 //SoundFile game;
-
 backGround background;
 player player;
 object object;
@@ -20,6 +19,7 @@ ArrayHealingPotion arrayHealingPotion;
 VillagerFunction villagerFunction;
 AddItems addItems;
 TreeArray treeArray;
+ArrayFishes fishArray;
 boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen;
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31; // i používám pro ovládání zvuku v DRAW()
 
@@ -42,6 +42,7 @@ void setup () {
   villagerFunction = new VillagerFunction ();
   addItems = new AddItems();
   treeArray = new TreeArray();
+  fishArray = new ArrayFishes();
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
@@ -79,10 +80,12 @@ void draw () {
     ArrayRocksAndGrass.displayGrass();
     ArrayRocksAndGrass.displayRock();
     treeArray.displayLog();
+    fishArray.display();
     arrayHealingPotion.displayHealing();
     player.display();
     enemyArray.display();
     shootingArray.display();
+    addItems.display();
     object.displayBridgeAbove(); 
     houses.displayMillAbove();
     houses.displayHouseAbove();
@@ -146,7 +149,7 @@ void draw () {
   //text ("RestartTime:  " + difficulty.restartTime + "s", 20, 320 + 60);
   //text ("HealingIn:  " +inventory.numberOfHealingPots, 20, 320 + 60);
   //text ("DifficultyHP:  " + difficulty.diffHP, 20, 320 + 100);
-  //text ("EnemyHP:  " + enemy.HP, 20, 320 + 120);
+  //text ("FishArray:  " + fishArray.ArrayFish.size(), 20, 360);
   //noFill();
 
 
@@ -179,9 +182,6 @@ void mousePressed () {
   villagerFunction.click();
   buttons.clickOnButton();
   shootingArray.newShot();
-}
-
-void mouseClicked() {
 }
 
 

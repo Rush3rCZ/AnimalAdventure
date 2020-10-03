@@ -1,5 +1,7 @@
 class Houses {
   Lumberjack lumberjack;
+  Joiner joiner;
+  Builder builder;
   PImage tree, house, mill;
   int houseX1, houseX2, houseX3, houseX4, houseX5, houseX6, houseX7, houseX8, houseY1, houseY2, houseY3, houseY4, houseY5, houseY6, houseY7, houseY8, millX, millY;
   Houses () {
@@ -7,6 +9,8 @@ class Houses {
     house = loadImage ("house.png");
     mill = loadImage ("mill.png");
     lumberjack = new Lumberjack();
+    joiner = new Joiner();
+    builder = new Builder();
   }
   void displayMillUnder() {
     millX = background.backgroundX + 2800;
@@ -46,31 +50,37 @@ class Houses {
     houseY6 = background.backgroundY + 2800;
     houseY7 = background.backgroundY + 2320;
     houseY8 = background.backgroundY + 2130;
-    if (houseY1 + 200 < player.playerY  + 90) {
+    if (houseY1 + 200 <= player.playerY  + 90) {
       image (house, houseX1, houseY1);
     }
-    if (houseY2 + 200 < player.playerY  + 90) {
+    if (houseY2 + 200 <= player.playerY  + 90) {
       image (house, houseX2, houseY2);
     }
-    if (houseY3 + 200 < player.playerY  + 90) {
+    if (houseY3 + 200 <= player.playerY  + 90) {
       image (house, houseX3, houseY3);
     }
-    if (houseY8 + 200 < player.playerY  + 90) {
+    if (houseY8 + 200 <= player.playerY  + 90) {
       image (house, houseX8, houseY8);
     }
-    if (houseY4 + 200 < player.playerY  + 90) {
+    if (joiner.y + 95 <= player.playerY  + 90) {
+      joiner.display();
+    }
+    if (builder.y + 95 <= player.playerY  + 90) {
+      builder.display();
+    }
+    if (houseY4 + 200 <= player.playerY  + 90) {
       image (house, houseX4, houseY4);
     }
-    if (lumberjack.y + 95 < player.playerY  + 90) {
+    if (lumberjack.y + 95 <= player.playerY  + 90) {
       lumberjack.display();
     }
-    if (houseY5 + 200 < player.playerY  + 90) {
+    if (houseY5 + 200 <= player.playerY  + 90) {
       image (house, houseX5, houseY5);
     }
-    if (houseY6 + 200 < player.playerY  + 90) {
+    if (houseY6 + 200 <= player.playerY  + 90) {
       image (house, houseX6, houseY6);
     }
-    if (houseY7 + 200 < player.playerY  + 90) {
+    if (houseY7 + 200 <= player.playerY  + 90) {
       image (house, houseX7, houseY7);
     }
     imageMode (CORNER);
@@ -78,32 +88,38 @@ class Houses {
 
   void displayHouseAbove() {
     imageMode (CENTER);
-    if (houseY1 + 200 > player.playerY  + 90) {
+    if (houseY1 + 200 >= player.playerY  + 90) {
 
       image (house, houseX1, houseY1);
     }
-    if (houseY2 + 200 > player.playerY  + 90) {
+    if (houseY2 + 200 >= player.playerY  + 90) {
       image (house, houseX2, houseY2);
     }
-    if (houseY3 + 200 > player.playerY  + 90) {
+    if (houseY3 + 200 >= player.playerY  + 90) {
       image (house, houseX3, houseY3);
     }
-    if (houseY8 + 200 > player.playerY  + 90) {
+    if (houseY8 + 200 >= player.playerY  + 90) {
       image (house, houseX8, houseY8);
     }
-    if (houseY4 + 200 > player.playerY  + 90) {
+    if (joiner.y + 95 >= player.playerY  + 90) {
+      joiner.display();
+    }
+    if (builder.y + 95 >= player.playerY  + 90) {
+      builder.display();
+    }
+    if (houseY4 + 200 >= player.playerY  + 90) {
       image (house, houseX4, houseY4);
     }
-    if (lumberjack.y + 95 > player.playerY  + 90) {
+    if (lumberjack.y + 95 >= player.playerY  + 90) {
       lumberjack.display();
     }
-    if (houseY5 + 200 > player.playerY  + 90) {
+    if (houseY5 + 200 >= player.playerY  + 90) {
       image (house, houseX5, houseY5);
     }
-    if (houseY6 + 200 > player.playerY  + 90) {
+    if (houseY6 + 200 >= player.playerY  + 90) {
       image (house, houseX6, houseY6);
     }
-    if (houseY7 + 200 > player.playerY  + 90) {
+    if (houseY7 + 200 >= player.playerY  + 90) {
       image (house, houseX7, houseY7);
     }
     imageMode (CORNER);
@@ -142,7 +158,7 @@ class Tree {
       imageMode(CORNER);
     }
     for (Items item : inventory.items) {
-      if (!chopedDown &&item.id == 4 && mouseX < x + 45 && mouseX > x - 45 && mouseY < y + 150 && mouseY > y - 150) {
+      if (!chopedDown && item.id == 4 && mouseX < x + 45 && mouseX > x - 45 && mouseY < y + 150 && mouseY > y - 150) {
         fill (94, 255, 97);
         stroke(0);
         rect (mouseX - 3, mouseY - 22, 123, 30, 10);
@@ -178,7 +194,7 @@ class Tree {
     if (chopedDown) {
       for (int i = ArrayLog.size() - 1; i >= 0; i--) {
         WoodLog wl = ArrayLog.get(i);
-        wl.itemX1 =(int) x ;
+        wl.itemX1 =(int) x;
         wl.itemY1 =(int) y + 200;
         wl.display();
         if (mousePressed && wl.clicked()) {
