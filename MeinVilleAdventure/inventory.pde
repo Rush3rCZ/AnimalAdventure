@@ -37,6 +37,8 @@ class inventory {
     postY = 1;
     numberOfGrass = 20;
     numberOfRocks = 20;
+    numberOfWoodLogs = 10;
+    numberOfFishes = 3;
   }
 
 

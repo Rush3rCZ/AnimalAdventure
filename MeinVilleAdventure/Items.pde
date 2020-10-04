@@ -159,21 +159,37 @@ class Axe extends Items {
 
 //------------------------------------------------------------------------//
 class Hammer extends Items {
+  Blacksmith bl;
   Hammer () {
     super();
     id = 5;
     item = loadImage ("hammer.png");
     item.resize (widthOfItem, heightOfItem);
-    itemX1 = (int) random (0, 3400);
-    itemY1 = (int) random (1000, 3400);
+    bl = new Blacksmith();
   }
 
   void display () {
-    itemX = background.backgroundX + itemX1;
-    itemY = background.backgroundY + itemY1;
-    imageMode (CENTER);
-    image (item, itemX, itemY);  
-    imageMode (CORNER);
+    if (bl.hammer1 == 1) {
+      itemX = background.backgroundX + itemX1;
+      itemY = background.backgroundY + itemY1;
+      imageMode (CENTER);
+      image (item, itemX, itemY);  
+      imageMode (CORNER);
+    }
+  }
+
+  boolean clicked () {
+    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void addInInventory () {
+    if (clicked() && bl.hammer1 == 1) {
+      inventory.items.add(this);
+    }
   }
 }
 
@@ -262,7 +278,7 @@ class FishingRod extends Items {
   }
 
   boolean catchable() {
-    if (hue(get(mouseX - 10, mouseY - 10)) <= 127 && hue(get(mouseX - 10, mouseY - 10)) >= 123 && saturation(get(mouseX - 10, mouseY - 10)) >= 180 && saturation(get(mouseX - 10, mouseY - 10)) <= 230 && brightness(get(mouseX - 10, mouseY - 10)) >= 185  && brightness(get(mouseX - 10, mouseY - 10)) <= 220) {
+    if (hue(get(mouseX - 10, mouseY - 10)) <= 127 && hue(get(mouseX, mouseY)) >= 123 && saturation(get(mouseX, mouseY)) >= 180 && saturation(get(mouseX, mouseY)) <= 230 && brightness(get(mouseX, mouseY)) >= 185  && brightness(get(mouseX, mouseY)) <= 220) {
       return true;
     } else {
       return false;
@@ -299,21 +315,43 @@ class FishingRod extends Items {
 
 //------------------------------------------------------------------------//
 class Fish extends Items {
+  PVector playerFish, postFish, difference, velocity;
+  float distance;
+  boolean animation;
   Fish () {
     super();
     id = 10;
     item = loadImage ("fish.png");
     item.resize (widthOfItem, heightOfItem);
     itemX1 = (background.backgroundX * -1) + mouseX;
-    itemY1 = (background.backgroundY * -1) + mouseY + 60;
+    itemY1 = (background.backgroundY * -1) + mouseY + 80;
+    postFish = new PVector (background.backgroundX +  itemX1, background.backgroundY + itemY1);
+    velocity = new PVector(0, 0);
+    playerFish = new PVector (player.playerX, player.playerY);
+    difference = PVector.sub (postFish, playerFish);
+    animation = false;
   }
 
   void display () {
-    itemX = background.backgroundX +  itemX1;
-    itemY = background.backgroundY + itemY1;
-    imageMode (CENTER);
-    image (item, itemX, itemY);  
-    imageMode (CORNER);
+    distance = dist(playerFish.x, playerFish.y, postFish.x, postFish.y);
+    if (!animation) {
+      itemX = background.backgroundX +  itemX1;
+      itemY = background.backgroundY + itemY1;
+      imageMode (CENTER);
+      image (item, itemX, itemY);  
+      imageMode (CORNER);
+    } else {
+      stroke (0);
+      velocity.add(difference);
+      velocity.limit(8);
+      postFish.sub(velocity);
+      imageMode (CENTER);
+      strokeWeight(5);
+      image (item, postFish.x, postFish.y); 
+      line (postFish.x, postFish.y, playerFish.x, playerFish.y);
+      imageMode (CORNER);
+      noFill();
+    }
   }
 
   boolean clicked () {
@@ -506,6 +544,11 @@ class ArrayFishes {
       Fish f = ArrayFish.get(i);
       f.display();
       if (mousePressed && f.clicked()) {
+        f.postFish = new PVector (mouseX, mouseY);
+        f.difference = PVector.sub (f.postFish, f.playerFish);
+        f.animation = true;
+      }
+      if (f.distance < 10) {
         inventory.numberOfFishes++;
         ArrayFish.remove(i);
       }
@@ -689,6 +732,7 @@ class AddItems {
     grass.addInInventory();
     woodLog.addInInventory ();
     fish.addInInventory ();
+    hammer.addInInventory ();
 
     healingPotion.removeFromInventory ();
     rock.removeFromInventory ();

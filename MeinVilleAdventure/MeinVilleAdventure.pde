@@ -2,6 +2,8 @@ import processing.sound.*;  //<>//
 SoundFile clak;
 //SoundFile menu;
 //SoundFile game;
+Blacksmith bl;
+
 backGround background;
 player player;
 object object;
@@ -25,6 +27,8 @@ int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, 
 
 void setup () {
   size (1300, 700);
+  bl = new Blacksmith();
+
   background = new backGround();
   player = new player();
   object = new object();
@@ -148,7 +152,7 @@ void draw () {
   ////text ("EnemyInterval:  " + arrayHealingPotion.interval + "s", 20, 320 + 40);
   //text ("RestartTime:  " + difficulty.restartTime + "s", 20, 320 + 60);
   //text ("HealingIn:  " +inventory.numberOfHealingPots, 20, 320 + 60);
-  //text ("DifficultyHP:  " + difficulty.diffHP, 20, 320 + 100);
+  text ("hammer1:  " + bl.hammer1, 20, 320 + 100);
   //text ("FishArray:  " + fishArray.ArrayFish.size(), 20, 360);
   //noFill();
 

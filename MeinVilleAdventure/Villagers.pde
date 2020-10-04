@@ -2,17 +2,41 @@ class VillagerFunction {
   Lumberjack lumberjack;
   Joiner joiner;
   Builder builder;
+  Hunter hunter;
+  Fisherman fisherman;
+  Farmer farmer;
+  Miller miller;
+  Baker baker;
+  Administrator admin;
+  Teacher teacher;
+  Blacksmith blacksmith;
 
   VillagerFunction () {
     lumberjack = new Lumberjack();
     joiner = new Joiner();
     builder = new Builder();
+    hunter = new Hunter();
+    fisherman = new Fisherman ();
+    farmer = new Farmer ();
+    miller = new  Miller();
+    baker = new Baker();
+    admin = new Administrator();
+    teacher = new Teacher();
+    blacksmith = new Blacksmith();
   }
 
   void click () {
     lumberjack.click();
     joiner.click();
     builder.click();
+    hunter.click();
+    fisherman.click();
+    farmer.click();
+    miller.click();
+    baker.click();
+    admin.click();
+    teacher.click();
+    blacksmith.click();
   }
 
   void display() {
@@ -31,8 +55,57 @@ class VillagerFunction {
       builder.tradeButton();
       builder.endCross();
     }
+    if (hunter.currentTrade) {
+      hunter.tradeDisplay();
+      hunter.tradeButton();
+      hunter.endCross();
+    }
+    if (fisherman.currentTrade) {
+      fisherman.tradeDisplay();
+      fisherman.tradeButton();
+      fisherman.endCross();
+    }
+    if (farmer.currentTrade) {
+      farmer.tradeDisplay();
+      farmer.tradeButton();
+      farmer.endCross();
+    }
+    if (miller.currentTrade) {
+      miller.tradeDisplay();
+      miller.tradeButton();
+      miller.endCross();
+    }
+    if (baker.currentTrade) {
+      baker.tradeDisplay();
+      baker.tradeButton();
+      baker.endCross();
+    }
+    if (admin.currentTrade) {
+      admin.tradeDisplay();
+      admin.tradeButton();
+      admin.endCross();
+    }
+    if (teacher.currentTrade) {
+      teacher.tradeDisplay();
+      teacher.tradeButton();
+      teacher.endCross();
+    }
+    if (blacksmith.currentTrade) {
+      blacksmith.tradeDisplay();
+      blacksmith.tradeButton();
+      blacksmith.endCross();
+    }
     builder.isThereNeededItem();
+    fisherman.isThereNeededItem();
+    farmer.isThereNeededItem();
+    miller.isThereNeededItem();
+    baker.isThereNeededItem();
+    admin.isThereNeededItem();
+    teacher.isThereNeededItem();
+    blacksmith.isThereNeededItem();
+    blacksmith.lostHammer();
     builder.timer();
+    fisherman.timer();
   }
 }
 
@@ -111,7 +184,7 @@ class Villagers {
   }
 }
 
-//------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 class Lumberjack extends Villagers {
   Axe axe;
@@ -194,7 +267,7 @@ class Lumberjack extends Villagers {
   }
 }
 
-//------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 class Joiner extends Villagers {
   FishingRod rod;
@@ -267,16 +340,17 @@ class Joiner extends Villagers {
   }
 }
 
-//------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 class Builder extends Villagers {
   Axe axe;
   Key4 key4;
   float time, countSeconds;
   boolean anotherItem;
+  int farFarAway;
   Builder() {
     super();
-    Xplus = 2800;
+    Xplus = 2900;
     Yplus = 2250;
     axe = new Axe();
     key4 = new Key4();
@@ -285,7 +359,7 @@ class Builder extends Villagers {
 
   void timer () {
     time = int((millis() - countSeconds) /1000);
-    if (time <= 2) {
+    if (time <= 1) {
       textSize (50);
       textAlign(CENTER);
       fill(255, 0, 0);
@@ -347,12 +421,861 @@ class Builder extends Villagers {
     }
   }
 
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 4) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
   void trade () {
-    if (isThereCurrentItem && inventory.numberOfWoodLogs >= 10 || anotherItem) {
+    if (isThereCurrentItem && inventory.numberOfWoodLogs >= 10 || anotherItem || farFarAway == 1) {
       key4.addInInventory();
       axe.removeFromInventory();
+      removeCurrentItem();
     } else {
       countSeconds = millis();
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Hunter extends Villagers {
+  float time, countSeconds;
+  Fish fish;
+  Key3 key3;
+  Hunter() {
+    super();
+    Xplus = 3100;
+    Yplus = 1900;
+    fish = new Fish();
+    key3 = new Key3();
+    tradeOpen = false;
+    countSeconds = millis();
+  }
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Hunter", width/2, 180);
+    textSize (25);
+    String VText = "Hi, look... Because of those monsters, there's no prey left and the village is running out of food. Can you get something? At least three fish would come in handy, I'll give you anything for it! Even the rare part of the key!";
+    text (VText, width/2, height/2 + 45, 700, 400);
+    noFill();
+    image (arrow, width/2, 400);
+    image (fish.item, giveX, giveY);
+    text (3, giveX - 40, giveY + 47);
+    image (key3.item, getX, getY);
+    if (inventory.numberOfFishes < 3) {
+      image (cross, giveX, giveY);
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void trade () {
+    if (inventory.numberOfFishes >= 3) {
+      key3.addInInventory();
+      inventory.numberOfFishes -= 3;
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (inventory.numberOfFishes < 3) {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (inventory.numberOfFishes < 3) {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Fisherman extends Villagers {
+  FishingRod rod;
+  Hoe hoe;
+  Builder builder;
+  float time, countSeconds;
+  boolean anotherItem;
+  Fisherman() {
+    super();
+    Xplus = 2850;
+    Yplus = 2020;
+    rod = new FishingRod();
+    hoe = new Hoe();
+    builder = new Builder();
+    tradeOpen = false;
+  }
+
+  void timer () {
+    time = int((millis() - countSeconds) /1000);
+    if (time <= 1) {
+      textSize (50);
+      textAlign(CENTER);
+      fill(255, 0, 0);
+      text ("Maybe I can you use it somewhere else first", width/2, height/2);
+      textSize (20);
+      noFill();
+      textAlign(CORNER);
+    }
+  }
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Fisherman", width/2, 180);
+    textSize (25);
+    String VText = "Hi, I'm a fisherman and unfortunately my rod broke. Could you get me one? If you wanted, I could give you a hoe for it, I won't use it anyway.";
+    text (VText, width/2, height/2 + 45, 700, 400);
+    noFill();
+    image (arrow, width/2, 400);
+    image (rod.item1, giveX, giveY);
+    image (hoe.item, getX, getY);
+    if (!isThereCurrentItem) {
+      image (cross, giveX, giveY);
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void isThereNeededItem () {
+    inventory.isKey3In = false;
+    inventory.isFishingRodIn = false;
+    for (Items item : inventory.items) {
+      if (item.id == 9) {
+        if (inventory.isFishingRodIn == false) {
+          isThereCurrentItem = true;
+          inventory.isFishingRodIn = true;
+        } else {
+          isThereCurrentItem = false;
+        }
+      }
+      if (item.id == 15) {
+        if (inventory.isKey3In == false) {
+          anotherItem = true;
+          inventory.isKey3In = true;
+        } else {
+          anotherItem = false;
+        }
+      }
+    }
+  }
+
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 9) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
+  void trade () {
+    if (isThereCurrentItem && inventory.numberOfFishes >= 3 || anotherItem) {
+      hoe.addInInventory();
+      removeCurrentItem();
+      builder.farFarAway = 1;
+    } else {
+      countSeconds = millis();
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Farmer extends Villagers {
+  Wheat wheat;
+  Hoe hoe;
+  boolean anotherItem;
+  Farmer() {
+    super();
+    Xplus = 2370;
+    Yplus = 2150;
+    wheat = new Wheat();
+    hoe = new Hoe();
+    tradeOpen = false;
+  }
+
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Farmer", width/2, 180);
+    textSize (25);
+    String VText = "Hi, my helper, the bastard, recently ruined my hoe. I would really like you to get one. I'll give you some of the wheat I grew for exchange.";
+    text (VText, width/2, height/2 + 45, 700, 400);
+    noFill();
+    image (arrow, width/2, 400);
+    image (hoe.item, giveX, giveY);
+    image (wheat.item, getX, getY);
+    if (!isThereCurrentItem) {
+      image (cross, giveX, giveY);
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void isThereNeededItem () {
+    inventory.isHoeIn = false;
+    for (Items item : inventory.items) {
+      if (item.id == 3) {
+        if (inventory.isHoeIn == false) {
+          isThereCurrentItem = true;
+          inventory.isHoeIn = true;
+        } else {
+          isThereCurrentItem = false;
+        }
+      }
+    }
+  }
+
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 3) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
+  void trade () {
+    if (isThereCurrentItem) {
+      wheat.addInInventory();
+      removeCurrentItem();
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Miller extends Villagers {
+  Wheat wheat;
+  Coke coke;
+  boolean anotherItem;
+  Miller() {
+    super();
+    Xplus = 2875;
+    Yplus = 2730;
+    wheat = new Wheat();
+    coke = new Coke();
+    tradeOpen = false;
+  }
+
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Miller", width/2, 180);
+    textSize (25);
+    String VText = "Hi, I don't want to delay you, but if you have any wheat, give it to me. I'll give you white powder for that, I mean flour. Do you understand to me?";
+    text (VText, width/2, height/2 + 45, 700, 400);
+    noFill();
+    image (arrow, width/2, 400);
+    image (wheat.item, giveX, giveY);
+    image (coke.item, getX, getY);
+    if (!isThereCurrentItem) {
+      image (cross, giveX, giveY);
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void isThereNeededItem () {
+    inventory.isWheatIn = false;
+    for (Items item : inventory.items) {
+      if (item.id == 7) {
+        if (inventory.isWheatIn == false) {
+          isThereCurrentItem = true;
+          inventory.isWheatIn = true;
+        } else {
+          isThereCurrentItem = false;
+        }
+      }
+    }
+  }
+
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 7) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
+  void trade () {
+    if (isThereCurrentItem) {
+      coke.addInInventory();
+      removeCurrentItem();
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Baker extends Villagers {
+  Cake cake;
+  Coke coke;
+  boolean anotherItem;
+  Baker() {
+    super();
+    Xplus = 3235;
+    Yplus = 3000;
+    cake = new Cake();
+    coke = new Coke();
+    tradeOpen = false;
+  }
+
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Baker", width/2, 180);
+    textSize (25);
+    String VText = "Hi, I'm looking for such a white powder. You might know it as snow, sugar or flour! If you can get any, please give me some! I pay for cakes!";
+    text (VText, width/2, height/2 + 45, 700, 400);
+    noFill();
+    image (arrow, width/2, 400);
+    image (coke.item, giveX, giveY);
+    image (cake.item, getX, getY);
+    if (!isThereCurrentItem) {
+      image (cross, giveX, giveY);
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void isThereNeededItem () {
+    inventory.isCokeIn = false;
+    for (Items item : inventory.items) {
+      if (item.id == 11) {
+        if (inventory.isCokeIn == false) {
+          isThereCurrentItem = true;
+          inventory.isCokeIn = true;
+        } else {
+          isThereCurrentItem = false;
+        }
+      }
+    }
+  }
+
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 11) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
+  void trade () {
+    if (isThereCurrentItem) {
+      cake.addInInventory();
+      removeCurrentItem();
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Administrator extends Villagers {
+  Cake cake;
+  Paper paper;
+  boolean anotherItem;
+  Administrator() {
+    super();
+    Xplus = 2578;
+    Yplus = 2520;
+    cake = new Cake();
+    paper = new Paper();
+    tradeOpen = false;
+  }
+
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Administrator", width/2, 180);
+    textSize (25);
+    String VText = "Good day! I'm the administrator of this village and I don't think you're allowed to be here, do you? Anyway, if you give me a cake, I'd think about it ;) But I'll fine you anyway!";
+    text (VText, width/2, height/2 + 45, 700, 400);
+    noFill();
+    image (arrow, width/2, 400);
+    image (cake.item, giveX, giveY);
+    image (paper.item, getX, getY);
+    if (!isThereCurrentItem) {
+      image (cross, giveX, giveY);
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void isThereNeededItem () {
+    inventory.isCakeIn = false;
+    for (Items item : inventory.items) {
+      if (item.id == 6) {
+        if (inventory.isCakeIn == false) {
+          isThereCurrentItem = true;
+          inventory.isCakeIn = true;
+        } else {
+          isThereCurrentItem = false;
+        }
+      }
+    }
+  }
+
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 6) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
+  void trade () {
+    if (isThereCurrentItem) {
+      paper.addInInventory();
+      removeCurrentItem();
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Teacher extends Villagers {
+  Blacksmith bl;
+  Key2 key2;
+  Paper paper;
+  boolean anotherItem;
+  Teacher() {
+    super();
+    Xplus = 2630;
+    Yplus = 2060;
+    key2 = new Key2();
+    paper = new Paper();
+    tradeOpen = false;
+    giveX = 480;
+    giveY = 440;
+    getX = 820;
+    getY = 440;
+    bl = new Blacksmith();
+  }
+
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Teacher", width/2, 180);
+    textSize (25);
+    String VText = "Uhhh ... Working with those kids is really tiring! I still have to reprimand them and tell them what to do. Wouldn't you at least have some paper? I have a piece of key here, I don't know what it's made for, but you'll definitely figure it out!";
+    text (VText, width/2, height/2 + 45, 700, 400);
+    noFill();
+    image (arrow, width/2, 440);
+    image (paper.item, giveX, giveY);
+    image (key2.item, getX, getY);
+    if (!isThereCurrentItem) {
+      image (cross, giveX, giveY);
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void isThereNeededItem () {
+    inventory.isPaperIn = false;
+    for (Items item : inventory.items) {
+      if (item.id == 8) {
+        if (inventory.isPaperIn == false) {
+          isThereCurrentItem = true;
+          inventory.isPaperIn = true;
+        } else {
+          isThereCurrentItem = false;
+        }
+      }
+    }
+  }
+
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 8) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
+  void trade () {
+    if (isThereCurrentItem) {
+      bl.hammer1 = 1;
+      key2.addInInventory();
+      removeCurrentItem();
+    }
+  }
+
+  void tradeButton () {
+    imageMode(CENTER);
+    if (mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreenBig, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGreyBig, tradeButtonX, tradeButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (isThereCurrentItem) {
+        image (tradeButtonGreen, tradeButtonX, tradeButtonY);
+      } else {
+        image (tradeButtonGrey, tradeButtonX, tradeButtonY);
+      }
+      i30 = 0;
+    }
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+class Blacksmith extends Villagers {
+  Key1 key1;
+  Hammer hammer;
+  int hammer1;
+  boolean anotherItem;
+  int z = 0;
+  Blacksmith() {
+    super();
+    Xplus = 3300;
+    Yplus = 2075;
+    key1 = new Key1();
+    hammer = new Hammer();
+    tradeOpen = false;
+    hammer1 = 0;
+  }
+
+
+  void tradeDisplay () {
+    imageMode(CENTER);
+    rectMode (CENTER);
+    textAlign(CENTER);
+    strokeWeight(10);
+    stroke (0);
+    fill (0);
+    image (tradeScreen, width/2, height/2);
+    textSize (60);
+    text ("Blacksmith", width/2, 180);
+    textSize (25);
+    if (hammer1 == 1) {
+      String VText = "Hey buddy, let me just be! I'm having really bad day!";
+      text (VText, width/2, height/2 + 45, 700, 400);
+    } else {
+      String VText = "Uhhh ... Working with those kids is really tiring! I still have to reprimand them and tell them what to do. Wouldn't you at least have some paper? I have a piece of key here, I don't know what it's made for, but you'll definitely figure it out!";
+      text (VText, width/2, height/2 + 45, 700, 400);
+    }
+    noFill();
+    image (arrow, width/2, 440);
+    if (hammer1 == 1) {
+    } else {
+      image (hammer.item, giveX, giveY);
+      image (key1.item, getX, getY);
+      if (!isThereCurrentItem) {
+        image (cross, giveX, giveY);
+      }
+    }
+    rect (giveX, giveY, 110, 110);
+    rect (getX, getY, 110, 110);
+    imageMode(CORNER);
+    rectMode (CORNER);
+    strokeWeight(2);
+    textAlign(CORNER);
+  }
+
+  void lostHammer () {
+    if (hammer1 == 1 && z == 0) {
+      hammer.itemX1 = (int) random (10, 3480);
+      hammer.itemY1 = (int) random (10, 3480);
+      z++;
+    }
+  }
+
+  void isThereNeededItem () {
+    inventory.isHammerIn = false;
+    for (Items item : inventory.items) {
+      if (item.id == 5) {
+        if (inventory.isHammerIn == false) {
+          isThereCurrentItem = true;
+          inventory.isHammerIn = true;
+        } else {
+          isThereCurrentItem = false;
+        }
+      }
+    }
+  }
+
+
+  void removeCurrentItem () {
+    for (int i = inventory.items.size() - 1; i >= 0; i--) {
+      Items item = inventory.items.get(i);
+      if (item.id == 5) {
+        inventory.items.remove(i);
+        isThereCurrentItem = false;
+      }
+    }
+  }
+
+
+
+  void trade () {
+    if (isThereCurrentItem) {
+      key1.addInInventory();
+      removeCurrentItem();
     }
   }
 
