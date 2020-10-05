@@ -81,7 +81,7 @@ class ShootingArray {
   }
 
   void newShot () {
-    if (gameHasStarted) {
+    if (gameHasStarted && mouseButton == LEFT) {
       SA.add(new Shot());
     }
   }

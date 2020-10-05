@@ -5,14 +5,14 @@ class backGround {
   PImage background;
 
   backGround () {
-    //background = requestImage("BackGround.png");
+    background = requestImage("BackGround.png");
     backgroundX = -2001;
     backgroundY = -2401;
   }
 
   void display() {
     imageMode (CORNER);
-    //image (background, backgroundX, backgroundY);
+    image (background, backgroundX, backgroundY);
   }
 
   void keyMoveBackgroundCONTROL () {

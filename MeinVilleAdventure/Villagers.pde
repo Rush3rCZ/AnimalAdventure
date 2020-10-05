@@ -103,7 +103,7 @@ class VillagerFunction {
     admin.isThereNeededItem();
     teacher.isThereNeededItem();
     blacksmith.isThereNeededItem();
-    blacksmith.lostHammer();
+    //blacksmith.lostHammer();
     builder.timer();
     fisherman.timer();
   }
@@ -160,7 +160,7 @@ class Villagers {
   void click () {
     x = background.backgroundX + Xplus;
     y = background.backgroundY + Yplus;
-    if (!tradeOpen && mouseX < x + 70 && mouseX > x - 70 && mouseY < y + 95 && mouseY > y - 95) {
+    if (!tradeOpen && mouseX < x + 70 && mouseX > x - 70 && mouseY < y + 95 && mouseY > y - 95 && mouseButton == RIGHT) {
       currentTrade = true;
       gameHasStarted = false;
       tradeOpen = true;
@@ -168,7 +168,7 @@ class Villagers {
     if (currentTrade && mouseX < tradeButtonX + 100 && mouseX > tradeButtonX - 100 && mouseY < tradeButtonY + 25 && mouseY > tradeButtonY - 25) {
       trade();
     }
-    if (currentTrade && mouseX < crossX + 50 && mouseX > crossX - 50 && mouseY < crossY + 50 && mouseY > crossY - 50) {
+    if (currentTrade && mouseX < crossX + 50 && mouseX > crossX - 50 && mouseY < crossY + 50 && mouseY > crossY - 50 && mouseButton == LEFT) {
       gameHasStarted = true;
       tradeOpen = false;
       currentTrade = false;
@@ -1077,9 +1077,9 @@ class Administrator extends Villagers {
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 class Teacher extends Villagers {
-  Blacksmith bl;
   Key2 key2;
   Paper paper;
+  Hammer hammer;
   boolean anotherItem;
   Teacher() {
     super();
@@ -1087,12 +1087,12 @@ class Teacher extends Villagers {
     Yplus = 2060;
     key2 = new Key2();
     paper = new Paper();
+    hammer = new Hammer();
     tradeOpen = false;
     giveX = 480;
     giveY = 440;
     getX = 820;
     getY = 440;
-    bl = new Blacksmith();
   }
 
 
@@ -1153,7 +1153,7 @@ class Teacher extends Villagers {
 
   void trade () {
     if (isThereCurrentItem) {
-      bl.hammer1 = 1;
+      spawnHammer = true;
       key2.addInInventory();
       removeCurrentItem();
     }
@@ -1187,7 +1187,6 @@ class Teacher extends Villagers {
 class Blacksmith extends Villagers {
   Key1 key1;
   Hammer hammer;
-  int hammer1;
   boolean anotherItem;
   int z = 0;
   Blacksmith() {
@@ -1197,7 +1196,6 @@ class Blacksmith extends Villagers {
     key1 = new Key1();
     hammer = new Hammer();
     tradeOpen = false;
-    hammer1 = 0;
   }
 
 
@@ -1212,38 +1210,31 @@ class Blacksmith extends Villagers {
     textSize (60);
     text ("Blacksmith", width/2, 180);
     textSize (25);
-    if (hammer1 == 1) {
+    if (!spawnHammer) {
       String VText = "Hey buddy, let me just be! I'm having really bad day!";
       text (VText, width/2, height/2 + 45, 700, 400);
     } else {
-      String VText = "Uhhh ... Working with those kids is really tiring! I still have to reprimand them and tell them what to do. Wouldn't you at least have some paper? I have a piece of key here, I don't know what it's made for, but you'll definitely figure it out!";
+      String VText = "Hey, how are you? Remember how I said I'm having a bad day? I lost my hammer and I still didn't find it anywhere. Would you walk around and try to find it? I'll give you the last part of the key!";
       text (VText, width/2, height/2 + 45, 700, 400);
     }
     noFill();
-    image (arrow, width/2, 440);
-    if (hammer1 == 1) {
+    if (!spawnHammer) {
     } else {
+      image (arrow, width/2, 440);
+      rect (giveX, giveY, 110, 110);
+      rect (getX, getY, 110, 110);
       image (hammer.item, giveX, giveY);
       image (key1.item, getX, getY);
       if (!isThereCurrentItem) {
         image (cross, giveX, giveY);
       }
     }
-    rect (giveX, giveY, 110, 110);
-    rect (getX, getY, 110, 110);
     imageMode(CORNER);
     rectMode (CORNER);
     strokeWeight(2);
     textAlign(CORNER);
   }
 
-  void lostHammer () {
-    if (hammer1 == 1 && z == 0) {
-      hammer.itemX1 = (int) random (10, 3480);
-      hammer.itemY1 = (int) random (10, 3480);
-      z++;
-    }
-  }
 
   void isThereNeededItem () {
     inventory.isHammerIn = false;

@@ -1,3 +1,4 @@
+
 class inventory {
   int widthCount, heightCount, postX, postY, widthOfRect, heightOfRect, mouseWidth, mouseHeight, numberOfGrass, numberOfRocks, col, row, numberOfHealingPots, numberOfWoodLogs, numberOfFishes;
   PImage inventoryUp, inventoryDown, inInventorySlot;

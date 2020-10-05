@@ -2,6 +2,7 @@ class Items { //<>//
   int itemX, itemY, itemX1, itemY1, widthOfItem, heightOfItem, placeInInventory, t, inInventory, id;
   PImage item;
   int z;
+  boolean spawn;
   Items () {
     widthOfItem = 80;
     heightOfItem = 80;
@@ -159,17 +160,24 @@ class Axe extends Items {
 
 //------------------------------------------------------------------------//
 class Hammer extends Items {
-  Blacksmith bl;
+  int zj;
   Hammer () {
     super();
     id = 5;
     item = loadImage ("hammer.png");
     item.resize (widthOfItem, heightOfItem);
-    bl = new Blacksmith();
+    itemX = -5;
+    itemY = -5;
+    zj = 0;
   }
 
   void display () {
-    if (bl.hammer1 == 1) {
+    if (spawnHammer) {
+      if (zj < 1) {
+        itemX1 = 1000;
+        itemY1 = 1000;
+        zj++;
+      }
       itemX = background.backgroundX + itemX1;
       itemY = background.backgroundY + itemY1;
       imageMode (CENTER);
@@ -179,16 +187,19 @@ class Hammer extends Items {
   }
 
   boolean clicked () {
-    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2) {
+    if (mouseX < itemX + widthOfItem/2 && mouseX > itemX - widthOfItem/2 && mouseY < itemY + heightOfItem/2 && mouseY > itemY - heightOfItem/2 && mouseButton == LEFT) {
       return true;
     } else {
       return false;
     }
   }
 
+
   void addInInventory () {
-    if (clicked() && bl.hammer1 == 1) {
+    if (clicked()) {
       inventory.items.add(this);
+      itemX1 = -100;
+      itemY1 = -100;
     }
   }
 }
@@ -296,7 +307,7 @@ class FishingRod extends Items {
         image(item1, mouseX + 20, mouseY + 10);
         noFill();
         noStroke();
-        if (mousePressed && time >= 2) {
+        if (mousePressed && time >= 1 && mouseButton == RIGHT) {
           fishArray.ArrayFish.add(new Fish());
           countSeconds = millis();
         }
@@ -543,7 +554,7 @@ class ArrayFishes {
     for (int i = ArrayFish.size() - 1; i >= 0; i--) {
       Fish f = ArrayFish.get(i);
       f.display();
-      if (mousePressed && f.clicked()) {
+      if (mousePressed && f.clicked() && mouseButton == LEFT) {
         f.postFish = new PVector (mouseX, mouseY);
         f.difference = PVector.sub (f.postFish, f.playerFish);
         f.animation = true;
@@ -621,7 +632,7 @@ class ArrayHealingPotion {
     for (int i = ArrayHealing.size() - 1; i >= 0; i--) {
       HealingPotion helingPot = ArrayHealing.get(i);
       helingPot.display();
-      if (mousePressed && helingPot.clicked()) {
+      if (mousePressed && helingPot.clicked() && mouseButton == LEFT) {
         inventory.numberOfHealingPots++;
         ArrayHealing.remove(i);
       }
@@ -724,6 +735,7 @@ class AddItems {
   void display() {
     fishingRod.timer();
     fishingRod.catchFish();
+    hammer.display();
   }
 
   void itemUse () {
@@ -732,7 +744,7 @@ class AddItems {
     grass.addInInventory();
     woodLog.addInInventory ();
     fish.addInInventory ();
-    hammer.addInInventory ();
+    hammer.addInInventory();
 
     healingPotion.removeFromInventory ();
     rock.removeFromInventory ();

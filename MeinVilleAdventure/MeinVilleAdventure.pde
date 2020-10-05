@@ -2,7 +2,7 @@ import processing.sound.*;  //<>//
 SoundFile clak;
 //SoundFile menu;
 //SoundFile game;
-Blacksmith bl;
+Items item;
 
 backGround background;
 player player;
@@ -22,12 +22,12 @@ VillagerFunction villagerFunction;
 AddItems addItems;
 TreeArray treeArray;
 ArrayFishes fishArray;
-boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen;
+boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen, spawnHammer;
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
   size (1300, 700);
-  bl = new Blacksmith();
+  item = new Items();
 
   background = new backGround();
   player = new player();
@@ -151,8 +151,7 @@ void draw () {
   //text ("Time:  " + arrayHealingPotion.time + "s", 20, 320 + 20);
   ////text ("EnemyInterval:  " + arrayHealingPotion.interval + "s", 20, 320 + 40);
   //text ("RestartTime:  " + difficulty.restartTime + "s", 20, 320 + 60);
-  //text ("HealingIn:  " +inventory.numberOfHealingPots, 20, 320 + 60);
-  text ("hammer1:  " + bl.hammer1, 20, 320 + 100);
+  //text ("item.spawn:  " + spawnHammer, 20, 320 + 60);
   //text ("FishArray:  " + fishArray.ArrayFish.size(), 20, 360);
   //noFill();
 
