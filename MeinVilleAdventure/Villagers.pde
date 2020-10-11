@@ -172,6 +172,18 @@ class Villagers {
       gameHasStarted = true;
       tradeOpen = false;
       currentTrade = false;
+      player.moveRightPlayer = false;
+      player.moveLeftPlayer = false;
+      player.moveUpPlayer = false;
+      player.moveDownPlayer = false;
+      background.moveRightBackground = false;
+      background.moveLeftBackground = false;
+      background.moveUpBackground = false;
+      background.moveDownBackground = false;
+      player.imageRight  = false;
+      player.imageDown = false;
+      player.imageUp = false;
+      player.imageLeft = false;
     }
   }
 

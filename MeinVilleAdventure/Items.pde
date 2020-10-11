@@ -75,6 +75,7 @@ class Grass extends Items {
 }
 //------------------------------------------------------------------------//
 class Rock extends Items {
+  int water;
   Rock () {
     super();
     id = 2;
@@ -82,6 +83,9 @@ class Rock extends Items {
     item.resize (widthOfItem, heightOfItem);
     itemX1 = (int) random (0, 3400);
     itemY1 = (int) random (1000, 3400);
+    itemX = background.backgroundX + itemX1;
+    itemY = background.backgroundY + itemY1;
+    water = 0;
   }
 
   void display () {
@@ -91,6 +95,7 @@ class Rock extends Items {
     image (item, itemX, itemY);  
     imageMode (CORNER);
   }
+
 
   void addInInventory () {
     if (inventory.numberOfRocks > 0) {
@@ -307,7 +312,7 @@ class FishingRod extends Items {
         image(item1, mouseX + 20, mouseY + 10);
         noFill();
         noStroke();
-        if (mousePressed && time >= 1 && mouseButton == RIGHT) {
+        if (mousePressed && time >= 1 && mouseButton == LEFT) {
           fishArray.ArrayFish.add(new Fish());
           countSeconds = millis();
         }

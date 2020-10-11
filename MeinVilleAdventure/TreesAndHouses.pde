@@ -32,7 +32,7 @@ class Houses {
   void displayMillUnder() {
     millX = background.backgroundX + 2800;
     millY = background.backgroundY + 600;
-    if (millY + 500 < player.playerY  + 90) {
+    if (millY + 500 <= player.playerY  + 90) {
       imageMode (CENTER);
       image (mill, millX, millY);
       imageMode (CORNER);
@@ -42,7 +42,7 @@ class Houses {
   void displayMillAbove() {
     millX = background.backgroundX + 2800;
     millY = background.backgroundY + 600;
-    if (millY + 500 > player.playerY  + 90) {
+    if (millY + 500 >= player.playerY  + 90) {
       imageMode (CENTER);
       image (mill, millX, millY);
       imageMode (CORNER);
@@ -232,7 +232,7 @@ class Tree {
         noFill();
         noStroke();
       }
-      if (!chopedDown && item.id == 4 && mousePressed && mouseX < x + 45 && mouseX > x - 45 && mouseY < y + 150 && mouseY > y - 150 && mouseButton == RIGHT) { // item.id == 4 &&
+      if (!chopedDown && item.id == 4 && mousePressed && mouseX < x + 45 && mouseX > x - 45 && mouseY < y + 150 && mouseY > y - 150 && mouseButton == LEFT) { // item.id == 4 &&
         ArrayLog.add(new WoodLog());
         chopedDown = true;
       }

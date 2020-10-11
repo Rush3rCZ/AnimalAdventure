@@ -6,7 +6,7 @@ class Enemy {
 
   Enemy () {
     playerXY = new PVector (player.playerX, player.playerY);
-    position = new PVector (random (background.backgroundX, background.backgroundX + 3500), random (background.backgroundY, background.backgroundY + 3500));
+    position = new PVector (0, 0);
     velocity = new PVector (0, 0);
     acceleration = new PVector (0, 0);
     enemy = loadImage ("enemy.png");
@@ -15,6 +15,19 @@ class Enemy {
 
   void display () {
     if (s == 0) {
+      int spawnPlace =(int) random (1, 4);
+      if (spawnPlace == 1) {
+        position = new PVector (random (background.backgroundX, background.backgroundX + 3500), random (background.backgroundY - 100, background.backgroundY));
+      }
+      if (spawnPlace == 2) {
+        position = new PVector (random (background.backgroundX, background.backgroundX + 100), random (background.backgroundY, background.backgroundY + 3500));
+      }
+      if (spawnPlace == 3) {       
+        position = new PVector (random (background.backgroundX, background.backgroundX + 3500), random (background.backgroundY, background.backgroundY + 100));
+      }
+      if (spawnPlace == 4) {
+        position = new PVector (random (background.backgroundX - 100, background.backgroundX), random (background.backgroundY, background.backgroundY + 3500));
+      }
       HP = difficulty.diffHP;
       s = 1;
     }
@@ -139,7 +152,7 @@ class EnemyArray {
   void newEnemy () {
     if (time == interval) {
       if (u < difficulty.numberOfEnemies) {
-        //enemyArray1.add (new Enemy());                                              //-------------------------------------------------//
+        enemyArray1.add (new Enemy());                                              //-------------------------------------------------//
         u++;
       }
     }

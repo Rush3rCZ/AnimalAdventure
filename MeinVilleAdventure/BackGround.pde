@@ -1,13 +1,14 @@
 class backGround {
-  int backgroundX, backgroundY;
+  int backgroundX, backgroundY, restPost;
   boolean moveRightBackground, moveLeftBackground, moveUpBackground, moveDownBackground; //BACKGROUND
   boolean rightSide, leftSide, upSide, downSide; //PLAYER in the corner
   PImage background;
 
   backGround () {
     background = requestImage("BackGround.png");
-    backgroundX = -2001;
-    backgroundY = -2401;
+    backgroundX = -2000;
+    backgroundY = -2400;
+    restPost = 0;
   }
 
   void display() {
@@ -54,7 +55,7 @@ class backGround {
   }
 
   void endBackground () {
-    if (backgroundX > 0) {
+    if (backgroundX >= 0) {
       moveLeftBackground = false;
       leftSide = true;
       rightSide = true;
@@ -62,7 +63,7 @@ class backGround {
       leftSide = false;
       rightSide = false;
     }
-    if (backgroundY > 0) {
+    if (backgroundY >= 0) {
       moveUpBackground = false;
       upSide = true;
       downSide = true;
@@ -70,12 +71,12 @@ class backGround {
       downSide = false;
       upSide = false;
     }
-    if (backgroundY < - 2800) {
+    if (backgroundY <= - 2800) {
       moveDownBackground = false;
       downSide = true;
       upSide = true;
-    } 
-    if (backgroundX < - 2100) {
+    }
+    if (backgroundX <= - 2200) {
       moveRightBackground = false;
       rightSide = true;
       leftSide = true;
@@ -84,7 +85,7 @@ class backGround {
 
   void moveBackground () {
     if (moveRightBackground) {
-      if (player.playerX >= width/2 - 6) {
+      if (player.playerX >= width/2 - 5) {
         player.moveLeftPlayer = false;
         player.nextY =  player.playerY;
         player.nextX = (player.playerX +  player.heightOfPlayer/2) +  player.speed;
@@ -95,7 +96,7 @@ class backGround {
       }
     }
     if (moveLeftBackground) {
-      if (player.playerX <= width/2 + 6) {
+      if (player.playerX <= width/2 + 5) {
         player.moveRightPlayer = false;
         player.nextY =  player.playerY;
         player.nextX = (player.playerX -  player.heightOfPlayer/2) -  player.speed;
@@ -106,7 +107,7 @@ class backGround {
       }
     }
     if (moveUpBackground) {
-      if (player.playerY <= height/2 + 6) {
+      if (player.playerY <= height/2 + 5) {
         player.moveDownPlayer = false;
         player.nextX =  player.playerX;
         player.nextY = (player.playerY -  player.heightOfPlayer/2) -  player.speed;
@@ -117,7 +118,7 @@ class backGround {
       }
     }
     if (moveDownBackground) {
-      if (player.playerY >= height/2 - 6) {
+      if (player.playerY >= height/2 - 5) {
         player.moveUpPlayer = false;
         player.nextX =  player.playerX;
         player.nextY = (player.playerY +  player.heightOfPlayer/2) +  player.speed;

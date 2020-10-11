@@ -228,9 +228,33 @@ class player {
   }
 
   void debugPlayer () {
-    if (key == 'r' || key == 'R') {
-      playerX = width/2;
-      playerY = height/2;
+    if (!background.rightSide) {
+      //fill (255, 0, 0);
+      //circle (playerX + 50, playerY, 30);
+      if (playerX <= 640) {
+        playerX = 650;
+      }
+    }
+    if (!background.leftSide) {
+      //fill (0, 255, 0);
+      //circle (playerX - 50, playerY, 30);
+      if (playerX >= 660) {
+        playerX = 650;
+      }
+    }
+    if (!background.upSide) {
+      //fill (0, 0, 255);
+      //circle (playerX, playerY - 120, 30);
+      if (playerY >= 360) {
+        playerY = 350;
+      }
+    }
+    if (!background.downSide) {
+      //fill (0);
+      //circle (playerX, playerY + 120, 30);
+      if (playerY <= 340) {
+        playerY = 350;
+      }
     }
   }
 }

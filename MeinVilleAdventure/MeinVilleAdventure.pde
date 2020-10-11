@@ -3,6 +3,7 @@ SoundFile clak;
 //SoundFile menu;
 //SoundFile game;
 Items item;
+Rock rock;
 
 backGround background;
 player player;
@@ -47,6 +48,7 @@ void setup () {
   addItems = new AddItems();
   treeArray = new TreeArray();
   fishArray = new ArrayFishes();
+  rock = new  Rock();
   welcomeScreenActivated = true;
   gameHasStarted = false;
   optionsAreOpened = false;
@@ -56,13 +58,13 @@ void setup () {
   readAStory = false;
   tradeOpen = false;
   clak = new SoundFile (this, "clak.mp3");
-  // menu = new SoundFile (this, "MenuSound.mp3");
+  //menu = new SoundFile (this, "MenuSound.mp3");
   //game = new SoundFile (this, "inGameSound.mp3");
 }
 
 
 void draw () {
-  //background (255);
+  background (255);
   buttons.soundsOff();
   if (welcomeScreenActivated) {
     welcomeScreen.musicInWelcomeAndOptions();  
@@ -94,10 +96,11 @@ void draw () {
     houses.displayMillAbove();
     houses.displayHouseAbove();
     treeArray.above();
-    inventory.display();
+    inventory.display(); 
     background.endBackground(); 
-    background.moveBackground(); 
-    player.movePlayer(); 
+    player.debugPlayer();
+    background.moveBackground();
+    player.movePlayer();
     player.playerBorders(); 
     buttons.displayInGame();
     player.healthBar();
@@ -139,8 +142,8 @@ void draw () {
   //fill (0);
   //text ("X: " + mouseX, mouseX, mouseY);
   //text ("Y: " + mouseY, mouseX, mouseY - 20);
-  ////text ("right: " + background.moveRightBackground, mouseX, mouseY);
-  ////text ("left: " + background.moveLeftBackground, mouseX, mouseY - 20);
+  text ("x: " + player.playerX, 20, 320);
+  text ("y: " + player.playerY, 20, 320 + 20);
   ////text ("up: " + background.moveUpBackground, mouseX, mouseY - 40);
   ////text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
   ////text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
@@ -153,6 +156,7 @@ void draw () {
   //text ("RestartTime:  " + difficulty.restartTime + "s", 20, 320 + 60);
   //text ("item.spawn:  " + spawnHammer, 20, 320 + 60);
   //text ("FishArray:  " + fishArray.ArrayFish.size(), 20, 360);
+  //text ("hue: " + hue(get(rock.itemX, rock.itemY + 70)) + "saturation: " + saturation(get(rock.itemX, rock.itemY + 70)) + "brightness: " + brightness(get(rock.itemX, rock.itemY + 70)), mouseX, mouseY);
   //noFill();
 
 
@@ -167,7 +171,6 @@ void keyPressed() {
     arrayHealingPotion.useHeal();
     background.keyMoveBackgroundCONTROL();
     player.keyMovePlayerCONTROL();
-    player.debugPlayer();
     inventory.openInventory();
   }
 }
