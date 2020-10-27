@@ -23,8 +23,8 @@ VillagerFunction villagerFunction;
 AddItems addItems;
 TreeArray treeArray;
 ArrayFishes fishArray;
-boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen, spawnHammer;
-int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31; // i používám pro ovládání zvuku v DRAW()
+boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen, spawnHammer, controlsAreOpened, firstLogIn;
+int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31, i32; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
   size (1300, 700);
@@ -139,13 +139,22 @@ void draw () {
     buttons.displayInReadAStory();
     buttons.buttonsGetBiggerInReadAStory();
   }
+  if (controlsAreOpened) {
+    buttons.buttonsGetsBiggerInControls();
+  }
+  if (firstLogIn) {
+    pausedDisplayedTextures();
+    buttons.displayInFirstLog();
+    buttons.buttonsGetsBiggerInFirstLog();
+    gameHasStarted = false;
+  }
   //fill(255, 0, 0);
   //fill (0);
   //text ("X: " + mouseX, mouseX, mouseY);
   //text ("Y: " + mouseY, mouseX, mouseY - 20);
   //text ("x: " + player.playerX, 20, 320);
   //text ("y: " + player.playerY, 20, 320 + 20);
-  text (" difficulty.changeAfterStart: " +  difficulty.changeAfterStart, 20, 450);
+  //text (" Dtime: " +  buttons.Dtime, 20, 450);
   //text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
   //text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
   //text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);

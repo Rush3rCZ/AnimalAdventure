@@ -1,16 +1,26 @@
 class buttons {
-  int inGameOptionsButtonX, inGameOptionsButtonY, SkinPennyX, SkinPennyY, SkinTeddyX, SkinTeddyY, soundButtonX, soundButtonY, onX, onY, offX, offY, onX2, onY2, offX2, offY2, language, languageX, languageY;
-  int backToTheGameButtonX, backToTheGameButtonY, backToTheMenuButtonX, backToTheMenuButtonY, backToTheOptionsButtonX, backToTheOptionsButtonY, fpsButtonX, fpsButtonY, warningButtonX, warningButtonY;
-  int  c, widthOfButtons, heightOfButtons, widthOfBack, heightOfBack, optionsX, optionsY, playX, playY, backX, backY, readAStoryX, readAStoryY, easyButtonX, mediumButtonX, hardButtonX, easyButtonY, mediumButtonY, hardButtonY;
-  PImage playButton, optionsButton, backButton, inGameOptionsButtonPink, inGameOptionsButtonGreen, backToTheGameButton, playButtonBig, readAStoryButton, readAStoryButtonBig, onButton, offButton;
-  PImage backToTheMenuButton, backToTheOptionsButton, optionsButtonBig, backButtonBig, backToTheGameButtonBig, backToTheMenuButtonBig, backToTheOptionsButtonBig, soundButton, soundOffButton;
+  int inGameOptionsButtonX, inGameOptionsButtonY, SkinPennyX, SkinPennyY, SkinTeddyX, SkinTeddyY, soundButtonX, soundButtonY, onX, onY, offX, offY, onX2, onY2, offX2, offY2, language, languageX, languageY, controlsButtonX, controlsButtonY;
+  int backToTheGameButtonX, backToTheGameButtonY, backToTheMenuButtonX, backToTheMenuButtonY, backToTheOptionsButtonX, backToTheOptionsButtonY, fpsButtonX, fpsButtonY, warningButtonX, warningButtonY, crossX, crossY, anotherButtonX, anotherButtonY, firstLog1;
+  int  c, widthOfButtons, heightOfButtons, widthOfBack, heightOfBack, optionsX, optionsY, playX, playY, backX, backY, readAStoryX, readAStoryY, easyButtonX, mediumButtonX, hardButtonX, easyButtonY, mediumButtonY, hardButtonY, previousButtonX, previousButtonY;
+  PImage playButton, optionsButton, backButton, inGameOptionsButtonPink, inGameOptionsButtonGreen, backToTheGameButton, playButtonBig, readAStoryButton, readAStoryButtonBig, onButton, offButton, controlsButton, controlsButtonBig;
+  PImage backToTheMenuButton, backToTheOptionsButton, optionsButtonBig, backButtonBig, backToTheGameButtonBig, backToTheMenuButtonBig, backToTheOptionsButtonBig, soundButton, soundOffButton, anotherButton, anotherButtonBig, previousButton, previousButtonBig;
   PImage offButtonBig, onButtonBig, offButtonBig2, onButtonBig2, fpsButton, fpsOffButton, offButton2, onButton2, czechButton, czechButtonBig, englishButton, englishButtonBig;
-  PImage easyButton, mediumButton, hardButton, easyButtonBig, mediumButtonBig, hardButtonBig, warningButton, warningBubble;
+  PImage easyButton, mediumButton, hardButton, easyButtonBig, mediumButtonBig, hardButtonBig, warningButton, warningBubble, buttonsFunction, buttonsFunction2, cross1, cross1Big;
   boolean soundsOn, fpsOn;
   float Dtime, DcountSeconds;
 
 
   buttons () {
+    cross1 = loadImage("cross1.png");
+    previousButton = loadImage ("previousButton.png");
+    previousButtonBig = loadImage ("previousButton.png");
+    anotherButton = loadImage ("anotherButton.png");
+    anotherButtonBig = loadImage ("anotherButton.png");
+    cross1Big = loadImage("cross1.png");
+    buttonsFunction = loadImage ("ButtonsFunction.png");
+    buttonsFunction2 = loadImage ("ButtonsFunction2.png");
+    controlsButton = loadImage ("controlsButton.png");
+    controlsButtonBig = loadImage ("controlsButton.png");
     czechButton = loadImage ("czechButton.png");
     czechButtonBig = loadImage ("czechButton.png");    
     englishButton = loadImage ("englishButton.png");    
@@ -51,6 +61,9 @@ class buttons {
     hardButtonBig = loadImage ("hardButton.png");
     warningButton = loadImage ("warningButton.png");
     warningBubble = loadImage ("warningBubble.png");
+    cross1Big.resize(120, 120);
+    anotherButtonBig.resize(120, 120);
+    previousButtonBig.resize(120, 120);
     czechButtonBig.resize (220, 60);
     englishButtonBig. resize (220, 60);
     easyButtonBig.resize (370, 70);
@@ -76,6 +89,7 @@ class buttons {
     onButton2.resize (40, 40);
     offButtonBig2.resize (80, 60);
     onButtonBig2.resize (60, 60);
+    controlsButtonBig.resize (85, 85);
 
     //----------Určení pozice tlačítek ----------//
     widthOfButtons = 500;
@@ -89,6 +103,7 @@ class buttons {
     playY = 450;
     backX = 75;
     backY = 75;
+    firstLog1 = 0;
     inGameOptionsButtonX = 40;
     inGameOptionsButtonY = 40;
     backToTheGameButtonX = width/2;
@@ -110,6 +125,103 @@ class buttons {
     fpsOn = true;
     c = 0;
     DcountSeconds = millis();
+  }
+
+  void displayInFirstLog  () {
+    if (firstLog1 == 0) {
+      imageMode (CENTER);
+      image (inGameOptionsButtonPink, inGameOptionsButtonX, inGameOptionsButtonY);
+      imageMode(CORNER);
+      image (object.grayBackground, 0, 0);
+      imageMode (CENTER);
+      if (language == 2) {
+        image (object.CzechStoryLine, width/2, height/2);
+      }
+      if (language == 1) {
+        image (object.EnglishStoryLine, width/2, height/2);
+      }
+      imageMode (CORNER);
+    }
+    if (firstLog1 == 1) {
+      imageMode (CENTER);
+      image (inGameOptionsButtonPink, inGameOptionsButtonX, inGameOptionsButtonY);
+      imageMode(CORNER);
+      image (object.grayBackground, 0, 0);
+      imageMode (CENTER);
+      image (buttonsFunction2, width/2, height/2);
+      imageMode (CORNER);
+    }
+  }
+
+  void buttonsGetsBiggerInFirstLog () {
+    imageMode (CENTER);
+
+
+    if (firstLog1 == 0) {
+      languageX = 1180;
+      languageY = 60;
+      anotherButtonX = 950;
+      anotherButtonY = 625;
+      if (mouseX < anotherButtonX + 50 && mouseX > anotherButtonX - 50 && mouseY < anotherButtonY + 50 && mouseY > anotherButtonY - 50) {
+        image (anotherButtonBig, anotherButtonX, anotherButtonY);
+        if (i31 < 1) {
+          clak.play();
+          i31 = 1;
+        }
+      } else {
+        image (anotherButton, anotherButtonX, anotherButtonY);
+        i31 = 0;
+      }
+
+
+      if (mouseX < languageX + 100 && mouseX > languageX - 100 && mouseY < languageY + 25 && mouseY > languageY - 25) {
+        if (language == 1) {
+          image (czechButtonBig, languageX, languageY);
+        }
+        if (language == 2) {
+          image (englishButtonBig, languageX, languageY);
+        }
+        if (i29 < 1) {
+          clak.play();
+          i29 = 1;
+        }
+      } else {
+        if (language == 1) {
+          image (czechButton, languageX, languageY);
+        }
+        if (language == 2) {
+          image (englishButton, languageX, languageY);
+        }
+        i29 = 0;
+      }
+    } 
+    if (firstLog1 == 1) {
+      anotherButtonX = 950;
+      anotherButtonY = 575;
+      previousButtonX = 350;
+      previousButtonY = 575;
+      if (mouseX < anotherButtonX + 50 && mouseX > anotherButtonX - 50 && mouseY < anotherButtonY + 50 && mouseY > anotherButtonY - 50) {
+        image (anotherButtonBig, anotherButtonX, anotherButtonY);
+        if (i31 < 1) {
+          clak.play();
+          i31 = 1;
+        }
+      } else {
+        image (anotherButton, anotherButtonX, anotherButtonY);
+        i31 = 0;
+      }
+      if (mouseX < previousButtonX + 50 && mouseX > previousButtonX - 50 && mouseY < previousButtonY + 50 && mouseY > previousButtonY - 50) {
+        image (previousButtonBig, previousButtonX, previousButtonY);
+        if (i31 < 1) {
+          clak.play();
+          i31 = 1;
+        }
+      } else {
+        image (previousButton, previousButtonX, previousButtonY);
+        i31 = 0;
+      }
+    }
+    imageMode (CENTER);
   }
 
   void soundsOff () {
@@ -161,6 +273,8 @@ class buttons {
     SkinPennyY = height/2 + 175;
     SkinTeddyX = width/2 - 75;
     SkinTeddyY = height/2 + 175;
+    controlsButtonX = 880;
+    controlsButtonY = 170;
     backX = 320;
     backY = 120;
     widthOfBack = 70;
@@ -376,6 +490,18 @@ class buttons {
       image (warningButton, warningButtonX, warningButtonY);
       i26 = 0;
     }
+
+    if (mouseX < controlsButtonX + 37 && mouseX > controlsButtonX - 37 && mouseY < controlsButtonY + 37 && mouseY > controlsButtonY - 37) {
+      image (controlsButtonBig, controlsButtonX, controlsButtonY);
+      if (i32 < 1) {
+        clak.play();
+        i32 = 1;
+      }
+    } else {
+      image (controlsButton, controlsButtonX, controlsButtonY);
+      i32 = 0;
+    }
+
     imageMode (CORNER);
     rectMode(CORNER);
   }
@@ -421,6 +547,26 @@ class buttons {
     } else {
       image (backToTheOptionsButton, backToTheOptionsButtonX, backToTheOptionsButtonY);
       i9 = 0;
+    }
+    imageMode (CORNER);
+  }
+
+  void buttonsGetsBiggerInControls () {
+    crossX = 1025;
+    crossY = 75;
+    imageMode(CORNER);
+    image (object.grayBackground, 0, 0);
+    imageMode (CENTER);
+    image (buttonsFunction, width/2, height/2);
+    if (mouseX < crossX + 50 && mouseX > crossX - 50 && mouseY < crossY + 50 && mouseY > crossY - 50) {
+      image (cross1Big, crossX, crossY);
+      if (i31 < 1) {
+        clak.play();
+        i31 = 1;
+      }
+    } else {
+      image (cross1, crossX, crossY);
+      i31 = 0;
     }
     imageMode (CORNER);
   }
@@ -512,6 +658,8 @@ class buttons {
 
   void buttonsGetBiggerInOptions () {
     stroke (0);
+    controlsButtonX = 1100;
+    controlsButtonY = 280;
     onX = 360;
     onY = 510;
     offX = 225;
@@ -542,6 +690,17 @@ class buttons {
     SkinTeddyY = height/2 + 225;
     imageMode (CENTER);
     rectMode (CENTER);
+
+    if (mouseX < controlsButtonX + 37 && mouseX > controlsButtonX - 37 && mouseY < controlsButtonY + 37 && mouseY > controlsButtonY - 37) {
+      image (controlsButtonBig, controlsButtonX, controlsButtonY);
+      if (i32 < 1) {
+        clak.play();
+        i32 = 1;
+      }
+    } else {
+      image (controlsButton, controlsButtonX, controlsButtonY);
+      i32 = 0;
+    }
 
     if (mouseX < backX + widthOfBack/2 && mouseX > backX - widthOfBack/2 && mouseY < backY + heightOfBack/2 && mouseY > backY - heightOfBack/2) {
       backButtonBig.resize (150, 150);
@@ -773,6 +932,9 @@ class buttons {
 
   void clickOnButton () {
     if (welcomeScreenActivated && mouseX < playX + widthOfButtons/2 && mouseX > playX - widthOfButtons/2 && mouseY < playY + heightOfButtons/2 && mouseY > playY - heightOfButtons/2) {
+      if (firstLog1 == 0) {
+        firstLogIn = true;
+      }
       welcomeScreen.displayLoadingScreen();
       enemyArray.timeStarts = true;
       difficulty.updateDiff = 0;
@@ -797,6 +959,7 @@ class buttons {
     }
     if (optionsAreOpened && mouseX < backX + widthOfBack/2 && mouseX > backX - widthOfBack/2 && mouseY < backY + heightOfBack/2 && mouseY > backY - heightOfBack/2) {
       welcomeScreenActivated = true;
+      controlsAreOpened  = false;
       gameHasStarted = false;
       optionsAreOpened = false;
     }
@@ -805,6 +968,13 @@ class buttons {
       gamePaused = true;
     }
     if (readAStory && mouseX < languageX + 100 && mouseX > languageX - 100 && mouseY < languageY + 25 && mouseY > languageY - 25) {
+      if (language == 1) {
+        language = 2;
+      } else {
+        language = 1;
+      }
+    }
+    if (firstLogIn && mouseX < languageX + 100 && mouseX > languageX - 100 && mouseY < languageY + 25 && mouseY > languageY - 25) {
       if (language == 1) {
         language = 2;
       } else {
@@ -857,6 +1027,7 @@ class buttons {
     }
     if (optionsInGameAreOpened && mouseX < backX + widthOfBack/2 && mouseX > backX - widthOfBack/2 && mouseY < backY + heightOfBack/2 && mouseY > backY - heightOfBack/2) {
       welcomeScreenActivated = false;
+      controlsAreOpened  = false;
       optionsInGameAreOpened = false;
       gamePaused = true;
     }
@@ -892,47 +1063,70 @@ class buttons {
       i20 = 0;
       i19 =0;
     }
-    if (optionsInGameAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+    if (optionsInGameAreOpened && !controlsAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 2;
       if (difficulty.changeAfterStart == 1) {
         difficulty.changeAfterStart = 2;
       }
     }
-    if (optionsInGameAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+    if (optionsInGameAreOpened && !controlsAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 1;
       if (difficulty.changeAfterStart == 1) {
         difficulty.changeAfterStart = 2;
       }
     }
-    if (optionsInGameAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+    if (optionsInGameAreOpened && !controlsAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 3;
       if (difficulty.changeAfterStart == 1) {
         difficulty.changeAfterStart = 2;
       }
     }
-    if (optionsAreOpened && difficulty.changeAfterStart < 2 && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+    if (optionsAreOpened && !controlsAreOpened && difficulty.changeAfterStart < 2 && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 2;
       if (difficulty.changeAfterStart == 1) {
         difficulty.changeAfterStart = 2;
       }
     }
-    if (optionsAreOpened && difficulty.changeAfterStart < 2 && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+    if (optionsAreOpened && !controlsAreOpened && difficulty.changeAfterStart < 2 && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 1;
       if (difficulty.changeAfterStart == 1) {
         difficulty.changeAfterStart = 2;
       }
     }
-    if (optionsAreOpened && difficulty.changeAfterStart < 2 && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+    if (optionsAreOpened && !controlsAreOpened && difficulty.changeAfterStart < 2 && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 3;
       if (difficulty.changeAfterStart == 1) {
         difficulty.changeAfterStart = 2;
       }
+    }
+
+    if (optionsAreOpened && mouseX < controlsButtonX + 37 && mouseX > controlsButtonX - 37 && mouseY < controlsButtonY + 37 && mouseY > controlsButtonY - 37) {
+      controlsAreOpened = true;
+    }
+    if (optionsInGameAreOpened && mouseX < controlsButtonX + 37 && mouseX > controlsButtonX - 37 && mouseY < controlsButtonY + 37 && mouseY > controlsButtonY - 37) {
+      controlsAreOpened = true;
+    }
+    if (controlsAreOpened && mouseX < crossX + 50 && mouseX > crossX - 50 && mouseY < crossY + 50 && mouseY > crossY - 50) {
+      controlsAreOpened = false;
+    }
+    if (firstLogIn && firstLog1 == 0 && mouseX < anotherButtonX + 50 && mouseX > anotherButtonX - 50 && mouseY < anotherButtonY + 50 && mouseY > anotherButtonY - 50) {
+      DcountSeconds = millis();
+      Dtime = ((millis() - DcountSeconds) /1000);
+      firstLog1 = 1;
+    }
+    if (firstLogIn && firstLog1 == 1 && Dtime > 0.5 && mouseX < anotherButtonX + 50 && mouseX > anotherButtonX - 50 && mouseY < anotherButtonY + 50 && mouseY > anotherButtonY - 50) {
+      firstLog1 = 2;
+      firstLogIn = false;
+      gameHasStarted = true;
+    }
+    if (firstLogIn && firstLog1 == 1 && Dtime > 0.5 && mouseX < previousButtonX + 50 && mouseX > previousButtonX - 50 && mouseY < previousButtonY + 50 && mouseY > previousButtonY - 50) {
+      firstLog1--;
     }
   }
 }
