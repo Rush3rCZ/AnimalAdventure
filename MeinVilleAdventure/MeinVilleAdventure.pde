@@ -66,6 +66,7 @@ void setup () {
 void draw () {
   background (255);
   buttons.soundsOff();
+  buttons.DiffTimer();
   if (welcomeScreenActivated) {
     welcomeScreen.musicInWelcomeAndOptions();  
     welcomeScreen.displayWecomingScreen();
@@ -142,14 +143,14 @@ void draw () {
   //fill (0);
   //text ("X: " + mouseX, mouseX, mouseY);
   //text ("Y: " + mouseY, mouseX, mouseY - 20);
-  text ("x: " + player.playerX, 20, 320);
-  text ("y: " + player.playerY, 20, 320 + 20);
-  ////text ("up: " + background.moveUpBackground, mouseX, mouseY - 40);
-  ////text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
-  ////text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
-  ////text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
-  ////text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
-  ////text ("onePercentOfHP:  " + test, 20, 320 + 120);
+  //text ("x: " + player.playerX, 20, 320);
+  //text ("y: " + player.playerY, 20, 320 + 20);
+  text (" difficulty.changeAfterStart: " +  difficulty.changeAfterStart, 20, 450);
+  //text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
+  //text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
+  //text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
+  //text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
+  //text ("onePercentOfHP:  " + test, 20, 320 + 120);
   //text ("timeStarts:  " + enemyArray.timeStarts, 20, 320); 
   //text ("Time:  " + arrayHealingPotion.time + "s", 20, 320 + 20);
   ////text ("EnemyInterval:  " + arrayHealingPotion.interval + "s", 20, 320 + 40);

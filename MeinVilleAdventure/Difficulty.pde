@@ -1,10 +1,11 @@
 class difficulty {
-  int difficultySet, difficultyChange, updateDiff;
+  int difficultySet, difficultyChange, updateDiff, changeAfterStart;
   int speed, hitCooldown, hitRange, damage, restartTime, diffHP, numberOfEnemies;
   float slowdown;
   difficulty () {
     difficultySet = 2;
     updateDiff = 0;
+    changeAfterStart = 0;
   }
   void difficultySetup () {
     if (difficultySet == 1) {

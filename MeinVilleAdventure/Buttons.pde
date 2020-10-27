@@ -7,6 +7,7 @@ class buttons {
   PImage offButtonBig, onButtonBig, offButtonBig2, onButtonBig2, fpsButton, fpsOffButton, offButton2, onButton2, czechButton, czechButtonBig, englishButton, englishButtonBig;
   PImage easyButton, mediumButton, hardButton, easyButtonBig, mediumButtonBig, hardButtonBig, warningButton, warningBubble;
   boolean soundsOn, fpsOn;
+  float Dtime, DcountSeconds;
 
 
   buttons () {
@@ -108,6 +109,7 @@ class buttons {
     soundsOn = false;
     fpsOn = true;
     c = 0;
+    DcountSeconds = millis();
   }
 
   void soundsOff () {
@@ -765,6 +767,10 @@ class buttons {
     imageMode (CORNER);
   }
 
+  void DiffTimer () {
+    Dtime = ((millis() - DcountSeconds) /1000);
+  }
+
   void clickOnButton () {
     if (welcomeScreenActivated && mouseX < playX + widthOfButtons/2 && mouseX > playX - widthOfButtons/2 && mouseY < playY + heightOfButtons/2 && mouseY > playY - heightOfButtons/2) {
       welcomeScreen.displayLoadingScreen();
@@ -777,6 +783,7 @@ class buttons {
       }
       welcomeScreenActivated = false;
       gameHasStarted = true;
+      difficulty.changeAfterStart++;
       if (soundsOn) {
         i20 = 0;
       } else { 
@@ -843,6 +850,8 @@ class buttons {
       gameHasStarted = false;
     }
     if (gamePaused && mouseX < backToTheOptionsButtonX + 200 && mouseX > backToTheOptionsButtonX - 200 && mouseY < backToTheOptionsButtonY + 50 && mouseY > backToTheOptionsButtonY - 50) {
+      DcountSeconds =  millis();
+      Dtime = ((millis() - DcountSeconds) /1000);
       gamePaused = false;
       optionsInGameAreOpened = true;
     }
@@ -883,29 +892,47 @@ class buttons {
       i20 = 0;
       i19 =0;
     }
-    if (optionsInGameAreOpened && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+    if (optionsInGameAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 2;
+      if (difficulty.changeAfterStart == 1) {
+        difficulty.changeAfterStart = 2;
+      }
     }
-    if (optionsInGameAreOpened && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+    if (optionsInGameAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 1;
+      if (difficulty.changeAfterStart == 1) {
+        difficulty.changeAfterStart = 2;
+      }
     }
-    if (optionsInGameAreOpened && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+    if (optionsInGameAreOpened && difficulty.changeAfterStart < 2 && Dtime > 0.5 && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 3;
+      if (difficulty.changeAfterStart == 1) {
+        difficulty.changeAfterStart = 2;
+      }
     }
-    if (optionsAreOpened && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
+    if (optionsAreOpened && difficulty.changeAfterStart < 2 && mouseX < mediumButtonX + 175 && mouseX > mediumButtonX - 175 && mouseY < mediumButtonY + 67/2 && mouseY > mediumButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 2;
+      if (difficulty.changeAfterStart == 1) {
+        difficulty.changeAfterStart = 2;
+      }
     }
-    if (optionsAreOpened && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
+    if (optionsAreOpened && difficulty.changeAfterStart < 2 && mouseX < easyButtonX + 175 && mouseX > easyButtonX - 175 && mouseY < easyButtonY + 67/2 && mouseY > easyButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 1;
+      if (difficulty.changeAfterStart == 1) {
+        difficulty.changeAfterStart = 2;
+      }
     }
-    if (optionsAreOpened && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
+    if (optionsAreOpened && difficulty.changeAfterStart < 2 && mouseX < hardButtonX + 175 && mouseX > hardButtonX - 175 && mouseY < hardButtonY + 67/2 && mouseY > hardButtonY - 67/2) {
       difficulty.updateDiff = 0;
       difficulty.difficultySet = 3;
+      if (difficulty.changeAfterStart == 1) {
+        difficulty.changeAfterStart = 2;
+      }
     }
   }
 }

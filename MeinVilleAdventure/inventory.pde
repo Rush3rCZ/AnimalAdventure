@@ -36,10 +36,10 @@ class inventory {
     mouseHeight = 1;
     postX = 1;
     postY = 1;
-    //numberOfGrass = 20;
-    //numberOfRocks = 20;
-    //numberOfWoodLogs = 10;
-    //numberOfFishes = 3;
+    numberOfGrass = 20;
+    numberOfRocks = 20;
+    numberOfWoodLogs = 10;
+    numberOfFishes = 3;
   }
 
 
