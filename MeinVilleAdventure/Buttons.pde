@@ -155,8 +155,6 @@ class buttons {
 
   void buttonsGetsBiggerInFirstLog () {
     imageMode (CENTER);
-
-
     if (firstLog1 == 0) {
       languageX = 1180;
       languageY = 60;
@@ -202,23 +200,23 @@ class buttons {
       previousButtonY = 575;
       if (mouseX < anotherButtonX + 50 && mouseX > anotherButtonX - 50 && mouseY < anotherButtonY + 50 && mouseY > anotherButtonY - 50) {
         image (anotherButtonBig, anotherButtonX, anotherButtonY);
-        if (i31 < 1) {
+        if (i33 < 1) {
           clak.play();
-          i31 = 1;
+          i33 = 1;
         }
       } else {
         image (anotherButton, anotherButtonX, anotherButtonY);
-        i31 = 0;
+        i33 = 0;
       }
       if (mouseX < previousButtonX + 50 && mouseX > previousButtonX - 50 && mouseY < previousButtonY + 50 && mouseY > previousButtonY - 50) {
         image (previousButtonBig, previousButtonX, previousButtonY);
-        if (i31 < 1) {
+        if (i34 < 1) {
           clak.play();
-          i31 = 1;
+          i34 = 1;
         }
       } else {
         image (previousButton, previousButtonX, previousButtonY);
-        i31 = 0;
+        i34 = 0;
       }
     }
     imageMode (CENTER);

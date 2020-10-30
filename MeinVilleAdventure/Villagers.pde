@@ -116,6 +116,7 @@ class Villagers {
   PImage villager, tradeButtonGreen, tradeButtonGrey, tradeButtonGreenBig, tradeButtonGreyBig, tradeScreen, arrow, cross, cross1, cross1Big;
   int x, y, tradeButtonX, tradeButtonY, Xplus, Yplus, crossX, crossY, getX, getY, giveX, giveY;
   boolean currentTrade, isThereCurrentItem;
+  String VText;
   Villagers () {
     villager = loadImage("villager.png");
     tradeButtonGreen = loadImage ("tradeButtonGreen.png");
@@ -204,6 +205,7 @@ class Lumberjack extends Villagers {
   Rock rock;
   Lumberjack() {
     super();
+    villager = loadImage("LumberjackC.png");
     Xplus = 3130;
     Yplus = 2550;
     rock = new Rock();
@@ -224,7 +226,11 @@ class Lumberjack extends Villagers {
     textSize (60);
     text ("Lumberjack", width/2, 190);
     textSize (25);
-    String VText = "Hey buddy, if you're doing nothing, I'd have a job for you and of course not for anything! I'll give you an axe for that! Just collect all the grass and stones you can find!";
+    if (buttons.language ==  1) {
+      VText = "Hey buddy, if you're doing nothing, I'd have a job for you and of course not for anything! I'll give you an axe for that! Just collect all the grass and stones you can find!";
+    } else {
+      VText = "Ahoj kámo, pokud nic neděláš, měl bych pro tebe prácičku a samozřejmě ne pro nic za nic! Dám ti za to sekeru! Prostě nasbírejte veškerou trávu a kameny, které najdeš!";
+    }
     text (VText, width/2, height/2, 700, 300);
     noFill();
     image (arrow, width/2, 400);
@@ -286,7 +292,8 @@ class Joiner extends Villagers {
   WoodLog log;
   Joiner() {
     super();
-    Xplus = 3130;
+    villager = loadImage("JoinerC.png");
+    Xplus = 3100;
     Yplus = 2250;
     log = new WoodLog();
     rod = new FishingRod();
@@ -304,7 +311,11 @@ class Joiner extends Villagers {
     textSize (60);
     text ("Joiner", width/2, 180);
     textSize (25);
-    String VText = "Nice to meet you, young man. Can you help me, please? I need wood for work, but I don't have any. If you find an axe, cut down a few trees in the nearby forest. If you bring me 10 logs, I'll make you a rod for it!";
+    if (buttons.language ==  1) {
+      VText = "Nice to meet you, young man. Can you help me, please? I need wood for work, but I don't have any. If you find an axe, cut down a few trees in the nearby forest. If you bring me 10 logs, I'll make you a rod for it!";
+    } else {
+      VText = "Jak se vede mladý muži. Můžeš mi prosím pomoct? Potřebuji dřevo do práce, ale žádné nemám. Pokud najdeš sekeru, nemohl by jsi pokácet několik stromů v nedalekém lese? Pokud mi doneseš 10 polen, udělám ti za to prut!";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -362,6 +373,7 @@ class Builder extends Villagers {
   int farFarAway;
   Builder() {
     super();
+    villager = loadImage("BuilderC.png");
     Xplus = 2900;
     Yplus = 2250;
     axe = new Axe();
@@ -393,7 +405,11 @@ class Builder extends Villagers {
     textSize (60);
     text ("Builder", width/2, 180);
     textSize (25);
-    String VText = "Hi man, look... I need an axe, so if you have one, please bring it to me. I would exchange it for a very rare part of the key, I heard you are looking for it :)";
+    if (buttons.language ==  1) {
+      VText = "Hi man, look... I need an axe, so if you have one, please bring it to me. I would exchange it for a very rare part of the key, I heard you are looking for it :)";
+    } else {
+      VText = "Ahoj člověče, podívej... Potřebuji sekeru, ale žádnou nemám. Takže kdyby jsi nějakou sehnal, byl bych fakt vděčný! Dám ti za to, část klíče, ale potichu! Nemusí to nikdo  vědět!";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -487,6 +503,7 @@ class Hunter extends Villagers {
   Key3 key3;
   Hunter() {
     super();
+    villager = loadImage("HunterC.png");
     Xplus = 3100;
     Yplus = 1900;
     fish = new Fish();
@@ -506,7 +523,11 @@ class Hunter extends Villagers {
     textSize (60);
     text ("Hunter", width/2, 180);
     textSize (25);
-    String VText = "Hi, look... Because of those monsters, there's no prey left and the village is running out of food. Can you get something? At least three fish would come in handy, I'll give you anything for it! Even the rare part of the key!";
+    if (buttons.language ==  1) {
+      VText = "Hi, look... Because of those monsters, there's no prey left and the village is running out of food. Can you get something? At least three fish would come in handy, I'll give you anything for it! Even the rare part of the key!";
+    } else {
+      VText = "Ahoj, podívej ... Kvůli těm příšerám nezůstala žádná kořist a vesnici dochází jídlo. Můžeš něco získat? Alespoň tři ryby by se hodily, dám ti za to cokoli! I ten proklatej klíč!";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -564,7 +585,8 @@ class Fisherman extends Villagers {
   boolean anotherItem;
   Fisherman() {
     super();
-    Xplus = 2850;
+    villager = loadImage("FishermanC.png");
+    Xplus = 2800;
     Yplus = 2020;
     rod = new FishingRod();
     hoe = new Hoe();
@@ -578,7 +600,11 @@ class Fisherman extends Villagers {
       textSize (50);
       textAlign(CENTER);
       fill(255, 0, 0);
-      text ("Maybe I can you use it somewhere else first", width/2, height/2);
+      if (buttons.language ==  1) {
+        text ("Maybe I can you use it somewhere else first", width/2, height/2);
+      } else {
+        VText = "Možná bych to mohl použít ještě někde jinde";
+      }
       textSize (20);
       noFill();
       textAlign(CORNER);
@@ -596,7 +622,11 @@ class Fisherman extends Villagers {
     textSize (60);
     text ("Fisherman", width/2, 180);
     textSize (25);
-    String VText = "Hi, I'm a fisherman and unfortunately my rod broke. Could you get me one? If you wanted, I could give you a hoe for it, I won't use it anyway.";
+    if (buttons.language ==  1) {
+      VText = "Hi, I'm a fisherman and unfortunately my rod broke. Could you get me one? If you wanted, I could give you a hoe for it, I won't use it anyway.";
+    } else {
+      VText = "Ahoj, jsem rybář a bohužel se mi zlomil prut. Neseženeš mi nějaký? Kdybys chtěl, mohl bych ti za to dát motyku, stejně je mi k ničemu.";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -690,6 +720,7 @@ class Farmer extends Villagers {
   boolean anotherItem;
   Farmer() {
     super();
+    villager = loadImage("FarmerC.png");
     Xplus = 2370;
     Yplus = 2150;
     wheat = new Wheat();
@@ -709,7 +740,11 @@ class Farmer extends Villagers {
     textSize (60);
     text ("Farmer", width/2, 180);
     textSize (25);
-    String VText = "Hi, my helper, the bastard, recently ruined my hoe. I would really like you to get one. I'll give you some of the wheat I grew for exchange.";
+    if (buttons.language ==  1) {
+      VText = "Hi, my helper, the bastard, recently ruined my hoe. I would really like you to get one. I'll give you some of the wheat I grew for exchange.";
+    } else {
+      VText = "Ahoj, můj pomocník, ten nešika, mi nedávno zničil motyku. Bych byl rád, kdyby jsi mi nějakou sehnal. Dám ti za to trochu pšenice, kterou jsem vypěstoval.";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -791,6 +826,7 @@ class Miller extends Villagers {
   boolean anotherItem;
   Miller() {
     super();
+    villager = loadImage("MillerC.png");
     Xplus = 2875;
     Yplus = 2730;
     wheat = new Wheat();
@@ -810,7 +846,11 @@ class Miller extends Villagers {
     textSize (60);
     text ("Miller", width/2, 180);
     textSize (25);
-    String VText = "Hi, I don't want to delay you, but if you have any wheat, give it to me. I'll give you white powder for that, I mean flour. Do you understand to me?";
+    if (buttons.language ==  1) {
+      VText = "Hi, I don't want to delay you, but if you have any wheat, give it to me. I'll give you white powder for that, I mean flour. Do you understand to me?";
+    } else {
+      VText = "Ahoj, nechci tě zdržovat, ale sháním nějakou pšenici, jsem přece mlynář ne? Můžu ti za to nabídnout takovej bílej prášeček, mouku. Rozumíš mi ne?";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -892,6 +932,7 @@ class Baker extends Villagers {
   boolean anotherItem;
   Baker() {
     super();
+    villager = loadImage("BakerC.png");
     Xplus = 3235;
     Yplus = 3000;
     cake = new Cake();
@@ -911,7 +952,11 @@ class Baker extends Villagers {
     textSize (60);
     text ("Baker", width/2, 180);
     textSize (25);
-    String VText = "Hi, I'm looking for such a white powder. You might know it as snow, sugar or flour! If you can get any, please give me some! I pay for cakes!";
+    if (buttons.language ==  1) {
+      VText = "Hi, I'm looking for such a white powder. You might know it as snow, sugar or flour! If you can get any, please give me some! I pay for cakes!";
+    } else {
+      VText = "Ahoj, sháním takový bílý prášek. Možná to znáš jako sníh, cukřík nebo mouku! Pokud nějaký máš, tak se poděl člověče! Zaplatím ti to v dortech!";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -993,6 +1038,7 @@ class Administrator extends Villagers {
   boolean anotherItem;
   Administrator() {
     super();
+    villager = loadImage("Administrator.png");
     Xplus = 2578;
     Yplus = 2520;
     cake = new Cake();
@@ -1012,7 +1058,11 @@ class Administrator extends Villagers {
     textSize (60);
     text ("Administrator", width/2, 180);
     textSize (25);
-    String VText = "Good day! I'm the administrator of this village and I don't think you're allowed to be here, do you? Anyway, if you give me a cake, I'd think about it ;) But I'll fine you anyway!";
+    if (buttons.language ==  1) {
+      VText = "Good day! I'm the administrator of this village and I don't think you're allowed to be here, do you? Anyway, if you give me a cake, I'd think about it ;) But I'll fine you anyway!";
+    } else {
+      VText = "Dobrý den! Jsem správcem této vesnice a nemyslím si, že tu máš povoleno být, že? Každopádně, pokud mi dáš dort, popřemýšlel bych o tom ;) Ale stejně vám dám pokutu!";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 400);
@@ -1095,6 +1145,7 @@ class Teacher extends Villagers {
   boolean anotherItem;
   Teacher() {
     super();
+    villager = loadImage("TeacherC.png");
     Xplus = 2630;
     Yplus = 2060;
     key2 = new Key2();
@@ -1119,7 +1170,11 @@ class Teacher extends Villagers {
     textSize (60);
     text ("Teacher", width/2, 180);
     textSize (25);
-    String VText = "Uhhh ... Working with those kids is really tiring! I still have to reprimand them and tell them what to do. Wouldn't you at least have some paper? I have a piece of key here, I don't know what it's made for, but you'll definitely figure it out!";
+    if (buttons.language ==  1) {
+      VText = "Uhhh ... Working with those kids is really tiring! I still have to reprimand them and tell them what to do. Wouldn't you at least have some paper? I have a piece of key here, I don't know what it's made for, but you'll definitely figure it out!";
+    } else {
+      VText = "Uhhh ... Práce s těmi dětmi je opravdu příšerná! Stále je musím napomínat a říkat jim, co mají dělat. Neměl bys alespoň nějaký papír? Mám tu nějaký starý klíč, nevím, k čemu je vyroben, ale určitě na to přijdeš! Třeba má historickou hodnotu!";
+    }
     text (VText, width/2, height/2 + 45, 700, 400);
     noFill();
     image (arrow, width/2, 440);
@@ -1203,6 +1258,7 @@ class Blacksmith extends Villagers {
   int z = 0;
   Blacksmith() {
     super();
+    villager = loadImage("BlacksmithC.png");
     Xplus = 3300;
     Yplus = 2075;
     key1 = new Key1();
@@ -1223,10 +1279,18 @@ class Blacksmith extends Villagers {
     text ("Blacksmith", width/2, 180);
     textSize (25);
     if (!spawnHammer) {
-      String VText = "Hey buddy, let me just be! I'm having really bad day!";
+      if (buttons.language ==  1) {
+        VText = "Hey buddy, let me just be! I'm having really bad day!";
+      } else {
+        VText = "Hej kámo, nech mě být! Mám fakt špatný den!";
+      }
       text (VText, width/2, height/2 + 45, 700, 400);
     } else {
-      String VText = "Hey, how are you? Remember how I said I'm having a bad day? I lost my hammer and I still didn't find it anywhere. Would you walk around and try to find it? I'll give you the last part of the key!";
+      if (buttons.language ==  1) {
+       VText = "Hey, how are you? Remember how I said I'm having a bad day? I lost my hammer and I still didn't find it anywhere. Would you walk around and try to find it? I'll give you the last part of the key!";
+      } else {
+        VText = "Ahoj, jak se máš? Pamatuješ, jak jsem říkal, že mám špatný den? Ztratil jsem kladivo a stále jsem ho nikde nenašel... Neprohledal by jsi okolí? Dám ti poslední část klíče, vím že je sháníš!";
+      }
       text (VText, width/2, height/2 + 45, 700, 400);
     }
     noFill();
