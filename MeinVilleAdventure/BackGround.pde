@@ -1,5 +1,5 @@
 class backGround {
-  int backgroundX, backgroundY, restPost;
+  int backgroundX, backgroundY;
   boolean moveRightBackground, moveLeftBackground, moveUpBackground, moveDownBackground; //BACKGROUND
   boolean rightSide, leftSide, upSide, downSide; //PLAYER in the corner
   PImage background;
@@ -7,8 +7,7 @@ class backGround {
   backGround () {
     background = requestImage("BackGround.png");
     backgroundX = -2000;
-    backgroundY = -2400;
-    restPost = 0;
+    backgroundY = -800;
   }
 
   void display() {

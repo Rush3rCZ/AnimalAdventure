@@ -11,12 +11,13 @@ class Houses {
   Teacher teacher;
   Blacksmith blacksmith;
 
-  PImage tree, house, mill;
-  int houseX1, houseX2, houseX3, houseX4, houseX5, houseX6, houseX7, houseX8, houseY1, houseY2, houseY3, houseY4, houseY5, houseY6, houseY7, houseY8, millX, millY;
+  PImage tree, house, mill, millEnter;
+  int houseX1, houseX2, houseX3, houseX4, houseX5, houseX6, houseX7, houseX8, houseY1, houseY2, houseY3, houseY4, houseY5, houseY6, houseY7, houseY8, millX, millY, openMillX, openMillY;
   Houses () {
     tree = loadImage("tree.png");
     house = loadImage ("house.png");
     mill = loadImage ("mill.png");
+    millEnter = loadImage ("millEnter.png");
     lumberjack = new Lumberjack();
     joiner = new Joiner();
     builder = new Builder();
@@ -32,10 +33,17 @@ class Houses {
   void displayMillUnder() {
     millX = background.backgroundX + 2800;
     millY = background.backgroundY + 600;
+    openMillX = millX + 20;
+    openMillY = millY + 380;
     if (millY + 500 <= player.playerY  + 90) {
       imageMode (CENTER);
+      rectMode (CENTER);
+      fill (255, 0, 0);
       image (mill, millX, millY);
+      //rect (openMillX, openMillY, 110, 200);
+      //circle (openMillX, openMillY, 10);
       imageMode (CORNER);
+      rectMode (CORNER);
     }
   }
 
@@ -44,7 +52,28 @@ class Houses {
     millY = background.backgroundY + 600;
     if (millY + 500 >= player.playerY  + 90) {
       imageMode (CENTER);
+      rectMode (CENTER);
+      fill (255, 0, 0);
       image (mill, millX, millY);
+      //rect (openMillX, openMillY, 110, 200);
+      //circle (openMillX, openMillY, 10);
+      imageMode (CORNER);
+      rectMode (CORNER);
+    }
+  }
+
+  void enterMillAbove () {
+    if (gameHasStarted && mouseX < openMillX + 55 && mouseX > openMillX - 55 && mouseY < openMillY + 100 && mouseY > openMillY - 100 && millY + 500 >= player.playerY  + 90) {
+      imageMode (CENTER);
+      image (millEnter, millX, millY);
+      imageMode (CORNER);
+    }
+  }
+  
+  void enterMillUnder () {
+    if (gameHasStarted && mouseX < openMillX + 55 && mouseX > openMillX - 55 && mouseY < openMillY + 100 && mouseY > openMillY - 100 && millY + 500 <= player.playerY  + 90) {
+      imageMode (CENTER);
+      image (millEnter, millX, millY);
       imageMode (CORNER);
     }
   }
@@ -128,65 +157,65 @@ class Houses {
   }
 
   void displayHouseAbove() {
-      imageMode (CENTER);
-      if (houseY1 + 200 >= player.playerY  + 90) {
-        image (house, houseX1, houseY1);
-      }
-      if (farmer.y + 95 >= player.playerY  + 90) {
-        farmer.display();
-      }
-      if (houseY2 + 200 >= player.playerY  + 90) {
-        image (house, houseX2, houseY2);
-      }
-      if (fisherman.y + 95 >= player.playerY  + 90) {
-        fisherman.display();
-      }
-      if (teacher.y + 95 >= player.playerY  + 90) {
-        teacher.display();
-      }
-      if (houseY3 + 200 >= player.playerY  + 90) {
-        image (house, houseX3, houseY3);
-      }
-      if (hunter.y + 95 >= player.playerY  + 90) {
-        hunter.display();
-      }
-      if (houseY8 + 200 >= player.playerY  + 90) {
-        image (house, houseX8, houseY8);
-      }
-      if (joiner.y + 95 >= player.playerY  + 90) {
-        joiner.display();
-      }
-      if (builder.y + 95 >= player.playerY  + 90) {
-        builder.display();
-      }
-      if (houseY4 + 200 >= player.playerY  + 90) {
-        image (house, houseX4, houseY4);
-      }
-      if (lumberjack.y + 95 >= player.playerY  + 90) {
-        lumberjack.display();
-      }
-      if (houseY5 + 200 >= player.playerY  + 90) {
-        image (house, houseX5, houseY5);
-      }
-      if (miller.y + 95 >= player.playerY  + 90) {
-        miller.display();
-      }
-      if (houseY6 + 200 >= player.playerY  + 90) {
-        image (house, houseX6, houseY6);
-      }
-      if (baker.y + 95 >= player.playerY  + 90) {
-        baker.display();
-      }
-      if (houseY7 + 200 >= player.playerY  + 90) {
-        image (house, houseX7, houseY7);
-      }
-      if (admin.y + 95 >= player.playerY  + 90) {
-        admin.display();
-      }
-      if (blacksmith.y + 95 >= player.playerY  + 90) {
-        blacksmith.display();
-      }
-      imageMode (CORNER);
+    imageMode (CENTER);
+    if (houseY1 + 200 >= player.playerY  + 90) {
+      image (house, houseX1, houseY1);
+    }
+    if (farmer.y + 95 >= player.playerY  + 90) {
+      farmer.display();
+    }
+    if (houseY2 + 200 >= player.playerY  + 90) {
+      image (house, houseX2, houseY2);
+    }
+    if (fisherman.y + 95 >= player.playerY  + 90) {
+      fisherman.display();
+    }
+    if (teacher.y + 95 >= player.playerY  + 90) {
+      teacher.display();
+    }
+    if (houseY3 + 200 >= player.playerY  + 90) {
+      image (house, houseX3, houseY3);
+    }
+    if (hunter.y + 95 >= player.playerY  + 90) {
+      hunter.display();
+    }
+    if (houseY8 + 200 >= player.playerY  + 90) {
+      image (house, houseX8, houseY8);
+    }
+    if (joiner.y + 95 >= player.playerY  + 90) {
+      joiner.display();
+    }
+    if (builder.y + 95 >= player.playerY  + 90) {
+      builder.display();
+    }
+    if (houseY4 + 200 >= player.playerY  + 90) {
+      image (house, houseX4, houseY4);
+    }
+    if (lumberjack.y + 95 >= player.playerY  + 90) {
+      lumberjack.display();
+    }
+    if (houseY5 + 200 >= player.playerY  + 90) {
+      image (house, houseX5, houseY5);
+    }
+    if (miller.y + 95 >= player.playerY  + 90) {
+      miller.display();
+    }
+    if (houseY6 + 200 >= player.playerY  + 90) {
+      image (house, houseX6, houseY6);
+    }
+    if (baker.y + 95 >= player.playerY  + 90) {
+      baker.display();
+    }
+    if (houseY7 + 200 >= player.playerY  + 90) {
+      image (house, houseX7, houseY7);
+    }
+    if (admin.y + 95 >= player.playerY  + 90) {
+      admin.display();
+    }
+    if (blacksmith.y + 95 >= player.playerY  + 90) {
+      blacksmith.display();
+    }
+    imageMode (CORNER);
   }
 }
 

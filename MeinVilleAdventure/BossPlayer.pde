@@ -1,8 +1,8 @@
-class player {
+class BossPlayer {
   int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer, HP, healthBarX, healthBarY, damage;
   boolean moveRightPlayer, moveLeftPlayer, moveUpPlayer, moveDownPlayer, imageUp, imageDown, imageRight, imageLeft; //PLAYER 
   PImage TeddyFrontSide, TeddyBackSide, TeddyRightSide, TeddyLeftSide, PennyFrontSide, PennyBackSide, PennyRightSide, PennyLeftSide, healthBar, healthBarFill ;
-  player () {
+  BossPlayer () {
     speed = 5;
     playerX = width/2;
     playerY = height/2;
@@ -131,22 +131,22 @@ class player {
 
 
   void keyMovePlayerCONTROL () {
-    if (background.rightSide) {
+    if (bossBackground.rightSide) {
       if (key == 'd' || key == 'D') {
         moveRightPlayer = true;
       }
     }
-    if (background.leftSide) {
+    if (bossBackground.leftSide) {
       if (key == 'a' || key == 'A') {
         moveLeftPlayer = true;
       }
     }
-    if (background.upSide) {
+    if (bossBackground.upSide) {
       if (key == 'w' || key == 'W') {
         moveUpPlayer = true;
       }
     }
-    if (background.downSide) {
+    if (bossBackground.downSide) {
       if (key == 's' || key == 'S') {
         moveDownPlayer = true;
       }
@@ -155,22 +155,22 @@ class player {
 
 
   void keyDontMovePlayerCONTROL () {
-    if (background.rightSide) {
+    if (bossBackground.rightSide) {
       if (key == 'd' || key == 'D') {
         moveRightPlayer = false;
       }
     }
-    if (background.leftSide) {
+    if (bossBackground.leftSide) {
       if (key == 'a' || key == 'A') {
         moveLeftPlayer = false;
       }
     }
-    if (background.upSide) {
+    if (bossBackground.upSide) {
       if (key == 'w' || key == 'W') {
         moveUpPlayer = false;
       }
     }
-    if (background.downSide) {
+    if (bossBackground.downSide) {
       if (key == 's' || key == 'S') {
         moveDownPlayer = false;
       }
@@ -178,7 +178,7 @@ class player {
   }
 
   void movePlayer () {
-    if (background.rightSide && moveRightPlayer) {
+    if (bossBackground.rightSide && moveRightPlayer) {
       nextY = playerY;
       nextX = (playerX + widthOfPlayer/2) + speed;
       if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
@@ -186,7 +186,7 @@ class player {
         playerX += speed;
       }
     }
-    if (background.upSide  && moveUpPlayer) {
+    if (bossBackground.upSide  && moveUpPlayer) {
       nextX = playerX;
       nextY = (playerY - heightOfPlayer/2) - speed;
       if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
@@ -194,7 +194,7 @@ class player {
         playerY -= speed;
       }
     }
-    if (background.downSide && moveDownPlayer) {
+    if (bossBackground.downSide && moveDownPlayer) {
       nextX = playerX;
       nextY = (playerY + heightOfPlayer/2) + speed;
       if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
@@ -202,7 +202,7 @@ class player {
         playerY += speed;
       }
     }
-    if (background.leftSide && moveLeftPlayer) {
+    if (bossBackground.leftSide && moveLeftPlayer) {
       nextY = playerY;
       nextX = (playerX - widthOfPlayer/2) - speed;
       if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
@@ -228,22 +228,22 @@ class player {
   }
 
   void debugPlayer () {
-    if (!background.rightSide) {
+    if (!bossBackground.rightSide) {
       if (playerX <= 640) {
-        playerX = 650;
+        playerX = 641; //<>//
       }
     }
-    if (!background.leftSide) {
+    if (!bossBackground.leftSide) {
       if (playerX >= 660) {
-        playerX = 650;
+        playerX = 641;
       }
     }
-    if (!background.upSide) {
+    if (!bossBackground.upSide) {
       if (playerY >= 360) {
         playerY = 350;
       }
     }
-    if (!background.downSide) {
+    if (!bossBackground.downSide) {
       if (playerY <= 340) {
         playerY = 350;
       }

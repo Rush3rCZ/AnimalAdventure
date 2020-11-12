@@ -2,9 +2,6 @@ import processing.sound.*;  //<>//
 SoundFile clak;
 //SoundFile menu;
 //SoundFile game;
-Items item;
-Rock rock;
-
 backGround background;
 player player;
 object object;
@@ -23,13 +20,13 @@ VillagerFunction villagerFunction;
 AddItems addItems;
 TreeArray treeArray;
 ArrayFishes fishArray;
-boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen, spawnHammer, controlsAreOpened, firstLogIn;
+BossBackground bossBackground;
+BossPlayer bossPlayer;
+boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen, spawnHammer, controlsAreOpened, firstLogIn, enteringTheBoss, bossHasStarted;
 int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31, i32, i33, i34; // i používám pro ovládání zvuku v DRAW()
 
 void setup () {
   size (1300, 700);
-  item = new Items();
-
   background = new backGround();
   player = new player();
   object = new object();
@@ -48,8 +45,9 @@ void setup () {
   addItems = new AddItems();
   treeArray = new TreeArray();
   fishArray = new ArrayFishes();
-  rock = new  Rock();
-  welcomeScreenActivated = true;
+  bossBackground = new BossBackground();
+  bossPlayer = new BossPlayer();
+  welcomeScreenActivated = false;
   gameHasStarted = false;
   optionsAreOpened = false;
   gamePaused = false;
@@ -57,6 +55,11 @@ void setup () {
   inventoryIsOpened = false;
   readAStory = false;
   tradeOpen = false;
+  spawnHammer = false;
+  controlsAreOpened = false;
+  firstLogIn = false;
+  enteringTheBoss = false;
+  bossHasStarted = true;
   clak = new SoundFile (this, "clak.mp3");
   //menu = new SoundFile (this, "MenuSound.mp3");
   //game = new SoundFile (this, "inGameSound.mp3");
@@ -83,6 +86,7 @@ void draw () {
     object.displayBridgeUnder(); 
     houses.displayHouseUnder();
     houses.displayMillUnder();
+    houses.enterMillUnder();
     treeArray.under();
     ArrayRocksAndGrass.displayGrass();
     ArrayRocksAndGrass.displayRock();
@@ -95,6 +99,7 @@ void draw () {
     addItems.display();
     object.displayBridgeAbove(); 
     houses.displayMillAbove();
+    houses.enterMillAbove();
     houses.displayHouseAbove();
     treeArray.above();
     inventory.display(); 
@@ -148,12 +153,34 @@ void draw () {
     buttons.buttonsGetsBiggerInFirstLog();
     gameHasStarted = false;
   }
+  if (enteringTheBoss) {
+    pausedDisplayedTextures();
+    buttons.areThereKeys();
+    buttons.enteringTheMill();
+    buttons.enterButton();
+    buttons.endCross();
+  }
+  if (bossHasStarted) {
+    bossBackground.display(); 
+    bossPlayer.display();
+    bossPlayer.movePlayer();
+    bossPlayer.playerBorders(); 
+    bossPlayer.healthBar();
+    bossPlayer.debugPlayer();
+    bossBackground.endBackground();
+    bossBackground.moveBackground();
+  }
   //fill(255, 0, 0);
   //fill (0);
-  //text ("X: " + mouseX, mouseX, mouseY);
-  //text ("Y: " + mouseY, mouseX, mouseY - 20);
-  //text ("x: " + player.playerX, 20, 320);
-  //text ("y: " + player.playerY, 20, 320 + 20);
+  //image (key1.item, mouseX, mouseY);
+  //text ("X: " + mouseX, mouseX, mouseY - 20);
+  //text ("Y: " + mouseY, mouseX, mouseY);
+  text ("x: " + bossPlayer.playerX, 20, 320);
+  text ("y: " + bossPlayer.playerY, 20, 320 + 20);
+  text ("rightSide:  " + bossBackground.rightSide, 20, 100 + 60);
+  text ("leftSide:  " + bossBackground.leftSide, 20, 100 + 80);
+  text ("upSide:  " + bossBackground.upSide, 20, 100 + 100);
+  text ("downSide:  " + bossBackground.downSide, 20, 100 + 120);
   //text (" Dtime: " +  buttons.Dtime, 20, 450);
   //text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
   //text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
@@ -183,6 +210,12 @@ void keyPressed() {
     player.keyMovePlayerCONTROL();
     inventory.openInventory();
   }
+  if (bossHasStarted) {
+    arrayHealingPotion.useHeal();
+    bossBackground.keyMoveBackgroundCONTROL();
+    bossPlayer.keyMovePlayerCONTROL();
+    inventory.openInventory();
+  }
 }
 
 
@@ -191,6 +224,11 @@ void keyReleased() {
     arrayHealingPotion.unUseHeal();
     background.keyDontMoveBackgroundCONTROL();
     player.keyDontMovePlayerCONTROL ();
+  }
+  if (bossHasStarted) {
+    arrayHealingPotion.unUseHeal();
+    bossBackground.keyDontMoveBackgroundCONTROL();
+    bossPlayer.keyDontMovePlayerCONTROL ();
   }
 }
 
@@ -205,6 +243,8 @@ void pausedDisplayedTextures () {
   background.display(); 
   object.displayBridgeUnder(); 
   houses.displayHouseUnder();
+  houses.displayMillUnder();
+  houses.enterMillUnder();
   treeArray.under();
   player.display();
   for (int j = enemyArray.enemyArray1.size() - 1; j >= 0; j--) {
@@ -217,5 +257,7 @@ void pausedDisplayedTextures () {
   }
   houses.displayHouseAbove();
   object.displayBridgeAbove();
+  houses.displayMillAbove();
+  houses.enterMillAbove();
   treeArray.above();
 }

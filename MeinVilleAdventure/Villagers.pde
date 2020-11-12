@@ -118,7 +118,6 @@ class Villagers {
   boolean currentTrade, isThereCurrentItem;
   String VText;
   Villagers () {
-    villager = loadImage("villager.png");
     tradeButtonGreen = loadImage ("tradeButtonGreen.png");
     tradeButtonGrey = loadImage ("tradeButtonGrey.png");
     tradeButtonGreenBig = loadImage ("tradeButtonGreen.png");

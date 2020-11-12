@@ -1,16 +1,26 @@
 class buttons {
-  int inGameOptionsButtonX, inGameOptionsButtonY, SkinPennyX, SkinPennyY, SkinTeddyX, SkinTeddyY, soundButtonX, soundButtonY, onX, onY, offX, offY, onX2, onY2, offX2, offY2, language, languageX, languageY, controlsButtonX, controlsButtonY;
+  int inGameOptionsButtonX, inGameOptionsButtonY, SkinPennyX, SkinPennyY, SkinTeddyX, SkinTeddyY, soundButtonX, soundButtonY, onX, onY, offX, offY, onX2, onY2, offX2, offY2, language, languageX, languageY, controlsButtonX, controlsButtonY, enterButtonX, enterButtonY;
   int backToTheGameButtonX, backToTheGameButtonY, backToTheMenuButtonX, backToTheMenuButtonY, backToTheOptionsButtonX, backToTheOptionsButtonY, fpsButtonX, fpsButtonY, warningButtonX, warningButtonY, crossX, crossY, anotherButtonX, anotherButtonY, firstLog1;
   int  c, widthOfButtons, heightOfButtons, widthOfBack, heightOfBack, optionsX, optionsY, playX, playY, backX, backY, readAStoryX, readAStoryY, easyButtonX, mediumButtonX, hardButtonX, easyButtonY, mediumButtonY, hardButtonY, previousButtonX, previousButtonY;
-  PImage playButton, optionsButton, backButton, inGameOptionsButtonPink, inGameOptionsButtonGreen, backToTheGameButton, playButtonBig, readAStoryButton, readAStoryButtonBig, onButton, offButton, controlsButton, controlsButtonBig;
+  PImage playButton, optionsButton, backButton, inGameOptionsButtonPink, inGameOptionsButtonGreen, backToTheGameButton, playButtonBig, readAStoryButton, readAStoryButtonBig, onButton, offButton, controlsButton, controlsButtonBig, enterButtonGreen, enterButtonGreenBig;
   PImage backToTheMenuButton, backToTheOptionsButton, optionsButtonBig, backButtonBig, backToTheGameButtonBig, backToTheMenuButtonBig, backToTheOptionsButtonBig, soundButton, soundOffButton, anotherButton, anotherButtonBig, previousButton, previousButtonBig;
-  PImage offButtonBig, onButtonBig, offButtonBig2, onButtonBig2, fpsButton, fpsOffButton, offButton2, onButton2, czechButton, czechButtonBig, englishButton, englishButtonBig;
+  PImage offButtonBig, onButtonBig, offButtonBig2, onButtonBig2, fpsButton, fpsOffButton, offButton2, onButton2, czechButton, czechButtonBig, englishButton, englishButtonBig, millEnterScreen, enterButtonGrey, enterButtonGreyBig;
   PImage easyButton, mediumButton, hardButton, easyButtonBig, mediumButtonBig, hardButtonBig, warningButton, warningBubble, buttonsFunction, buttonsFunction2, cross1, cross1Big;
-  boolean soundsOn, fpsOn;
+  boolean soundsOn, fpsOn, areThereAllKeys, isThere2nd, isThere3rd, isThere1st, isThere4th;
   float Dtime, DcountSeconds;
+  String Btext, Ctext;
+  Key1 key1;
+  Key2 key2;
+  Key3 key3;
+  Key4 key4;
 
 
   buttons () {
+    enterButtonGrey = loadImage ("enterButtonGrey.png");
+    enterButtonGreyBig = loadImage ("enterButtonGrey.png");
+    enterButtonGreen = loadImage ("enterButtonGreen.png");
+    enterButtonGreenBig = loadImage ("enterButtonGreen.png");
+    millEnterScreen = loadImage ("millEnterScreen.png");
     cross1 = loadImage("cross1.png");
     previousButton = loadImage ("previousButton.png");
     previousButtonBig = loadImage ("previousButton.png");
@@ -61,6 +71,8 @@ class buttons {
     hardButtonBig = loadImage ("hardButton.png");
     warningButton = loadImage ("warningButton.png");
     warningBubble = loadImage ("warningBubble.png");
+    enterButtonGreenBig.resize(220, 60);
+    enterButtonGreyBig.resize(220, 60);
     cross1Big.resize(120, 120);
     anotherButtonBig.resize(120, 120);
     previousButtonBig.resize(120, 120);
@@ -120,13 +132,141 @@ class buttons {
     SkinTeddyY = height/2 + 225;
     soundButtonX = 400;
     soundButtonY = 600;
+    enterButtonX = width/2;
+    enterButtonY = 520;
     language = 1;
     soundsOn = false;
     fpsOn = true;
     c = 0;
     DcountSeconds = millis();
+    key1 = new Key1();
+    key2 = new Key2();
+    key3 = new Key3();
+    key4 = new Key4();
   }
 
+  void enteringTheMill () {
+    imageMode(CORNER);
+    textAlign(CENTER);
+    stroke (0);
+    fill (0);
+    textSize (25);
+    image (object.grayBackground, 0, 0);
+    imageMode (CENTER);
+    image (millEnterScreen, width/2, height/2);
+    textSize (25);
+    if (buttons.language ==  1) {
+      Btext = "I see you already have the key! But are you sure you want to enter a boss fight? Make sure you have enough healing!";
+      Ctext = "You have to get the key first! Listen to the villagers!";
+    } else {
+      Btext = "Vidím, že už máš složený klíč! Ale jsi si jistý, že chceš vstoupit na boss fight? Ujisti se, že máš dostatek léčivých lektvarů!";
+      Ctext = "Nejdřív musíš sehnat klíč! Naslouchej vesničanům!";
+    }
+    if (areThereAllKeys) {
+      text (Btext, width/2 - 350, height/2 - 150, 700, 400);
+    } else {
+      text (Ctext, width/2 - 350, height/2 - 150, 700, 400);
+    }
+    if (isThere4th) {
+      image (key4.item, 661, 306 + 60);
+    }
+    if (isThere3rd) {
+      image (key3.item, 618, 315 + 60);
+    }
+    if (isThere2nd) {
+      image (key2.item, 631, 360 + 60);
+    }
+    if (isThere1st) {
+      image (key1.item, 680, 340 + 60);
+    }
+    imageMode (CORNER);
+    textAlign(CORNER);
+  }
+
+  void endCross() {
+    crossX = 1020;
+    crossY = 120;
+    if (mouseX < crossX + 50 && mouseX > crossX - 50 && mouseY < crossY + 50 && mouseY > crossY - 50) {
+      image (cross1Big, crossX, crossY);
+      if (i31 < 1) {
+        clak.play();
+        i31 = 1;
+      }
+    } else {
+      image (cross1, crossX, crossY);
+      i31 = 0;
+    }
+  }
+
+  void areThereKeys () {
+    inventory.isKey1In = false;
+    inventory.isKey2In = false;
+    inventory.isKey3In = false;
+    inventory.isKey4In = false;
+    for (Items item : inventory.items) {
+      if (item.id == 16) {
+        if (inventory.isKey4In == false) {
+          isThere4th = true;
+          inventory.isKey4In = true;
+        } else {
+          isThere4th = false;
+        }
+      }
+      if (item.id == 15) {
+        if (inventory.isKey3In == false) {
+          isThere3rd = true;
+          inventory.isKey3In = true;
+        } else {
+          isThere3rd = false;
+        }
+      }
+      if (item.id == 14) {
+        if (inventory.isKey2In == false) {
+          isThere2nd = true;
+          inventory.isKey2In = true;
+        } else {
+          isThere2nd = false;
+        }
+      }
+      if (item.id == 13) {
+        if (inventory.isKey1In == false) {
+          isThere1st = true;
+          inventory.isKey1In = true;
+        } else {
+          isThere1st = false;
+        }
+      }
+    }
+
+    if (isThere1st && isThere2nd && isThere3rd && isThere4th) {
+      areThereAllKeys = true;
+    } else {
+      areThereAllKeys = false;
+    }
+  }
+
+
+  void enterButton () {
+    imageMode(CENTER);
+    if (mouseX < enterButtonX + 100 && mouseX > enterButtonX - 100 && mouseY < enterButtonY + 25 && mouseY > enterButtonY - 25) {
+      if (areThereAllKeys) {
+        image (enterButtonGreenBig, enterButtonX, enterButtonY);
+      } else {
+        image (enterButtonGreyBig, enterButtonX, enterButtonY);
+      }
+      if (i30 < 1) {
+        clak.play();
+        i30 = 1;
+      }
+    } else {
+      if (areThereAllKeys) {
+        image (enterButtonGreen, enterButtonX, enterButtonY);
+      } else {
+        image (enterButtonGrey, enterButtonX, enterButtonY);
+      }
+      i30 = 0;
+    }
+  }
   void displayInFirstLog  () {
     if (firstLog1 == 0) {
       imageMode (CENTER);
@@ -1125,6 +1265,19 @@ class buttons {
     }
     if (firstLogIn && firstLog1 == 1 && Dtime > 0.5 && mouseX < previousButtonX + 50 && mouseX > previousButtonX - 50 && mouseY < previousButtonY + 50 && mouseY > previousButtonY - 50) {
       firstLog1--;
+    }
+
+    if (gameHasStarted && mouseX < houses.openMillX + 55 && mouseX > houses.openMillX - 55 && mouseY < houses.openMillY + 100 && mouseY > houses.openMillY - 100  &&  mouseButton == RIGHT) {
+      enteringTheBoss= true;
+      gameHasStarted = false;
+    }
+    if (enteringTheBoss && mouseX < crossX + 50 && mouseX > crossX - 50 && mouseY < crossY + 50 && mouseY > crossY - 50 && mouseButton == LEFT) {
+      enteringTheBoss= false;
+      gameHasStarted = true;
+    }
+    if (enteringTheBoss && mouseX < enterButtonX + 100 && mouseX > enterButtonX - 100 && mouseY < enterButtonY + 25 && mouseY > enterButtonY - 25) {
+      gameHasStarted = false;
+      bossHasStarted = true;
     }
   }
 }
