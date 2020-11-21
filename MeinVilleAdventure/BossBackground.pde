@@ -2,12 +2,13 @@ class BossBackground {
   int backgroundX, backgroundY;
   boolean moveRightBackground, moveLeftBackground, moveUpBackground, moveDownBackground; //BACKGROUND
   boolean rightSide, leftSide, upSide, downSide; //PLAYER in the corner
-  PImage background;
+  PImage background, backgroundAround;
 
   BossBackground () {
     background = requestImage("BossArena.png");
-    backgroundX = -100;
-    backgroundY = -700;
+    backgroundAround = requestImage("BossArenaAround.png");
+    backgroundX = 0;
+    backgroundY = 0;
   }
 
   void display() {
@@ -70,12 +71,12 @@ class BossBackground {
       downSide = false;
       upSide = false;
     }
-    if (backgroundY <= 700 - 1600) {
+    if (backgroundY <= height - 1600) {
       moveDownBackground = false;
       downSide = true;
       upSide = true;
     }
-    if (backgroundX <= 1300 - 1600) {
+    if (backgroundX <= width - 1600) {
       moveRightBackground = false;
       rightSide = true;
       leftSide = true;
@@ -83,48 +84,30 @@ class BossBackground {
   }
 
   void moveBackground () {
+    bossPlayer.nextX = bossPlayer.playerX;
+    bossPlayer.nextY = bossPlayer.playerY + 80;
     if (moveRightBackground) {
-      if (player.playerX >= width/2 - 5) {
+      if (bossPlayer.playerX >= width/2 - 5) {
         bossPlayer.moveLeftPlayer = false;
-        bossPlayer.nextY =  bossPlayer.playerY;
-        bossPlayer.nextX = (bossPlayer.playerX +  bossPlayer.heightOfPlayer/2) +  bossPlayer.speed;
-        if (hue(get( bossPlayer.nextX, bossPlayer.nextY)) <= 127 && hue(get( bossPlayer.nextX, bossPlayer.nextY)) >= 123 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) >= 180 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) <= 230 && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) >= 185  && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) <= 220) {
-        } else {
-          backgroundX -=  player.speed;
-        }
+        backgroundX -=  bossPlayer.speed;
       }
     }
     if (moveLeftBackground) {
-      if (player.playerX <= width/2 + 5) {
+      if (bossPlayer.playerX <= width/2 + 5) {
         bossPlayer.moveRightPlayer = false;
-        bossPlayer.nextY =  bossPlayer.playerY;
-        bossPlayer.nextX = (bossPlayer.playerX -  bossPlayer.heightOfPlayer/2) -  bossPlayer.speed;
-        if (hue(get( bossPlayer.nextX, bossPlayer.nextY)) <= 127 && hue(get( bossPlayer.nextX, bossPlayer.nextY)) >= 123 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) >= 180 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) <= 230 && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) >= 185  && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) <= 220) {
-        } else {
-          backgroundX +=  player.speed;
-        }
+        backgroundX +=  bossPlayer.speed;
       }
     }
     if (moveUpBackground) {
       if (bossPlayer.playerY <= height/2 + 5) {
         bossPlayer.moveDownPlayer = false;
-        bossPlayer.nextX =  bossPlayer.playerX;
-        bossPlayer.nextY = (bossPlayer.playerY -  bossPlayer.heightOfPlayer/2) -  bossPlayer.speed;
-        if (hue(get( bossPlayer.nextX, bossPlayer.nextY)) <= 127 && hue(get( bossPlayer.nextX, bossPlayer.nextY)) >= 123 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) >= 180 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) <= 230 && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) >= 185  && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) <= 220) {
-        } else {
-          backgroundY +=  player.speed;
-        }
+        backgroundY +=  bossPlayer.speed;
       }
     }
     if (moveDownBackground) {
       if (bossPlayer.playerY >= height/2 - 5) {
         bossPlayer.moveUpPlayer = false;
-        bossPlayer.nextX =  bossPlayer.playerX;
-        bossPlayer.nextY = (bossPlayer.playerY +  bossPlayer.heightOfPlayer/2) +  bossPlayer.speed;
-        if (hue(get( bossPlayer.nextX, bossPlayer.nextY)) <= 127 && hue(get( bossPlayer.nextX, bossPlayer.nextY)) >= 123 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) >= 180 && saturation(get( bossPlayer.nextX, bossPlayer.nextY)) <= 230 && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) >= 185  && brightness(get( bossPlayer.nextX, bossPlayer.nextY)) <= 220) {
-        } else {
-          backgroundY -=  player.speed;
-        }
+        backgroundY -=  bossPlayer.speed;
       }
     }
   }

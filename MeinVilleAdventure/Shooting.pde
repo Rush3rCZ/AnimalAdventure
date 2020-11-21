@@ -3,7 +3,12 @@ class Shot {
   int lifeTime, hitTimer, countSeconds;
   PImage shot;
   Shot () {
-    post = new PVector (player.playerX, player.playerY);
+    if (gameHasStarted) {
+      post = new PVector (player.playerX, player.playerY);
+    }
+    if (bossHasStarted) {
+      post = new PVector (bossPlayer.playerX, bossPlayer.playerY);
+    }
     velocity = new PVector(0, 0);
     mouse = new PVector (mouseX, mouseY);
     difference = PVector.sub (mouse, post);
@@ -81,7 +86,7 @@ class ShootingArray {
   }
 
   void newShot () {
-    if (gameHasStarted && mouseButton == LEFT) {
+    if (gameHasStarted || bossHasStarted && mouseButton == LEFT) {
       SA.add(new Shot());
     }
   }

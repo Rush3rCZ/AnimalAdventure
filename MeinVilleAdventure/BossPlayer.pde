@@ -1,6 +1,7 @@
-class BossPlayer {
-  int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer, HP, healthBarX, healthBarY, damage;
+class BossPlayer { //<>//
+  int playerX, playerY, speed, nextX, nextY, widthOfPlayer, heightOfPlayer, HP, healthBarX, healthBarY, damage, xPoint, yPoint, stNum, ndNum;
   boolean moveRightPlayer, moveLeftPlayer, moveUpPlayer, moveDownPlayer, imageUp, imageDown, imageRight, imageLeft; //PLAYER 
+  boolean inSlime;
   PImage TeddyFrontSide, TeddyBackSide, TeddyRightSide, TeddyLeftSide, PennyFrontSide, PennyBackSide, PennyRightSide, PennyLeftSide, healthBar, healthBarFill ;
   BossPlayer () {
     speed = 5;
@@ -177,52 +178,40 @@ class BossPlayer {
     }
   }
 
+  void slowdown () {
+    if (inSlime) {
+      speed = 1;
+    } else {
+      speed = 5;
+    }
+  }
+
   void movePlayer () {
     if (bossBackground.rightSide && moveRightPlayer) {
-      nextY = playerY;
-      nextX = (playerX + widthOfPlayer/2) + speed;
-      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
-      } else {
-        playerX += speed;
-      }
+      playerX += speed;
     }
     if (bossBackground.upSide  && moveUpPlayer) {
-      nextX = playerX;
-      nextY = (playerY - heightOfPlayer/2) - speed;
-      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
-      } else {
-        playerY -= speed;
-      }
+      playerY -= speed;
     }
     if (bossBackground.downSide && moveDownPlayer) {
-      nextX = playerX;
-      nextY = (playerY + heightOfPlayer/2) + speed;
-      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
-      } else {
-        playerY += speed;
-      }
+      playerY += speed;
     }
     if (bossBackground.leftSide && moveLeftPlayer) {
-      nextY = playerY;
-      nextX = (playerX - widthOfPlayer/2) - speed;
-      if (hue(get(nextX, nextY)) <= 127 && hue(get(nextX, nextY)) >= 123 && saturation(get(nextX, nextY)) >= 180 && saturation(get(nextX, nextY)) <= 230 && brightness(get(nextX, nextY)) >= 185  && brightness(get(nextX, nextY)) <= 220) {
-      } else {
-        playerX -= speed;
-      }
+      playerX -= speed;
     }
   }
 
   void playerBorders () {
-    if (playerX - widthOfPlayer/4 < 0) {
+    if (playerX - widthOfPlayer/4 < 70) {
       playerX += speed;
     }
-    if (playerX + widthOfPlayer/4  > width) {
+    if (playerX + widthOfPlayer/4  > width - 70) {
       playerX -= speed;
     }
-    if (playerY - heightOfPlayer/2 < 0) {
+    if (playerY - heightOfPlayer/2 < 70) {
       playerY += speed;
     }
-    if (playerY + heightOfPlayer/2 > height) {
+    if (playerY + heightOfPlayer/2 > height - 70) {
       playerY -= speed;
     }
   }
@@ -230,12 +219,12 @@ class BossPlayer {
   void debugPlayer () {
     if (!bossBackground.rightSide) {
       if (playerX <= 640) {
-        playerX = 641; //<>//
+        playerX = 650;
       }
     }
     if (!bossBackground.leftSide) {
       if (playerX >= 660) {
-        playerX = 641;
+        playerX = 650;
       }
     }
     if (!bossBackground.upSide) {

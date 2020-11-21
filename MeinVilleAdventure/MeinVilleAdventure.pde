@@ -23,7 +23,8 @@ ArrayFishes fishArray;
 BossBackground bossBackground;
 BossPlayer bossPlayer;
 boolean welcomeScreenActivated, gameHasStarted, optionsAreOpened, optionsInGameAreOpened, gamePaused, inventoryIsOpened, readAStory, tradeOpen, spawnHammer, controlsAreOpened, firstLogIn, enteringTheBoss, bossHasStarted;
-int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31, i32, i33, i34; // i používám pro ovládání zvuku v DRAW()
+int i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31, i32, i33, i34, i35; // i používám pro ovládání zvuku v DRAW()
+int stageOfGame;
 
 void setup () {
   size (1300, 700);
@@ -63,6 +64,7 @@ void setup () {
   clak = new SoundFile (this, "clak.mp3");
   //menu = new SoundFile (this, "MenuSound.mp3");
   //game = new SoundFile (this, "inGameSound.mp3");
+  stageOfGame = 0;
 }
 
 
@@ -112,6 +114,23 @@ void draw () {
     player.healthBar();
     welcomeScreen.musicInGame();
   }
+  if (bossHasStarted) {
+    difficulty.difficultySetup();
+    welcomeScreen.musicInGame();
+    bossBackground.display(); 
+    object.displaySlime();
+    bossPlayer.display();
+    bossPlayer.movePlayer();
+    shootingArray.display();
+    inventory.display(); 
+    buttons.displayInBoss();
+    bossPlayer.playerBorders(); 
+    bossPlayer.debugPlayer();
+    bossBackground.endBackground();
+    bossBackground.moveBackground();
+    bossPlayer.healthBar();
+    bossPlayer.slowdown();
+  }
   if (optionsAreOpened) {
     difficulty.difficultySetup();
     welcomeScreen.displayOptionsScreen();
@@ -160,29 +179,20 @@ void draw () {
     buttons.enterButton();
     buttons.endCross();
   }
-  if (bossHasStarted) {
-    bossBackground.display(); 
-    bossPlayer.display();
-    bossPlayer.movePlayer();
-    bossPlayer.playerBorders(); 
-    bossPlayer.healthBar();
-    bossPlayer.debugPlayer();
-    bossBackground.endBackground();
-    bossBackground.moveBackground();
-  }
+
   //fill(255, 0, 0);
   //fill (0);
   //image (key1.item, mouseX, mouseY);
   //text ("X: " + mouseX, mouseX, mouseY - 20);
   //text ("Y: " + mouseY, mouseX, mouseY);
-  text ("x: " + bossPlayer.playerX, 20, 320);
-  text ("y: " + bossPlayer.playerY, 20, 320 + 20);
-  text ("rightSide:  " + bossBackground.rightSide, 20, 100 + 60);
-  text ("leftSide:  " + bossBackground.leftSide, 20, 100 + 80);
-  text ("upSide:  " + bossBackground.upSide, 20, 100 + 100);
-  text ("downSide:  " + bossBackground.downSide, 20, 100 + 120);
+  //text ("x: " + bossPlayer.playerX, 20, 320);
+  //text ("y: " + bossPlayer.playerY, 20, 320 + 20);
+  //text ("rightSide:  " + bossBackground.rightSide, 20, 100 + 60);
+  //text ("leftSide:  " + bossBackground.leftSide, 20, 100 + 80);
+  //text ("upSide:  " + bossBackground.upSide, 20, 100 + 100);
+  //text ("downSide:  " + bossBackground.downSide, 20, 100 + 120);
   //text (" Dtime: " +  buttons.Dtime, 20, 450);
-  //text ("down: " + background.moveDownBackground, mouseX, mouseY - 60);
+  //text ("stageOfGame: " + stageOfGame, 20, 200);
   //text ("enemy.y:  " + enemy.position.y, mouseX, mouseY + 20);
   //text ("numberOfItemsInInventory:  " + inventory.numberOfItemsInInventory, 20, 100);
   //text ("inventory.numberOfGrass:  " + inventory.numberOfGrass, 20, 120);
@@ -193,7 +203,7 @@ void draw () {
   //text ("RestartTime:  " + difficulty.restartTime + "s", 20, 320 + 60);
   //text ("item.spawn:  " + spawnHammer, 20, 320 + 60);
   //text ("FishArray:  " + fishArray.ArrayFish.size(), 20, 360);
-  //text ("hue: " + hue(get(rock.itemX, rock.itemY + 70)) + "saturation: " + saturation(get(rock.itemX, rock.itemY + 70)) + "brightness: " + brightness(get(rock.itemX, rock.itemY + 70)), mouseX, mouseY);
+  //text ("hue: " + hue(get(mouseX, mouseY)) + "saturation: " + saturation(get(mouseX, mouseY)) + "brightness: " + brightness(get(mouseX, mouseY)), mouseX, mouseY);
   //noFill();
 
 
@@ -240,24 +250,34 @@ void mousePressed () {
 
 
 void pausedDisplayedTextures () {
-  background.display(); 
-  object.displayBridgeUnder(); 
-  houses.displayHouseUnder();
-  houses.displayMillUnder();
-  houses.enterMillUnder();
-  treeArray.under();
-  player.display();
-  for (int j = enemyArray.enemyArray1.size() - 1; j >= 0; j--) {
-    enemy = enemyArray.enemyArray1.get(j);
-    enemy.display();
+  if (stageOfGame == 0) {
+    background.display(); 
+    object.displayBridgeUnder(); 
+    houses.displayHouseUnder();
+    houses.displayMillUnder();
+    houses.enterMillUnder();
+    treeArray.under();
+    player.display();
+    for (int j = enemyArray.enemyArray1.size() - 1; j >= 0; j--) {
+      enemy = enemyArray.enemyArray1.get(j);
+      enemy.display();
+    }
+    for (int i = shootingArray.SA.size() - 1; i >= 0; i--) {
+      Shot shot = shootingArray.SA.get(i);
+      shot.display();
+    }
+    houses.displayHouseAbove();
+    object.displayBridgeAbove();
+    houses.displayMillAbove();
+    houses.enterMillAbove();
+    treeArray.above();
   }
-  for (int i = shootingArray.SA.size() - 1; i >= 0; i--) {
-    Shot shot = shootingArray.SA.get(i);
-    shot.display();
+  if (stageOfGame == 1) {
+    bossBackground.display();
+    bossPlayer.display();
+    for (int i = shootingArray.SA.size() - 1; i >= 0; i--) {
+      Shot shot = shootingArray.SA.get(i);
+      shot.display();
+    }
   }
-  houses.displayHouseAbove();
-  object.displayBridgeAbove();
-  houses.displayMillAbove();
-  houses.enterMillAbove();
-  treeArray.above();
 }

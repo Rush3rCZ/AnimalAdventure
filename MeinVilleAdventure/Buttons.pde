@@ -1039,7 +1039,21 @@ class buttons {
 
   void displayInGame () {
     imageMode(CENTER);
-    if (gameHasStarted && mouseX < inGameOptionsButtonX + 30 && mouseX > inGameOptionsButtonX - 30 && mouseY < inGameOptionsButtonY + 30 && mouseY > inGameOptionsButtonY - 30) {
+    if (gameHasStarted == true && mouseX < inGameOptionsButtonX + 30 && mouseX > inGameOptionsButtonX - 30 && mouseY < inGameOptionsButtonY + 30 && mouseY > inGameOptionsButtonY - 30) {
+      image(inGameOptionsButtonGreen, inGameOptionsButtonX, inGameOptionsButtonY);
+      if (i13 < 1) {
+        clak.play();
+        i13 = 1;
+      }
+    } else {
+      image (inGameOptionsButtonPink, inGameOptionsButtonX, inGameOptionsButtonY);
+      i13 = 0;
+    }
+    imageMode (CORNER);
+  }
+  void displayInBoss () {
+    imageMode(CENTER);
+    if (bossHasStarted && mouseX < inGameOptionsButtonX + 30 && mouseX > inGameOptionsButtonX - 30 && mouseY < inGameOptionsButtonY + 30 && mouseY > inGameOptionsButtonY - 30) {
       image(inGameOptionsButtonGreen, inGameOptionsButtonX, inGameOptionsButtonY);
       if (i13 < 1) {
         clak.play();
@@ -1082,7 +1096,12 @@ class buttons {
         i27 = 1;
       }
       welcomeScreenActivated = false;
-      gameHasStarted = true;
+      if (stageOfGame == 0) {
+        gameHasStarted = true;
+      }
+      if (stageOfGame == 1) {
+        bossHasStarted = true;
+      }
       difficulty.changeAfterStart++;
       if (soundsOn) {
         i20 = 0;
@@ -1140,11 +1159,21 @@ class buttons {
       gamePaused = true;
       enemyArray.timeStarts = false;
     }
-    if (gamePaused && mouseX < backToTheGameButtonX + 200 && mouseX > backToTheGameButtonX - 200 && mouseY < backToTheGameButtonY + 50 && mouseY > backToTheGameButtonY - 50) {
+    if (bossHasStarted && mouseX < inGameOptionsButtonX + 30 && mouseX > inGameOptionsButtonX - 30 && mouseY < inGameOptionsButtonY + 30 && mouseY > inGameOptionsButtonY - 30) {
+      gameHasStarted = false;
+      bossHasStarted = false;
+      gamePaused = true;
+      enemyArray.timeStarts = false;
+    }
+    if (gamePaused && stageOfGame == 0 && mouseX < backToTheGameButtonX + 200 && mouseX > backToTheGameButtonX - 200 && mouseY < backToTheGameButtonY + 50 && mouseY > backToTheGameButtonY - 50) {
       gameHasStarted = true;
       gamePaused = false;
       enemyArray.countSeconds = millis();
       enemyArray.timeStarts = true;
+    }
+    if (gamePaused && stageOfGame == 1 && mouseX < backToTheGameButtonX + 200 && mouseX > backToTheGameButtonX - 200 && mouseY < backToTheGameButtonY + 50 && mouseY > backToTheGameButtonY - 50) {
+      bossHasStarted = true;
+      gamePaused = false;
     }
     if (gamePaused && mouseX < backToTheMenuButtonX + 200 && mouseX > backToTheMenuButtonX - 200 && mouseY < backToTheMenuButtonY + 50 && mouseY > backToTheMenuButtonY - 50) {
       //game.stop();
@@ -1276,6 +1305,9 @@ class buttons {
       gameHasStarted = true;
     }
     if (enteringTheBoss && mouseX < enterButtonX + 100 && mouseX > enterButtonX - 100 && mouseY < enterButtonY + 25 && mouseY > enterButtonY - 25) {
+      stageOfGame = 1;
+      background.background = loadImage("arrow.png");
+      enteringTheBoss = false;
       gameHasStarted = false;
       bossHasStarted = true;
     }
