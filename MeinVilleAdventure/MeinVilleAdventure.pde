@@ -118,8 +118,10 @@ void draw () {
     difficulty.difficultySetup();
     welcomeScreen.musicInGame();
     bossBackground.display(); 
+    object.barrelsUnder();
     object.displaySlime();
     bossPlayer.display();
+    object.barrelsAbove();
     bossPlayer.movePlayer();
     shootingArray.display();
     inventory.display(); 

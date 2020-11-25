@@ -56,6 +56,11 @@ class Shot {
   }
 }
 
+boolean barrelKO (Barrel barrel) {
+
+}
+
+
 
 class ShootingArray {
   ArrayList<Shot> SA;
@@ -80,6 +85,12 @@ class ShootingArray {
           if (enemy.HP < 0) {
             enemyArray.enemyArray1.remove(j);
           }
+        }
+      }
+      for (int f = object.barrels.size() - 1; i >= 0; i--) {
+        Barrel ba = object.barrels.get(f);
+        if (shot.post.x < ba.x + 40 && shot.post.x > ba.x - 40 && shot.post.y < ba.y + 55 && shot.post.y > ba.y - 55) {
+          ba.isThere = false;
         }
       }
     }
